@@ -10,3 +10,6 @@ app.use(express.json())
 app.use('/fofoca', fofocaRoute)
 app.listen(porta)
 console.log(`servidor rodando na porta`)
+
+
+-comentario
