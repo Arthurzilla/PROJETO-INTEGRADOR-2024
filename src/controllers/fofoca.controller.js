@@ -16,11 +16,11 @@ const save = async (req, res) =>{
     const fofoca = await fofocaService.saveService(req.body)
 
     if(!fofoca){
-        res.status(400).send({message: "erro ao cadastrar user"})
+        res.status(400).send({message: "erro ao criar fofoca"})
     }
 
     res.status(201).send({
-        message: "usuário criado com sucesso",
+        message: "fofoca postado com sucesso",
         fofoca:{
             id: fofoca._id,
             title,
