@@ -6,7 +6,8 @@ const porta = 3000
 
 connectDatabase()
 
+
 app.use(express.json())
 app.use(fofocaRoute)
 app.listen(porta)
-console.log(`servidor rodando na porta`)
+console.log(`servidor rodando na porta http://localhost:${porta}`)
