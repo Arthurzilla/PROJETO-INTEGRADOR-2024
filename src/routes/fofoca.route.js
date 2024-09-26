@@ -5,6 +5,3 @@ const fofocaController = require('../controllers/fofoca.controller');
 route.post('/', fofocaController.save)
 
 module.exports = route;
-
-
-//penisssssss
