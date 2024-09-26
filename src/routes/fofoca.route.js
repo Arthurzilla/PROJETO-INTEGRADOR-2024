@@ -2,9 +2,11 @@ const route = require('express').Router()
 
 const fofocaController = require('../controllers/fofoca.controller');
 
-route.post('/fofoca', fofocaController.save)
+// cria a postagem 
+route.post('/criar', fofocaController.save)
+
+// lista todas as postagens
+route.get('/', fofocaController.findAll)
+
 
 module.exports = route;
-
-
-//teste
