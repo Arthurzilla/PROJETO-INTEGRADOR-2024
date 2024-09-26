@@ -7,4 +7,4 @@ route.post('/fofoca', fofocaController.save)
 module.exports = route;
 
 
-//penisssssss
+//teste
