@@ -1,7 +1,7 @@
 //importa a função de salvar no BD
 const fofocaService = require('../services/fofoca.service')
 
-
+// função POST criação da postagem
 const save = async (req, res) =>{
     const {title, description} = req.body;
 
@@ -23,6 +23,7 @@ const save = async (req, res) =>{
     })
 }
 
+// função GET para exibir todas as fofocas já criadas
 const findAll = async (req,res)=>{
     const fofocas = await fofocaService.findAllService()
 
