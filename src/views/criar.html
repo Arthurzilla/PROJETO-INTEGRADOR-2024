@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/C.style.css">
 </head>
 <body>
-    <h1>Fofoca</h1>
-    <button type="submit" >Voltar</button><br>
+    <h1>Criar fofoca</h1>
     <form id="fofocaForm" action="/fofocas/criar">
         <label for="titulo">Titulo:</label><br>
         <input type="text" name="titulo" id="titulo" required><br>
@@ -17,10 +16,11 @@
         <label for="conteudo">Conteudo:</label><br>
         <textarea type="text" name="conteudo" id="conteudo" required></textarea><br>
         
-        <button type="submit">Criar</button>
+        <button type="submit" id="buttonCriar">Criar</button>
     </form>
+    <a href="http://localhost:3000/fofocas"><button type="submit" >Voltar</button></a>
 
 
-    <script src="/script.js"></script>
+    <script src="/C.script.js"></script>
 </body>
 </html>

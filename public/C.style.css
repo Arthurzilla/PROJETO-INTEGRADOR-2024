@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#fofocaForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+
+#buttonCriar{
+    height: 30px;
+    width: 50%;
+}
+
+#titulo{
+    width: 50%;
+}
+#conteudo{
+    width: 50%;
+}
