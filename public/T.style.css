@@ -1,4 +1,4 @@
-body {
+body{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,10 +9,10 @@ body {
 }
 
 .fofoca {
-    border: 1px solid #ccc;
+    border: 2px solid white;
     padding: 10px;
-    background-color: white;
-    border-radius: 10px;
+    background-color: lightgrey;
+    /* border-radius: 10px; */
     /* margin: 10px 0; */
 }
 
@@ -35,19 +35,20 @@ h3 {
      color: #34495e; 
 } */
 
-#bodyTimeline{
-    position: relative;
-    left: 25.1%;
-    top: 0%;
-    
-    width: 49.6%;
-    height: 100%;
-    background-color: grey(255, 255, 255);
+/* .bodyTimeline{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     position: absolute;
+    
+    width: 49.55%;
+    height: 20%;
+    background-color: grey(255, 255, 255);
     border-right: 2px solid white;
     border-left: 2px solid white;
     z-index: -1;
-}
+}  */
 
 #buttonCriar {
     position: absolute;
