@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline</title>
+    <title>Timeline - Estilo Bluesky</title>
+    <!-- conexão com o CSS -->
     <link rel="stylesheet" href="/T.style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- conexão com Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
     <h1>Fofocas</h1>
-    <a href="http://localhost:3000/fofocas/criar"><button id="buttonCriar"><i class="bi bi-plus"></i></button></a>
-    <!-- <img src="plus-symbol-button.png"> -->
+    
+    <!-- botão para criação de fofoca -->
+    <a href="http://localhost:3000/fofocas/criar" id="buttonCriar">
+        <i class="bi bi-plus"></i>
+    </a>
+
+    <!-- div da timeline -->
     <div id="timeline"></div>
-    <div class="bodyTimeline"></div>
+
+    <!-- conexão com o script que carregará as fofocas -->
     <script src="/T.script.js"></script>
 </body>
 </html>

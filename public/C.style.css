@@ -3,24 +3,106 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f9;
 }
 
-#fofocaForm{
+h1 {
+    font-size: 24px;
+    color: #1da1f2;
+    margin-bottom: 20px;
+}
+
+#fofocaForm {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
+    max-width: 600px;
 }
 
-#buttonCriar{
-    height: 30px;
-    width: 50%;
+label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    align-self: flex-start;
 }
 
-#titulo{
-    width: 50%;
+input[type="text"], textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border 0.3s ease;
 }
-#conteudo{
-    width: 50%;
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #1da1f2;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#buttonCriar {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buttonCriar:hover {
+    background-color: #1991da;
+}
+
+#buttonCriar:active {
+    background-color: #147bb1;
+}
+
+#titulo, #conteudo {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#buttonVoltar {
+    background-color: #f5f5f5;
+    color: #1da1f2;
+    border: 2px solid #1da1f2;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#buttonVoltar:hover {
+    background-color: #1da1f2;
+    color: white;
+    border-color: #1991da;
+}
+
+#buttonVoltar:active {
+    background-color: #147bb1;
+    border-color: #147bb1;
 }

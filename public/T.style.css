@@ -1,74 +1,89 @@
-body{
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background-color: #f1f5f9; /* Azul claro */
+    color: #1a1a1a; /* Texto escuro */
+    margin: 0;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-
-    font-family: Sans-serif, Monospace;
-    background-color: lightgray;
+    align-items: center;
 }
 
-.fofoca {
-    border: 2px solid white;
-    padding: 10px;
-    background-color: lightgrey;
-    /* border-radius: 10px; */
-    /* margin: 10px 0; */
+h1 {
+    font-size: 28px;
+    color: #1d9bf0;
+    margin-bottom: 20px;
 }
 
 #timeline {
-    width: 50%;
+    width: 600px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    padding: 20px;
+    margin-bottom: 40px;
 }
 
-h1{
-    position: relative;
-    right: 320px;
+.fofoca {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
 }
 
+.fofoca:hover {
+    background-color: #f0f8ff
+}
 
 h3 {
-    margin: 0;
-    /* color: #2c3e50; */
+    font-size: 18px;
+    color: #1d9bf0;
+    margin-bottom: 8px;
 }
 
-/* p {
-     color: #34495e; 
-} */
+p {
+    font-size: 16px;
+    color: #555;
+}
 
-/* .bodyTimeline{
+.button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    color: #1d9bf0;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #e8f5fd;
+}
+
+#buttonCriar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    background-color: #1d9bf0;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    position: absolute;
-    
-    width: 49.55%;
-    height: 20%;
-    background-color: grey(255, 255, 255);
-    border-right: 2px solid white;
-    border-left: 2px solid white;
-    z-index: -1;
-}  */
-
-#buttonCriar {
-    position: absolute;
-    left: 35%;
-    top: 3% ;
-
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-    background-color: grey;
-    font-size: 40px;
-    font-weight: 600;
+    font-size: 32px;
     border: none;
     cursor: pointer;
-    padding-top: 3px;
-    padding-left: 5px;
-
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease;
 }
 
 #buttonCriar:hover {
-    background-color: rgb(77, 77, 77);
+    background-color: #1a8cd8;
+}
+
+#buttonCriar i {
+    font-size: 32px;
+    font-weight: bold;
 }

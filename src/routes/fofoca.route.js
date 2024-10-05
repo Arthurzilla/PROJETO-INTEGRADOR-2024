@@ -2,6 +2,7 @@ const route = require('express').Router()
 const fofocaController = require('../controllers/fofoca.controller');
 const path = require('path')
 
+// rota GET que leva a pagina de crição das fofocas
 route.get('/criar', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'criar.html'));
 });
