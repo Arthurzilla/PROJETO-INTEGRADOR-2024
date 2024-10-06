@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f9;
+}
+
+/* Estilizar o título dentro do formulário */
+form h2 {
+    font-size: 24px;
+    color: #1da1f2;
+    margin-bottom: 20px;
+    text-align: center; /* Centralizar o título */
+}
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    align-self: flex-start;
+}
+
+/* Estilos para os campos de usuário, e senha */
+#usuario, #senha {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: border 0.3s ease;
+}
+
+#usuario:focus, #senha:focus {
+    border-color: #1da1f2;
+    outline: none;
+}
+
+/* Estilo para o botão de cadastro */
+#entrarButton {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px; /* Espaçamento entre o botão e o link */
+}
+
+#entrarButton:hover {
+    background-color: #1991da;
+}
+
+#entrarButton:active {
+    background-color: #147bb1;
+}
+
+a {
+    color: #1da1f2;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    margin-top: 10px;
+}
+
+a:hover {
+    color: #1991da;
+}
+
+a:active {
+    color: #147bb1;
+}

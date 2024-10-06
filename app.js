@@ -11,7 +11,7 @@ const userRoute = require('./src/routes/user.route')
 app.use(cors());
 app.use(express.json())
 // conexão de pastas
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public',express.static(path.join(__dirname, 'public')));
 
 // banco de dados
 connectDatabase()

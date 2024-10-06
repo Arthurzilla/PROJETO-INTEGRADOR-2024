@@ -1,0 +1,1 @@
+req.session.userId = user._id;

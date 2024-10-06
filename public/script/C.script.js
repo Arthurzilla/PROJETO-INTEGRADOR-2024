@@ -12,7 +12,7 @@ fofocaForm.addEventListener('submit', async (event) => {
     const response = await fetch('http://localhost:3000/fofocas/criar', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({title: titulo, description: conteudo})
+        body: JSON.stringify({title: titulo, description: conteudo, user: session.userId})
     });
 
     // mostra para o usuario se criou ou não a fofoca

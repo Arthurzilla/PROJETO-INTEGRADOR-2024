@@ -8,6 +8,13 @@ route.get('/cadastro', (req, res) => {
 
 route.post('/cadastro', userController.save)
 
-// route.get('/login', userController.)
+
+route.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'views', 'login.html'));
+});
+
+route.post('/login/api', userController.find)
+
+route.get('/login', userController.find)
 
 module.exports = route;
