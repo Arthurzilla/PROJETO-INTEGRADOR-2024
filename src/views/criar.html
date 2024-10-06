@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Fofocas</title>
+        <!-- conexão com CSS -->
+    <link rel="stylesheet" href="/public/style/C.style.css">
+</head>
+<body>
+    <h1>Criar fofoca</h1>
+    <!-- formulario para criação de fofocas -->
+    <form id="fofocaForm" action="/fofocas/criar">
+        <label for="titulo">Titulo:</label><br>
+        <input type="text" name="titulo" id="titulo" required><br>
+        
+        <label for="conteudo">Conteudo:</label><br>
+        <textarea type="text" name="conteudo" id="conteudo" required></textarea><br>
+        
+        <button type="submit" id="buttonCriar">Criar</button>
+    </form>
+    <!-- botão para voltar para pagina principal -->
+    <a href="http://localhost:3000/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
+
+    <!-- conexão do script -->
+    <script src="/public/script/C.script.js">
+        document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
+
+        if (!token) {
+            alert('Você precisa estar logado para criar uma fofoca.');
+            window.location.href = 'http://localhost:3000/login'; // Redireciona para a página de login se não estiver logado
+        }
+    });</script>
+</body>
+</html>

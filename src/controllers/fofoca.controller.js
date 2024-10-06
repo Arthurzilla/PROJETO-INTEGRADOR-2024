@@ -1,39 +1,37 @@
 //importa a função de salvar no BD
-const mongoose = require('mongoose')
-const fofocaService = require('../services/fofoca.service')
+const Fofoca = require('../models/Fofoca.js');
+const fofocaService = require('../services/fofoca.service');
 
 // função POST criação da postagem
-const save = async (req, res) =>{
-    const {
-        title, description
-    } = req.body;
-    if(!title || !description){
-        res.status(400).send({message: "preencha os campos corretamente"})
+const save = async (req, res) => {
+    const { title, description, usuario } = req.body;
+
+    // Validação dos campos
+    if (!title || !description || !usuario) {
+        console.error("Erro: Campos ausentes.", { title, description, usuario }); // Log para verificar os campos recebidos
+        return res.status(400).send({ message: "Preencha os campos corretamente." });
     }
-    const fofoca = await fofocaService.saveService(req.body)
-    if(!fofoca){
-        res.status(400).send({message: "Erro ao criar fofoca"})
+
+    try {
+        const novaFofoca = new Fofoca({ title, description, usuario });
+        await novaFofoca.save();
+        return res.status(201).send({ message: "Fofoca criada com sucesso.", fofoca: novaFofoca });
+    } catch (error) {
+        console.error("Erro ao salvar fofoca:", error); // Log do erro
+        return res.status(500).send({ message: "Erro ao criar fofoca.", error });
     }
-    res.status(201).send({
-        message: "fofoca postado com sucesso",
-        fofoca:{
-            id: fofoca._id,
-            title,
-            description  
-        }
-    })
-}
+};
 
 
 // função GET para exibir todas as fofocas já criadas
 const findAll = async (req,res)=>{
-    const fofocas = await fofocaService.findAllService()
+    const fofocas = await fofocaService.findAllService().populate('usuario','user');
 
     if(fofocas.length === 0){
-        return res.status(400).send({message:"Não há nenhuma fofoca"})
+        return res.status(400).send({message:"Não há nenhuma fofoca"});
     }
 
-    res.status(200).send(fofocas)
+    res.status(200).send(fofocas);
 }
 
 //procurar usário por id
@@ -89,3 +87,4 @@ const updateById = async (req,res) => {
 }
 
 module.exports = { save, findAll, findById, deleteById, updateById }
+
