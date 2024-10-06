@@ -18,6 +18,7 @@ fofocaForm.addEventListener('submit', async (event) => {
     // mostra para o usuario se criou ou não a fofoca
     if (response.ok) {
         alert('Fofoca criada com sucesso');
+        window.location.href = 'http://localhost:3000/fofocas';
     } else {
         alert('Erro ao criar fofoca. Verifique os campos.');
     }

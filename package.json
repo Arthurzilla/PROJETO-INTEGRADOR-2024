@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Arthurzilla/PROJETO-INTEGRADOR-2024#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "mongoose": "^8.6.3",

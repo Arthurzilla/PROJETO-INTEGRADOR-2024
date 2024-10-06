@@ -14,6 +14,11 @@ route.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/timeline.html'));
 });
 
+// timeline sem criação(usuario sem conta)
+route.get('/convidado', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/convi.timeline.html'));
+});
+
 // lista todas as postagens
 route.get('/api', fofocaController.findAll)
 
