@@ -18,7 +18,7 @@ const loadFofocas = async () => {
                 const fofocaElement = document.createElement('div');
                 fofocaElement.className = 'fofoca';
                 fofocaElement.innerHTML = `
-                    <h3>${fofoca.usuario.user}</h3> <!-- Acesse o nome do usuário após a população -->
+                    <h3>${fofoca.usuario.user}</h3>
                     <h4>${fofoca.title}</h4>
                     <p>${fofoca.description}</p>
                 `;

@@ -24,6 +24,14 @@
     <a href="http://localhost:3000/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
 
     <!-- conexão do script -->
-    <script src="/public/script/C.script.js"></script>
+    <script src="/public/script/C.script.js">
+        document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
+
+        if (!token) {
+            alert('Você precisa estar logado para criar uma fofoca.');
+            window.location.href = 'http://localhost:3000/login'; // Redireciona para a página de login se não estiver logado
+        }
+    });</script>
 </body>
 </html>

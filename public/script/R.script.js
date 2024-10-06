@@ -16,7 +16,7 @@ registerForm.addEventListener('submit', async (event) => {
 
         if (response.ok) {
             alert('usuario registrado com sucesso');
-            window.location.href= 'http://localhost:3000/fofocas';
+            window.location.href= 'http://localhost:3000/login';
         } else {
             alert('Erro ao registrar. Verifique os campos.');
         }

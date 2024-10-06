@@ -1,26 +1,27 @@
-const route = require('express').Router()
+const route = require('express').Router();
 const fofocaController = require('../controllers/fofoca.controller');
-const path = require('path')
+const path = require('path');
+const userController = require('../controllers/user.controller');
 
-// rota GET que leva a pagina de crição das fofocas
+// Rota GET para criar fofocas (sem verificação de token)
 route.get('/criar', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'criar.html'));
 });
 
-// cria a postagem 
-route.post('/criar', fofocaController.save)
+// Rota POST para criar fofocas (com verificação de token)
+route.post('/criar', userController.verifyToken, fofocaController.save);
 
+// Rota da timeline principal
 route.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/timeline.html'));
 });
 
-// timeline sem criação(usuario sem conta)
+// timeline sem criação (usuário sem conta)
 route.get('/convidado', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/convi.timeline.html'));
 });
 
 // lista todas as postagens
-route.get('/api', fofocaController.findAll)
-
+route.get('/api', fofocaController.findAll);
 
 module.exports = route;

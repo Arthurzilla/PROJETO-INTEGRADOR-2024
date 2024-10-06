@@ -1,27 +1,27 @@
 //importa a função de salvar no BD
+const Fofoca = require('../models/Fofoca.js');
 const fofocaService = require('../services/fofoca.service');
 
 // função POST criação da postagem
-const save = async (req, res) =>{
-    const {usuario, title, description} = req.body;
+const save = async (req, res) => {
+    const { title, description, usuario } = req.body;
 
-    const fofoca = await fofocaService.saveService(req.body);
-
-    if(!title || !description){
-        res.status(400).send({message: "preencha os campos corretamente"});
+    // Validação dos campos
+    if (!title || !description || !usuario) {
+        console.error("Erro: Campos ausentes.", { title, description, usuario }); // Log para verificar os campos recebidos
+        return res.status(400).send({ message: "Preencha os campos corretamente." });
     }
 
-    if(!fofoca){
-        res.status(400).send({message: "erro ao criar fofoca"});
+    try {
+        const novaFofoca = new Fofoca({ title, description, usuario });
+        await novaFofoca.save();
+        return res.status(201).send({ message: "Fofoca criada com sucesso.", fofoca: novaFofoca });
+    } catch (error) {
+        console.error("Erro ao salvar fofoca:", error); // Log do erro
+        return res.status(500).send({ message: "Erro ao criar fofoca.", error });
     }
+};
 
-    res.status(201).send({
-        message: "fofoca postado com sucesso",
-        fofoca:{
-            id: fofoca._id, usuario, title, description
-        }
-    })
-}
 
 // função GET para exibir todas as fofocas já criadas
 const findAll = async (req,res)=>{
