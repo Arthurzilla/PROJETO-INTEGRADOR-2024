@@ -94,6 +94,8 @@ a:active {
 }
 
 #alertPassword{
-    position: relative;
-    top: 40%;
+    position: fixed;
+    top: 65%;
+    margin-top: 20px;
+    color: #da1919
 }

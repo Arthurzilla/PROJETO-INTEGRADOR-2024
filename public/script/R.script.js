@@ -18,11 +18,13 @@ registerForm.addEventListener('submit', async (event) => {
             alert('usuario registrado com sucesso');
             window.location.href= 'http://localhost:3000/login';
         } else {
-            alert('Erro ao registrar. Verifique os campos.');
+            document.getElementById("alertPassword").textContent ='Erro ao registrar. Verifique os campos.';
         }
 
         if(senha.length<8){
             document.getElementById("alertPassword").textContent = "A senha deve ter pelo menos 8 caracteres";
+        }else{
+            document.getElementById("alertPassword").textContent = "";
         }
 
         console.log('Requisição enviada:', { user: usuario, email: email, password: senha });
