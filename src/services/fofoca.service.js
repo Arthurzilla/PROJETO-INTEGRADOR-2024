@@ -4,7 +4,7 @@ const Fofoca = require('../models/Fofoca')
 const saveService = (body) => Fofoca.create(body)
 
 // puxa todas as postagens
-const findAllService = () => Fofoca.find()
+const findAllService = () => Fofoca.find().sort({_id:-1})
 
 //encontra postagem por id
 const findByIdService = (id) => Fofoca.findById(id)
