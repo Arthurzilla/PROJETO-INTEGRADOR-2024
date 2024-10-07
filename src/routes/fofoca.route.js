@@ -26,7 +26,6 @@ route.post('/', fofocaController.save)
 
 // lista todas as postagens
 route.get('/api', fofocaController.findAll);
-
 route.get('/:id', fofocaController.findById)
 route.delete('/:id', fofocaController.deleteById)
 route.patch('/:id', fofocaController.updateById)
