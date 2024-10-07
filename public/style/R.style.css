@@ -92,3 +92,8 @@ a:hover {
 a:active {
     color: #147bb1;
 }
+
+#alertPassword{
+    position: relative;
+    top: 40%;
+}

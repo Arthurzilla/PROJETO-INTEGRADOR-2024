@@ -7,10 +7,14 @@ const JWT_SECRET = process.env.JWT_SECRET || 'algumaChaveSecretaSegura';
 // função POST para criação de usuário
 const save = async (req, res) => {
     const { user, email, password } = req.body;
-
+    try{
     // Validação dos campos
     if (!user || !email || !password) {
         return res.status(400).send({ message: "Preencha os campos corretamente." });
+    }
+
+    if(password.length<8){
+        return res.status(400).send({ message: "A senha deve ter pelo menos 8 caracteres" });
     }
 
     const usuarioSalvo = await userService.saveService(req.body);
@@ -27,7 +31,11 @@ const save = async (req, res) => {
             email: usuarioSalvo.email
         }
     });
-};
+}catch(error){
+    if(error.code == 11000){
+        return res.status(400).send({message: "erro"})
+    }
+}};
 
 // função para login e geração de token
 const find = async (req, res) => {

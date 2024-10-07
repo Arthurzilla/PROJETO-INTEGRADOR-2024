@@ -21,5 +21,9 @@ registerForm.addEventListener('submit', async (event) => {
             alert('Erro ao registrar. Verifique os campos.');
         }
 
+        if(senha.length<8){
+            document.getElementById("alertPassword").textContent = "A senha deve ter pelo menos 8 caracteres";
+        }
+
         console.log('Requisição enviada:', { user: usuario, email: email, password: senha });
 });
