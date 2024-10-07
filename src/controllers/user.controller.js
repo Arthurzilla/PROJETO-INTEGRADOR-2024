@@ -10,17 +10,17 @@ const save = async (req, res) => {
     try{
     // Validação dos campos
     if (!user || !email || !password) {
-        return res.status(400).send({ message: "Preencha os campos corretamente." });
+        return res.status(400).send({ error: "Preencha os campos corretamente." });
     }
 
     if(password.length<8){
-        return res.status(400).send({ message: "A senha deve ter pelo menos 8 caracteres" });
+        return res.status(400).send({ error: "A senha deve ter pelo menos 8 caracteres" });
     }
 
     const usuarioSalvo = await userService.saveService(req.body);
 
     if (!usuarioSalvo) {
-        return res.status(400).send({ message: "Erro ao criar usuário." });
+        return res.status(400).send({ error: "Erro ao criar usuário." });
     }
 
     return res.status(201).send({
@@ -33,7 +33,7 @@ const save = async (req, res) => {
     });
 }catch(error){
     if(error.code == 11000){
-        return res.status(400).send({message: "erro"})
+        return res.status(400).send({message: "Usuario ou email já cadastrado"})
     }
 }};
 
@@ -44,14 +44,15 @@ const find = async (req, res) => {
     const usuarioEncontrado = await userService.findService({ user });
 
     if (!usuarioEncontrado) {
-        return res.status(404).json({ message: 'Usuário não encontrado.' });
+        return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
 
     // Verifica se a senha enviada corresponde à senha do banco
     const isMatch = await usuarioEncontrado.comparePassword(password);
 
     if (!isMatch) {
-        return res.status(401).json({ message: 'Senha incorreta.' });
+        console.log("erro")
+        return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
     // Gera o token JWT

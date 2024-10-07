@@ -92,3 +92,10 @@ a:hover {
 a:active {
     color: #147bb1;
 }
+
+#alertPassword{
+    position: fixed;
+    top: 57%;
+    margin-top: 20px;
+    color: #da1919
+}

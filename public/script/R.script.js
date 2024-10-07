@@ -8,24 +8,42 @@ registerForm.addEventListener('submit', async (event) => {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
+    // Verificação da senha antes de enviar a requisição
+    if (senha.length < 8) {
+        document.getElementById("alertPassword").textContent = "A senha deve ter pelo menos 8 caracteres";
+        return; // Interrompe a execução se a senha não for válida
+    } else {
+        document.getElementById("alertPassword").textContent = "";
+    }
+
+    try {
         const response = await fetch('http://localhost:3000/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user: usuario, email: email, password: senha })
         });
 
-        if (response.ok) {
-            alert('usuario registrado com sucesso');
-            window.location.href= 'http://localhost:3000/login';
-        } else {
-            document.getElementById("alertPassword").textContent ='Erro ao registrar. Verifique os campos.';
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Erro na rede');
         }
 
-        if(senha.length<8){
-            document.getElementById("alertPassword").textContent = "A senha deve ter pelo menos 8 caracteres";
-        }else{
-            document.getElementById("alertPassword").textContent = "";
+        const data = await response.json();
+
+        if (data.hasOwnProperty('error')) {
+            document.getElementById("usuario").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("senha").value = "";
+            document.getElementById("alertPassword").textContent = data.error;
+            return;
         }
 
-        console.log('Requisição enviada:', { user: usuario, email: email, password: senha });
+        alert('Usuário registrado com sucesso');
+        window.location.href = 'http://localhost:3000/login';
+    } catch (error) {
+        console.error('Erro:', error);
+        document.getElementById("alertPassword").textContent = error.message;
+    }
+
+    console.log('Requisição enviada:', { user: usuario, email, password: senha });
 });
