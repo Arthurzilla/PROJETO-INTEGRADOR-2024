@@ -87,3 +87,7 @@ p {
     font-size: 32px;
     font-weight: bold;
 }
+
+a{
+    text-decoration: none;
+}
