@@ -16,10 +16,9 @@ async function fetchFofoca() {
         const fofoca = await response.json();
         document.getElementById('fofocaDetails').innerHTML = `
             <h3>${fofoca.usuario.user}</h3>
-            <h4>${fofoca.title}</h4>
+            <p>${fofoca.title}</p>
             <p>${fofoca.description}</p>
             <a href="editFofoca.html?id=${fofoca._id}">Editar</a>
-            <div id="comentarios"></div>
         `;
 
         fetchComentarios(id);
@@ -68,12 +67,35 @@ async function fetchComentarios(id) {
             throw new Error('Erro ao buscar comentários.');
         }
         const comentarios = await response.json();
-        const comentariosDiv = document.getElementById('comentarios');
-        comentariosDiv.innerHTML = comentarios.map(comentario => `
-            <h3>${comentario.usuario.user}</h3>
-            <p>${new Date(comentario.date).toLocaleString()}</p>
-            <p>${comentario.text}</p>
-        `).join('');
+
+        // Seleciona a div onde os comentários serão exibidos
+        const comentarioDiv = document.getElementById('comentarioDiv');
+        comentarioDiv.innerHTML = ''; // Limpa a div antes de adicionar novos elementos
+
+        // Itera pelos comentários e cria os elementos
+        comentarios.forEach(comentario => {
+
+            const comentarioContainer = document.createElement('div');
+            comentarioContainer.className = 'comentario-container';
+
+            const usuarioElement = document.createElement('h3');
+            usuarioElement.textContent = comentario.usuario.user;
+
+            const dataElement = document.createElement('p');
+            dataElement.textContent = new Date(comentario.date).toLocaleString();
+
+            const textoElement = document.createElement('p');
+            textoElement.textContent = comentario.text;
+
+            // Adiciona os elementos ao contêiner do comentário
+            comentarioContainer.appendChild(usuarioElement);
+            comentarioContainer.appendChild(dataElement);
+            comentarioContainer.appendChild(textoElement);
+
+            // Adiciona o contêiner do comentário à div principal
+            comentarioDiv.appendChild(comentarioContainer);
+            comentarioContainer.className = 'comentarioContainer';
+        });
     } catch (error) {
         console.error("Erro:", error);
     }

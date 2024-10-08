@@ -17,6 +17,10 @@ route.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/timeline.html'));
 }); 
 
+route.get('/convidado', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/convi.timeline.html'));
+}); 
+
 route.get('/api', fofocaController.findAll);
 route.delete('/:id', fofocaController.deleteById);
 route.patch('/:id', fofocaController.updateById);

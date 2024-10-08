@@ -26,7 +26,7 @@ const loadFofocas = async () => {
                 fofocaElement.innerHTML = `
                 <a href="http://localhost:3000/fofocas/${id}">
                     <h3>${usuario.user}</h3>
-                     <h4 >${title}</h4>
+                     <h4>${title}</h4>
                     <p>${description}</p>
                     </a>
                 `;

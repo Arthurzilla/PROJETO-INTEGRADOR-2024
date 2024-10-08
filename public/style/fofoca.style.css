@@ -26,7 +26,8 @@ h1 {
 
 input[type="text"],
 textarea {
-    width: 100%;
+    width: 80%;
+    resize: none;
     padding: 10px;
     border: 1px solid #ccc; /* Borda padrão */
     border-radius: 5px; /* Borda arredondada */
@@ -70,7 +71,7 @@ textarea:focus {
 h3 {
     font-size: 18px;
     color: #1d9bf0;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
 }
 
 p {
@@ -105,3 +106,7 @@ p {
     font-size: 32px;
     font-weight: bold;
 }
+
+.comentarioContainer{
+    border-bottom: 1px solid #e0e0e0;
+}    
