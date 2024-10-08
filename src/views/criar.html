@@ -21,7 +21,7 @@
         <button type="submit" id="buttonCriar">Criar</button>
     </form>
     <!-- botão para voltar para pagina principal -->
-    <a href="http://localhost:3000/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
+    <a href="/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
 
     <!-- conexão do script -->
     <script src="/public/script/Create.script.js">
@@ -30,7 +30,7 @@
 
         if (!token) {
             alert('Você precisa estar logado para criar uma fofoca.');
-            window.location.href = 'http://localhost:3000/login'; // Redireciona para a página de login se não estiver logado
+            window.location.href = '/login'; // Redireciona para a página de login se não estiver logado
         }
     });</script>
 </body>
