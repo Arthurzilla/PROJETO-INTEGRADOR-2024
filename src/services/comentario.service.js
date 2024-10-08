@@ -1,7 +1,9 @@
 const Comentario = require('../models/Comentario');
 
-//Salva comentario no banco de dados
+// Salva comentário no banco de dados
 const saveService = (body) => Comentario.create(body);
 
-module.exports = {saveService}
+// Busca comentários relacionados a uma fofoca específica
+const getByFofocaService = (fofocaId) => Comentario.find({ fofocaId }).populate('usuario');
 
+module.exports = { saveService, getByFofocaService };

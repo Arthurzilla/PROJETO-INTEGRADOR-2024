@@ -45,5 +45,6 @@ app.get('/', (req, res) => {
 
 // Iniciar o servidor
 app.listen(porta, () => {
-    console.log(`Servidor rodando na porta http://localhost:${porta}/fofocas/convidado`);
+    console.log(`Servidor rodando na porta 3000
+http://localhost:${porta}/fofocas/convidado`);
 });

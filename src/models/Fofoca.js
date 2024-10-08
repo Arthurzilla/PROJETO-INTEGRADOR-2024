@@ -16,6 +16,13 @@ const FofocaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    comentario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comentario',
+        required: false
+    }
+
 })
 
 const Fofoca = mongoose.model("Fofoca", FofocaSchema);

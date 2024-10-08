@@ -24,6 +24,38 @@ h1 {
     margin-bottom: 40px;
 }
 
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 5px; /* Borda arredondada */
+    margin-bottom: 15px; /* Espaçamento entre campos */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: border-color 0.3s ease; /* Transição suave para a borda */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #1d9bf0; /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
+}
+
+.button {
+    background-color: #1d9bf0; /* Cor do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove borda */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 10px 15px; /* Espaçamento interno */
+    cursor: pointer; /* Cursor de ponteiro */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+.button:hover {
+    background-color: #1a8cd8; /* Cor do botão ao passar o mouse */
+}
+
 .fofoca {
     border-bottom: 1px solid #e0e0e0;
     padding: 15px;
@@ -32,7 +64,7 @@ h1 {
 }
 
 .fofoca:hover {
-    background-color: #f0f8ff
+    background-color: #f0f8ff;
 }
 
 h3 {
@@ -44,20 +76,6 @@ h3 {
 p {
     font-size: 16px;
     color: #555;
-}
-
-.button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    color: #1d9bf0;
-    transition: background-color 0.2s ease;
-}
-
-.button:hover {
-    background-color: #e8f5fd;
 }
 
 #buttonCriar {
