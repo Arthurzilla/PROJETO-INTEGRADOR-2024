@@ -37,5 +37,5 @@ app.use('/fofocas', fofocaRoute);
 
 // Iniciar o servidor
 app.listen(porta, () => {
-    console.log(`Servidor rodando na porta http://localhost:${porta}`);
+    console.log(`Servidor rodando na porta http://localhost:${porta}/fofocas/convidado`);
 });
