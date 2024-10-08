@@ -35,6 +35,11 @@ connectDatabase();
 app.use('/', userRoute);
 app.use('/fofocas', fofocaRoute);
 
+
+app.get('/', (req, res) => {
+    res.redirect('/fofocas/convidado');
+});
+
 // Iniciar o servidor
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta http://localhost:${porta}/fofocas/convidado`);
