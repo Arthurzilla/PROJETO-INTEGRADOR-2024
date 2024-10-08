@@ -1,6 +1,7 @@
 //importa a função de salvar no BD
 const Fofoca = require('../models/Fofoca.js');
 const fofocaService = require('../services/fofoca.service');
+const mongoose = require('mongoose');
 
 // função POST criação da postagem
 const save = async (req, res) => {
@@ -82,8 +83,6 @@ const updateById = async (req,res) => {
         res.status(400).send({message: "Postagem não encontrada"})
     }
     res.status(200).send("Update realizado com sucesso")
-
-
 }
 
 module.exports = { save, findAll, findById, deleteById, updateById }

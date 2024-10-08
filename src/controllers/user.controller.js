@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const userService = require('../services/user.service');
 const jwt = require('jsonwebtoken');
