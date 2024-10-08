@@ -1,6 +1,6 @@
 const loadFofocas = async () => {
     try {
-        const response = await fetch('http://localhost:3000/fofocas/api');
+        const response = await fetch('/fofocas/api');
 
         // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {

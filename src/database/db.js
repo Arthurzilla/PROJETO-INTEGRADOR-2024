@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config(); // Carrega as variáveis de ambiente do .env
+// require('dotenv').config(); // Carrega as variáveis de ambiente do .env
 
 
 //CRIA A CONEXÃO DO BANCO DE DADOS ONLINE (RENDER E ATLAS)
