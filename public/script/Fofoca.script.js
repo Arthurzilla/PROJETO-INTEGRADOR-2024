@@ -23,6 +23,8 @@ async function fetchFofoca() {
             <h4>${fofoca.title}</h4>
             <p>${fofoca.description}</p>
             <a href="editFofoca.html?id=${fofoca._id}">Editar</a>
+            <div id="comentarios"></div>
+
         `;
     } catch (error) {
         document.getElementById('fofocaDetails').innerHTML = `<p>${error.message}</p>`; // Exibe mensagem de erro
@@ -30,3 +32,7 @@ async function fetchFofoca() {
 }
 
 fetchFofoca(); // Chama a função para buscar a fofoca
+
+/* <h3>${comentario.usuario.user}</h3>
+<p>${comentario.date}</p>
+<p>${comentario.text}</p> */
