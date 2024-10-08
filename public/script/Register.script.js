@@ -8,10 +8,9 @@ registerForm.addEventListener('submit', async (event) => {
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    // Verificação da senha antes de enviar a requisição
     if (senha.length < 8) {
         document.getElementById("alertPassword").textContent = "A senha deve ter pelo menos 8 caracteres";
-        return; // Interrompe a execução se a senha não for válida
+        return;
     } else {
         document.getElementById("alertPassword").textContent = "";
     }
