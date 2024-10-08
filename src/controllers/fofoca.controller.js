@@ -16,6 +16,7 @@ const save = async (req, res) => {
     try {
         const novaFofoca = new Fofoca({ title, description, usuario });
         await novaFofoca.save();
+        console.log("ID da nova fofoca:", novaFofoca._id); // Log do ID
         return res.status(201).send({ message: "Fofoca criada com sucesso.", fofoca: novaFofoca });
     } catch (error) {
         console.error("Erro ao salvar fofoca:", error); // Log do erro
@@ -35,21 +36,18 @@ const findAll = async (req,res)=>{
     res.status(200).send(fofocas);
 }
 
-//procurar usário por id
 const findById = async (req, res) => {
-    //declara o id
-    const id = req.params.id
-    
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).send({message: 'ID inválido'})
+    try {
+        const fofoca = await Fofoca.findById(req.params.id).populate('usuario','user');
+        if (!fofoca) {
+            return res.status(404).send({ message: 'Fofoca não encontrada.' });
+        }
+        res.json(fofoca);
+    } catch (error) {
+        console.error('Erro ao buscar fofoca:', error);
+        res.status(500).send({ message: 'Erro ao buscar fofoca.' });
     }
-    //declara o usuário
-    const fofoca = await fofocaService.findByIdService(id)
-    if(!fofoca){
-        res.status(400).send({message: "Postagem não encontrada"})
-    }
-        res.status(200).send(fofoca)
-    }
+};
 
 const deleteById = async (req, res) => {
     //declara aonde vai procurar o id

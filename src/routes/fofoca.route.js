@@ -33,10 +33,11 @@ route.get('/api', fofocaController.findAll);
 route.delete('/:id', fofocaController.deleteById)
 route.patch('/:id', fofocaController.updateById)
 
+route.get('/:id/api', fofocaController.findById);
+
 route.get('/:id',(req, res) => {
     res.sendFile(path.join(__dirname, '../views/fofoca.html'));
 })
 
 
-module.exports = route;
-
+module.exports = route
