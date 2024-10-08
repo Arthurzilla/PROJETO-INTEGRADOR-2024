@@ -18,14 +18,17 @@ const loadFofocas = async () => {
                 fofocaElement.className = 'fofoca';
                 
                 // Verifica se os campos existem para evitar erros
+                const id = fofoca._id
                 const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
                 const title = fofoca.title ? fofoca.title : 'Sem título';
                 const description = fofoca.description ? fofoca.description : 'Sem descrição';
 
                 fofocaElement.innerHTML = `
+                <a href="http://localhost:3000/fofocas/${id}">
                     <h3>${usuario.user}</h3>
-                    <h4>${title}</h4>
+                     <h4 >${title}</h4>
                     <p>${description}</p>
+                    </a>
                 `;
                 timelineDiv.appendChild(fofocaElement);
             });
