@@ -7,11 +7,18 @@ const comentarioSchema = new mongoose.Schema({
         required: true
     },
 
+    date: {
+        type: Date,
+        default: Date.now
+    },
+
     text: {
         type: String,
         maxlength: 150,
         required: true
-    },
-
-    
+    }
 })
+
+const Comentario = mongoose.model('Comentario', comentarioSchema);
+
+module.exports = Comentario;
