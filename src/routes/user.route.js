@@ -13,9 +13,9 @@ route.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'login.html'));
 });
 
-route.post('/login/api', userController.find)
-
 route.get('/login', userController.find)
+
+route.post('/login/api', userController.find)
 
 
 module.exports = route;
