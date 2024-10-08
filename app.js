@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const connectDatabase = require('./src/database/db');
+const database = require('./src/database/db');
 const session = require('express-session'); // Importando o middleware de sessão
 
 const app = express();
@@ -28,9 +28,11 @@ app.use(express.json());
 // Conexão de pastas estáticas
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-// Conexão ao banco de dados
-connectDatabase();
+// Conexão ao banco de dados LOCAL
+database.connectDatabase();
 
+// Conexão ao banco de dados ONLINE
+database.connectOnlineDatabase
 // Rotas
 app.use('/', userRoute);
 app.use('/fofocas', fofocaRoute);
