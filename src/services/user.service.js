@@ -4,4 +4,8 @@ const saveService = (body) => Usuario.create(body);
 
 const findService = (body) => Usuario.findOne(body)
 
-module.exports = { saveService, findService };
+const findByEmail = (email) => Usuario.findOne({ email });
+
+const findByUser = (user) => Usuario.findOne({user})
+
+module.exports = { saveService, findService, findByEmail, findByUser };

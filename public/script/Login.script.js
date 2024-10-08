@@ -21,7 +21,7 @@
         if (data.hasOwnProperty('error')) {
             document.getElementById("usuario").textContent = "";
             document.getElementById("senha").textContent = "";
-            document.getElementById("alertPassword").textContent = data.error;
+            document.getElementById("alertERROR").textContent = data.error;
             return;
         }
 
@@ -29,7 +29,7 @@
         window.location.href = 'http://localhost:3000/fofocas';
     } catch (error) {
         console.error('Erro:', error);
-        document.getElementById("alertPassword").textContent = error.message;
+        document.getElementById("alertERROR").textContent = error.message;
     }
 
     console.log('Requisição enviada:', { user: usuario, password: senha });

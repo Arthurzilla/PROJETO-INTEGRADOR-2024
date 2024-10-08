@@ -93,9 +93,18 @@ a:active {
     color: #147bb1;
 }
 
-#alertPassword{
-    position: fixed;
-    top: 57%;
-    margin-top: 20px;
-    color: #da1919
+#alertERROR {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    position: absolute;
+    width: 100%; 
+    margin-top: 185px; 
+    margin-bottom: 20px; 
+    color: #da1919;
+    font-size: 14px;
+    text-align: center;
 }

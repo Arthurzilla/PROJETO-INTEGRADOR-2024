@@ -16,6 +16,16 @@ const save = async (req, res) => {
     if(password.length<8){
         return res.status(400).send({ error: "A senha deve ter pelo menos 8 caracteres" });
     }
+    
+    const userExiste = await userService.findByUser(user);
+    if (userExiste) {
+        return res.status(400).send({ message: "Usuário já cadastrado." });
+    }
+
+    const emailExiste = await userService.findByEmail(email);
+        if (emailExiste) {
+            return res.status(400).send({ message: "Email já cadastrado." });
+        }
 
     const usuarioSalvo = await userService.saveService(req.body);
 
@@ -32,9 +42,8 @@ const save = async (req, res) => {
         }
     });
 }catch(error){
-    if(error.code == 11000){
-        return res.status(400).send({message: "Usuario ou email já cadastrado"})
-    }
+    console.log(error)
+    return
 }};
 
 // função para login e geração de token
