@@ -32,7 +32,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 database.connectDatabase();
 
 // Conexão ao banco de dados ONLINE
-database.connectOnlineDatabase()
+// database.connectOnlineDatabase()
 
 // Rotas
 app.use('/', userRoute);

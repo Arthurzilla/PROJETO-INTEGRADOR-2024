@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const FofocaSchema = new mongoose.Schema({
     usuario:{
         type: mongoose.Schema.Types.ObjectId,
