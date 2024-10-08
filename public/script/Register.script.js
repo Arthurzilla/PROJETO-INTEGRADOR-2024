@@ -17,7 +17,7 @@ registerForm.addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/cadastro', {
+        const response = await fetch('/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user: usuario, email: email, password: senha })
@@ -39,7 +39,7 @@ registerForm.addEventListener('submit', async (event) => {
         }
 
         alert('Usuário registrado com sucesso');
-        window.location.href = 'http://localhost:3000/login';
+        window.location.href = '/login';
     } catch (error) {
         console.error('Erro:', error);
         document.getElementById("alertPassword").textContent = error.message;

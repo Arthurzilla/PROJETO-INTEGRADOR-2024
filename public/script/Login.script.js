@@ -5,7 +5,7 @@
     const senha = document.getElementById('senha').value;
 
     try {
-        const response = await fetch('http://localhost:3000/login/api', {
+        const response = await fetch('/login/api', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user: usuario, password: senha })
@@ -26,7 +26,7 @@
         }
 
         localStorage.setItem('token', data.token);
-        window.location.href = 'http://localhost:3000/fofocas';
+        window.location.href = '/fofocas';
     } catch (error) {
         console.error('Erro:', error);
         document.getElementById("alertERROR").textContent = error.message;

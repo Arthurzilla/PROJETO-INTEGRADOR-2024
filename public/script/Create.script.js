@@ -14,7 +14,7 @@ fofocaForm.addEventListener('submit', async (event) => {
     // Verifica se o token existe
     if (!token) {
         alert('Você precisa estar logado para criar uma fofoca.');
-        window.location.href = 'http://localhost:3000/login'; // Redireciona para a página de login se não estiver logado
+        window.location.href = '/login'; // Redireciona para a página de login se não estiver logado
         return; // Sai da função se o usuário não estiver logado
     }
 
@@ -27,7 +27,7 @@ fofocaForm.addEventListener('submit', async (event) => {
     console.log(`Usuário logado: ${userName}`);
 
     // Enviando a requisição para criar a fofoca
-    const response = await fetch('http://localhost:3000/fofocas/criar', {
+    const response = await fetch('/fofocas/criar', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ fofocaForm.addEventListener('submit', async (event) => {
     // Verificando a resposta da requisição
     if (response.ok) {
         alert('Fofoca criada com sucesso');
-        window.location.href = 'http://localhost:3000/fofocas'; // Redireciona para a lista de fofocas
+        window.location.href = '/fofocas'; // Redireciona para a lista de fofocas
     } else {
         alert('Erro ao criar fofoca. Verifique os campos.'); // Mensagem de erro caso a criação falhe
     }
