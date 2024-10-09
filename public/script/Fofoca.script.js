@@ -26,7 +26,7 @@ async function fetchFofoca() {
     const path = window.location.pathname;
     const id = path.split('/').pop(); 
 
-    // Validação do ID da fofoca
+
     if (!id || id.trim() === "" || id.length !== 24) {
         document.getElementById('fofocaDetails').innerHTML = '<p>ID inválido.</p>';
         return;
@@ -39,7 +39,6 @@ async function fetchFofoca() {
         }
         const fofoca = await response.json();
         
-        // Formata a data para "tempo atrás"
         const dataFormatada = timeAgo(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
@@ -55,12 +54,12 @@ async function fetchFofoca() {
     }
 }
 
-// Envio de comentário
+
 document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const id = window.location.pathname.split('/').pop();
     const text = document.getElementById('commentText').value;
-    const usuario = getUserId(); // Função que deve retornar o ID do usuário autenticado
+    const usuario = getUserId(); 
 
     if (!usuario || typeof usuario !== 'string' || usuario.length !== 24) {
         console.error("ID do usuário inválido:", usuario);
@@ -88,6 +87,8 @@ document.getElementById('form').addEventListener('submit', async (event) => {
 });
 
 async function fetchComentarios(id) {
+
+    
     try {
         const response = await fetch(`/fofocas/${id}/comentarios`);
         if (!response.ok) {
@@ -95,11 +96,9 @@ async function fetchComentarios(id) {
         }
         const comentarios = await response.json();
 
-        // Seleciona a div onde os comentários serão exibidos
         const comentarioDiv = document.getElementById('comentarioDiv');
-        comentarioDiv.innerHTML = ''; // Limpa a div antes de adicionar novos elementos
+        comentarioDiv.innerHTML = '';
 
-        // Itera pelos comentários e cria os elementos
         comentarios.forEach(comentario => {
 
             const comentarioContainer = document.createElement('div');
@@ -108,19 +107,16 @@ async function fetchComentarios(id) {
             const usuarioElement = document.createElement('h3');
             usuarioElement.textContent = comentario.usuario.user;
 
-            // Formata a data para "tempo atrás"
             const dataElement = document.createElement('p');
             dataElement.textContent = timeAgo(new Date(comentario.date));
 
             const textoElement = document.createElement('p');
             textoElement.textContent = comentario.text;
 
-            // Adiciona os elementos ao contêiner do comentário
             comentarioContainer.appendChild(usuarioElement);
             comentarioContainer.appendChild(dataElement);
             comentarioContainer.appendChild(textoElement);
 
-            // Adiciona o contêiner do comentário à div principal
             comentarioDiv.appendChild(comentarioContainer);
         });
     } catch (error) {
@@ -129,14 +125,14 @@ async function fetchComentarios(id) {
 }
 
 function getUserId() {
-    const token = localStorage.getItem('token'); // ou outra forma de armazenar o token
+    const token = localStorage.getItem('token'); 
     if (token) {
-        // Decodificar o token JWT e extrair o ID do usuário
+
         const payload = JSON.parse(atob(token.split('.')[1]));
-        return payload.id; // Supondo que o ID do usuário está no campo 'id' do payload
+        return payload.id; 
     }
     return null;
 }
 
-// Chama a função para buscar detalhes da fofoca e comentários ao carregar a página
+
 fetchFofoca();

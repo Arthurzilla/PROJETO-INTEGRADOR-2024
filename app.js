@@ -26,7 +26,10 @@ app.use(session({
 app.use(express.json());
 
 // Conexão de pastas estáticas
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Conexão ao banco de dados LOCAL
 // database.connectDatabase();
