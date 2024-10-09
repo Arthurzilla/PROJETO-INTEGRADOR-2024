@@ -14,6 +14,13 @@ const userRoute = require('./src/routes/user.route');
 // Middleware para permitir CORS
 app.use(cors());
 
+app.use((req, res, next) => {
+    if (req.path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+    }
+    next();
+});
+
 // Middleware para gerenciar sessões
 app.use(session({
     secret: 'algumaChaveSecretaSegura', // Substitua por uma chave secreta segura
