@@ -33,7 +33,7 @@ async function fetchFofoca() {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/fofocas/${id}/api`);
+        const response = await fetch(`/fofocas/${id}/api`);
         if (!response.ok) {
             throw new Error('Fofoca não encontrada.');
         }
@@ -69,7 +69,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/fofocas/${id}/comentarios`, {
+        const response = await fetch(`/fofocas/${id}/comentarios`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario: usuario, text: text })
@@ -89,7 +89,7 @@ document.getElementById('form').addEventListener('submit', async (event) => {
 
 async function fetchComentarios(id) {
     try {
-        const response = await fetch(`http://localhost:3000/fofocas/${id}/comentarios`);
+        const response = await fetch(`/fofocas/${id}/comentarios`);
         if (!response.ok) {
             throw new Error('Erro ao buscar comentários.');
         }
