@@ -26,7 +26,6 @@ async function fetchFofoca() {
     const path = window.location.pathname;
     const id = path.split('/').pop(); 
 
-
     if (!id || id.trim() === "" || id.length !== 24) {
         document.getElementById('fofocaDetails').innerHTML = '<p>ID inválido.</p>';
         return;
@@ -53,7 +52,6 @@ async function fetchFofoca() {
         document.getElementById('fofocaDetails').innerHTML = `<p>${error.message}</p>`;
     }
 }
-
 
 document.getElementById('form').addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -88,7 +86,6 @@ document.getElementById('form').addEventListener('submit', async (event) => {
 
 async function fetchComentarios(id) {
 
-    
     try {
         const response = await fetch(`/fofocas/${id}/comentarios`);
         if (!response.ok) {
