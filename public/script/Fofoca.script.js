@@ -44,7 +44,6 @@ async function fetchFofoca() {
             <h3>${fofoca.usuario.user}</h4>
             <p id="dataFor">${dataFormatada}</p>
             <p>${fofoca.description}</p>
-            <a href="editFofoca.html?id=${fofoca._id}">Editar</a>
         `;
 
         fetchComentarios(id);
