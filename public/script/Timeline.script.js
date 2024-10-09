@@ -23,7 +23,7 @@ const loadFofocas = async () => {
                 const formattedDate = timeAgo(data);
             
                 fofocaElement.innerHTML = `
-                <a href="http://localhost:3000/fofocas/${id}">
+                <a href="/fofocas/${id}">
                     <h3>${usuario.user}</h3>
                     <p>Há ${formattedDate}</p>
                     <p>${description}</p>
