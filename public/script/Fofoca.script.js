@@ -1,3 +1,27 @@
+function timeAgo(date) {
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (seconds < 60) {
+        return `${seconds} segundos atrás`;
+    } else if (minutes < 60) {
+        return `${minutes} minutos atrás`;
+    } else if (hours < 24) {
+        return `${hours} horas atrás`;
+    } else if (days < 30) {
+        return `${days} dias atrás`;
+    } else if (months < 12) {
+        return `${months} meses atrás`;
+    } else {
+        return `${years} anos atrás`;
+    }
+}
+
 async function fetchFofoca() {
     const path = window.location.pathname;
     const id = path.split('/').pop(); 
@@ -14,9 +38,13 @@ async function fetchFofoca() {
             throw new Error('Fofoca não encontrada.');
         }
         const fofoca = await response.json();
+        
+        // Formata a data para "tempo atrás"
+        const dataFormatada = timeAgo(new Date(fofoca.date));
+
         document.getElementById('fofocaDetails').innerHTML = `
-            <h3>${fofoca.usuario.user}</h3>
-            <p>${fofoca.title}</p>
+            <h3>${fofoca.usuario.user}</h4>
+            <p id="dataFor">${dataFormatada}</p>
             <p>${fofoca.description}</p>
             <a href="editFofoca.html?id=${fofoca._id}">Editar</a>
         `;
@@ -26,7 +54,6 @@ async function fetchFofoca() {
         document.getElementById('fofocaDetails').innerHTML = `<p>${error.message}</p>`;
     }
 }
-
 
 // Envio de comentário
 document.getElementById('form').addEventListener('submit', async (event) => {
@@ -81,8 +108,9 @@ async function fetchComentarios(id) {
             const usuarioElement = document.createElement('h3');
             usuarioElement.textContent = comentario.usuario.user;
 
+            // Formata a data para "tempo atrás"
             const dataElement = document.createElement('p');
-            dataElement.textContent = new Date(comentario.date).toLocaleString();
+            dataElement.textContent = timeAgo(new Date(comentario.date));
 
             const textoElement = document.createElement('p');
             textoElement.textContent = comentario.text;
@@ -94,7 +122,6 @@ async function fetchComentarios(id) {
 
             // Adiciona o contêiner do comentário à div principal
             comentarioDiv.appendChild(comentarioContainer);
-            comentarioContainer.className = 'comentarioContainer';
         });
     } catch (error) {
         console.error("Erro:", error);

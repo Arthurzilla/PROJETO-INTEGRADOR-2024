@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 
 const FofocaSchema = new mongoose.Schema({
-    usuario:{
+    usuario: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario',
-        required:true
+        required: true
     },
 
-    title: {
-        type: String,
-        required: true
+    date: {
+        type: Date,
+        default: Date.now
     },
 
     description: {
@@ -22,7 +22,6 @@ const FofocaSchema = new mongoose.Schema({
         ref: 'Comentario',
         required: false
     }
-
 })
 
 const Fofoca = mongoose.model("Fofoca", FofocaSchema);

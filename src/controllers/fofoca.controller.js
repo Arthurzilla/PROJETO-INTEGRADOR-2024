@@ -5,24 +5,24 @@ const mongoose = require('mongoose');
 
 // função POST criação da postagem
 const save = async (req, res) => {
-    const { title, description, usuario } = req.body;
+    const { description, usuario } = req.body;
 
-    // Validação dos campos
-    if (!title || !description || !usuario) {
-        console.error("Erro: Campos ausentes.", { title, description, usuario }); // Log para verificar os campos recebidos
+    if (!description || !usuario) {
+        console.error("Erro: Campos ausentes.", { description, usuario });
         return res.status(400).send({ message: "Preencha os campos corretamente." });
     }
 
     try {
-        const novaFofoca = new Fofoca({ title, description, usuario });
+        const novaFofoca = new Fofoca({ description, usuario });
         await novaFofoca.save();
-        console.log("ID da nova fofoca:", novaFofoca._id); // Log do ID
+        console.log("ID da nova fofoca:", novaFofoca._id);
         return res.status(201).send({ message: "Fofoca criada com sucesso.", fofoca: novaFofoca });
     } catch (error) {
-        console.error("Erro ao salvar fofoca:", error); // Log do erro
+        console.error("Erro ao salvar fofoca:", error);
         return res.status(500).send({ message: "Erro ao criar fofoca.", error });
     }
 };
+
 
 
 // função GET para exibir todas as fofocas já criadas

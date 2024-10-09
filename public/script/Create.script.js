@@ -1,53 +1,37 @@
-// Supondo que o token tenha sido armazenado no localStorage durante o login
-const fofocaForm = document.getElementById('fofocaForm');
-
 fofocaForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); // Previne o comportamento padrão do formulário
+    event.preventDefault();
 
-    // Obtendo os valores dos campos do formulário
-    const titulo = document.getElementById('titulo').value;
     const conteudo = document.getElementById('conteudo').value;
 
-    // Obtendo o token do localStorage ou sessionStorage
-    const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
-    // Verifica se o token existe
     if (!token) {
         alert('Você precisa estar logado para criar uma fofoca.');
-        window.location.href = '/login'; // Redireciona para a página de login se não estiver logado
-        return; // Sai da função se o usuário não estiver logado
+        window.location.href = '/login';
+        return;
     }
 
-    // Decodificando o token para obter informações do usuário
     const payload = JSON.parse(atob(token.split('.')[1]));
-    const userId = payload.id; // Obtém o ID do usuário do payload
-    const userName = payload.user; // Se você armazenou o nome do usuário no token, também pode obter aqui
+    const userId = payload.id;
 
-    // Exibir nome do usuário ou outras informações, se necessário
-    console.log(`Usuário logado: ${userName}`);
-
-    // Enviando a requisição para criar a fofoca
     const response = await fetch('/fofocas/criar', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Incluindo o token no cabeçalho
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-            title: titulo,
             description: conteudo,
-            usuario: userId // Passando o campo usuario
+            usuario: userId
         })
     });
 
-    // Verificando a resposta da requisição
     if (response.ok) {
         alert('Fofoca criada com sucesso');
-        window.location.href = '/fofocas'; // Redireciona para a lista de fofocas
+        window.location.href = '/fofocas';
     } else {
-        alert('Erro ao criar fofoca. Verifique os campos.'); // Mensagem de erro caso a criação falhe
+        alert('Erro ao criar fofoca. Verifique os campos.');
     }
 
-    // Log dos dados enviados
-    console.log('Requisição enviada:', { title: titulo, description: conteudo, usuario: userId }); // Verifica se os campos estão corretos
+    console.log('Requisição enviada:', { description: conteudo, usuario: userId });
 });
