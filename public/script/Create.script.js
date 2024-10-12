@@ -35,3 +35,31 @@ fofocaForm.addEventListener('submit', async (event) => {
 
     console.log('Requisição enviada:', { description: conteudo, usuario: userId });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        fetch('/usuario-logado', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter usuário logado.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const usuarioDiv = document.getElementById('mostraUsuario');
+            if (data.usuario) {
+                usuarioDiv.textContent = `${data.usuario}`;
+            } else {
+                usuarioDiv.textContent = 'Usuário não encontrado';
+            }
+        })
+    } else {
+        document.getElementById('mostraUsuario').textContent = 'Usuário não logado';
+    }
+});

@@ -17,5 +17,7 @@ route.get('/login', userController.find)
 
 route.post('/login/api', userController.find)
 
+route.get('/usuario-logado', userController.getUserLogado)
+
 
 module.exports = route;

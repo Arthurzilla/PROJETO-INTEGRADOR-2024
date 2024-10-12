@@ -84,7 +84,6 @@ document.getElementById('form').addEventListener('submit', async (event) => {
 });
 
 async function fetchComentarios(id) {
-
     try {
         const response = await fetch(`/fofocas/${id}/comentarios`);
         if (!response.ok) {
@@ -93,30 +92,24 @@ async function fetchComentarios(id) {
         const comentarios = await response.json();
 
         const comentarioDiv = document.getElementById('comentarioDiv');
-        comentarioDiv.innerHTML = '';
+        comentarioDiv.innerHTML = ''; 
 
         comentarios.forEach(comentario => {
+            const usuario = comentario.usuario ? comentario.usuario.user : 'Usuário desconhecido';
+            const dataFormatada = timeAgo(new Date(comentario.date));
+            const texto = comentario.text || 'Sem conteúdo';
 
-            const comentarioContainer = document.createElement('div');
-            comentarioContainer.className = 'comentario-container';
-
-            const usuarioElement = document.createElement('h3');
-            usuarioElement.textContent = comentario.usuario.user;
-
-            const dataElement = document.createElement('p');
-            dataElement.textContent = timeAgo(new Date(comentario.date));
-
-            const textoElement = document.createElement('p');
-            textoElement.textContent = comentario.text;
-
-            comentarioContainer.appendChild(usuarioElement);
-            comentarioContainer.appendChild(dataElement);
-            comentarioContainer.appendChild(textoElement);
-
-            comentarioDiv.appendChild(comentarioContainer);
+            comentarioDiv.innerHTML += `
+                <div class="comentario-container">
+                    <h3>${usuario}</h3>
+                    <p>${dataFormatada}</p>
+                    <p>${texto}</p>
+                </div>
+            `;
         });
     } catch (error) {
         console.error("Erro:", error);
+        document.getElementById('comentarioDiv').innerHTML = '<p>Por enquanto, nenhum comentario</p>';
     }
 }
 
@@ -130,5 +123,31 @@ function getUserId() {
     return null;
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        fetch('/usuario-logado', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter usuário logado.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const usuarioDiv = document.getElementById('mostraUsuario');
+            if (data.usuario) {
+                usuarioDiv.textContent = `${data.usuario}`;
+            } else {
+                usuarioDiv.textContent = 'Usuário não encontrado';
+            }
+        })
+    } else {
+        document.getElementById('mostraUsuario').textContent = 'Usuário não logado';
+    }
+});
 
 fetchFofoca();
