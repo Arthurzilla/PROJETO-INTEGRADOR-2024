@@ -102,3 +102,9 @@ a{
     margin-bottom: 20px; /* Espaçamento inferior */
     text-align: center; /* Centralizar texto */
 }
+
+.fofoca-date {
+    color: gray; /* Ou a cor que você preferir */
+    font-style: italic; /* Estilo itálico para diferenciar */
+    margin-bottom: 10px; /* Espaçamento inferior */
+}

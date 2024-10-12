@@ -25,7 +25,7 @@ const loadFofocas = async () => {
                 fofocaElement.innerHTML = `
                 <a href="/fofocas/${id}">
                     <h3>${usuario.user}</h3>
-                    <p>Há ${formattedDate}</p>
+                    <p class='fofoca-date'>Há ${formattedDate}</p>
                     <p>${description}</p>
                 </a>
                 `;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const usuarioDiv = document.getElementById('mostraUsuario');
             if (data.usuario) {
-                usuarioDiv.textContent = `${data.usuario}`;
+                usuarioDiv.textContent = `Logado como: ${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
