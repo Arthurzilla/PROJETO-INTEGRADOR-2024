@@ -2,18 +2,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
     flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #f4f7f9;
 }
 
 /* Estilizar o título dentro do formulário */
-form h2 {
+ h2 {
     font-size: 24px;
     color: #1da1f2;
-    margin-bottom: 20px;
     text-align: center; /* Centralizar o título */
 }
 
@@ -22,26 +20,26 @@ form {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    width: 25%;
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    max-width: 400px;
 }
 
 label {
     font-size: 18px;
     color: #333;
-    margin-bottom: 8px;
+
     align-self: flex-start;
 }
 
 /* Estilos para os campos de usuário, e senha */
 #usuario, #senha {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
@@ -54,19 +52,22 @@ label {
     outline: none;
 }
 
-/* Estilo para o botão de cadastro */
+/* Estilo para o botão de LOGIN */
 #entrarButton {
     background-color: #1da1f2;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
+    font-size: 15px;
     border-radius: 25px;
-    width: 100%;
-    max-width: 200px;
+    width: 40%;
+
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 20px; /* Espaçamento entre o botão e o link */
+}
+
+#buttonContent{
+    padding: 0;
 }
 
 #entrarButton:hover {
@@ -94,17 +95,24 @@ a:active {
 }
 
 #alertERROR {
+    background-color: none;
     font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    position: absolute;
-    width: 100%; 
-    margin-top: 185px; 
-    margin-bottom: 20px; 
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
     color: #da1919;
     font-size: 14px;
     text-align: center;
+}
+
+@media (max-width: 600px){
+    #entrarForm{
+        width: 80%;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1050px){
+    #entrarForm{
+        width: 55%;
+    }
 }
