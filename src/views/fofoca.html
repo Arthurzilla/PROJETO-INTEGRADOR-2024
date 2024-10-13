@@ -9,27 +9,39 @@
     <link rel="stylesheet" href="/public/style/reset.css">
     <script src="/script/Fofoca.script.js" defer></script>
     <link rel="stylesheet" href="/style/fofoca.style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
+    <div id="mostraUsuario" style="position: fixed; top: 10px; right: 10px; background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+        Carregando usuário...
+    </div>
 
-    <!-- <form id="form">
-        <div id="fofocaDetails"></div>
-        <textarea id="commentText" rows="4" cols="50" placeholder="Escreva seu comentário..."></textarea><button type="submit">Enviar Comentário</button>
-    </form> 
+    <div class="modal" id="editModal" style="display:none;">
+        <h2>Editar Fofoca</h2>
+        <textarea id="editDescription" rows="4" required></textarea>
+        <button id="saveEditButton" class="button">Salvar Edição</button>
+        <button id="cancelEditButton" class="button">Cancelar</button>
+    </div>
+
+    <!-- Modal para adicionar comentário -->
+    <div class="modal" id="commentModal" style="display:none;">
+        <h2>Adicionar Comentário</h2>
+        <textarea id="commentTextModal" rows="4" required></textarea>
+        <button id="saveCommentButton" class="button">Salvar Comentário</button>
+        <button id="cancelCommentButton" class="button">Cancelar</button>
+    </div>
 
     <form id="form">
-        <h1>Enviar Comentário</h1>
-        <input type="text" id="commentText" placeholder="Digite seu comentário..." required>
-        <button type="submit" class="button">Enviar</button>
-    </form> -->
-
-    <form id="form">
         <div id="fofocaDetails"></div>
-        <h1>Comentários</h1>
-        <textarea id="commentText" rows="4" placeholder="Escreva seu comentário..." required></textarea>
-        <button type="submit" class="button">Enviar Comentário</button>
-        <div id="comentarioDiv"></div>
+        <button type="button" id="editFofocaButton" class="button"><i class="bi bi-pencil-square"></i></button>
+        
+        <!-- Botão para abrir o modal de comentários -->
+        <button type="button" id="openCommentModalButton" class="button"><i class="bi bi-plus"></i></button>
+
+        <div id="comentarioDiv" class="comentario-container">
+            <h1>Comentários</h1>
+            <div id="comentariosList"></div>
+        </div>
     </form>
-
 </body>
 </html>

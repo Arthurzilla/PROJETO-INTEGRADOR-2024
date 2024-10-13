@@ -25,7 +25,7 @@ const loadFofocas = async () => {
                 fofocaElement.innerHTML = `
                 <a href="/fofocas/${id}">
                     <h3>${usuario.user}</h3>
-                    <p>Há ${formattedDate}</p>
+                    <p class='fofoca-date'>Há ${formattedDate}</p>
                     <p>${description}</p>
                 </a>
                 `;
@@ -65,5 +65,32 @@ function timeAgo(date) {
         return `${years} anos atrás`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        fetch('/usuario-logado', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter usuário logado.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const usuarioDiv = document.getElementById('mostraUsuario');
+            if (data.usuario) {
+                usuarioDiv.textContent = `Logado como: ${data.usuario}`;
+            } else {
+                usuarioDiv.textContent = 'Usuário não encontrado';
+            }
+        })
+    } else {
+        document.getElementById('mostraUsuario').textContent = 'Usuário não logado';
+    }
+});
 
 loadFofocas();
