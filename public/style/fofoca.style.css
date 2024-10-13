@@ -200,6 +200,22 @@ p {
     line-height: 1.5;
 }
 
+#backButton {
+    background-color: #1d9bf0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#backButton:hover {
+    background-color: #1a8cd8;
+}
+
 
 
 
