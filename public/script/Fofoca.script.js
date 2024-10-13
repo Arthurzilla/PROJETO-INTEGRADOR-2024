@@ -1,3 +1,5 @@
+const overlay = document.getElementById('overlay');
+
 function timeAgo(date) {
     if (!(date instanceof Date) || isNaN(date)) {
         return 'Data inválida';
@@ -171,6 +173,9 @@ fetchFofoca();
 let currentFofocaId; // Variável para armazenar o ID da fofoca atual
 
 document.getElementById('editFofocaButton').addEventListener('click', () => {
+    overlay.style.display = 'block';
+    overlay.style.animation = 'escurecerFundo 0.5s forwards'; //escurece ao clicar
+
     const fofocaDescription = document.querySelector('#fofocaDetails .fofoca-description').innerText;
     document.getElementById('editDescription').value = fofocaDescription;
     currentFofocaId = window.location.pathname.split('/').pop(); // Obter ID da fofoca atual
@@ -180,6 +185,7 @@ document.getElementById('editFofocaButton').addEventListener('click', () => {
 // Cancelar a edição
 document.getElementById('cancelEditButton').addEventListener('click', () => {
     document.getElementById('editModal').style.display = 'none'; // Ocultar modal
+    overlay.style.display = 'none';
 });
 
 // Salvar as alterações
@@ -199,6 +205,7 @@ document.getElementById('saveEditButton').addEventListener('click', async () => 
 
         fetchFofoca(); // Atualizar a fofoca exibida
         document.getElementById('editModal').style.display = 'none'; // Ocultar modal
+        overlay.style.display = 'none';
     } catch (error) {
         console.error('Erro:', error);
         alert('Erro ao editar.');
@@ -207,12 +214,16 @@ document.getElementById('saveEditButton').addEventListener('click', async () => 
 
 // Abertura do modal de comentários
 document.getElementById('openCommentModalButton').addEventListener('click', () => {
+
     document.getElementById('commentModal').style.display = 'block'; // Mostrar modal de comentários
+    overlay.style.display = 'block';
+    overlay.style.animation = 'escurecerFundo 0.5s forwards';
 });
 
 // Cancelar a adição de comentário
 document.getElementById('cancelCommentButton').addEventListener('click', () => {
     document.getElementById('commentModal').style.display = 'none'; // Ocultar modal de comentários
+    overlay.style.display = 'none'; //overlay volta pro normal
 });
 
 // Salvar o comentário
@@ -250,4 +261,6 @@ document.getElementById('saveCommentButton').addEventListener('click', async () 
         console.error('Erro:', error);
         alert('Erro ao enviar comentário.');
     }
+
+    overlay.style.display = 'none'; //overlay volta pro normal
 });
