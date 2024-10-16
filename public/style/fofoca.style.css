@@ -95,8 +95,6 @@ h1 {
     margin-bottom: 40px;
 }
 
-
-
 input[type="text"],
 textarea {
     width: 80%;
@@ -152,8 +150,6 @@ p {
     color: #555;
 }
 
-
-
 .comentario-item {
     border-bottom: 1px solid #e0e0e0;
 }
@@ -161,19 +157,6 @@ p {
 #fofocaDetails {
     height: -1000px;
 }
-
-#mostraUsuario {
-    background-color: #ffffff;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #1da1f2;
-    font-size: 16px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-
 
 .button {
     margin-top: 10px;
@@ -216,9 +199,6 @@ p {
     background-color: #1a8cd8;
 }
 
-
-
-
 @media (min-width: 300px) and (max-width: 1050px ){
     #form{
         width: 80%;
@@ -233,4 +213,28 @@ p {
     100% {
         opacity: 1; /* Fica totalmente visível */
     }
+}
+
+.cima {
+    position: relative;
+    height: 50px;
+    width: 95%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+#mostraUsuario {
+    padding-left: 95%;
+    color: #1da1f2;
+    font-size: 18px;
+    margin-right: 20px; /* Margem direita para afastar do canto */
+    position: static; /* Alinha dentro do container flexível */
 }

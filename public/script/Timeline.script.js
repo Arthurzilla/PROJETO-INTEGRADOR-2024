@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const usuarioDiv = document.getElementById('mostraUsuario');
             if (data.usuario) {
-                usuarioDiv.textContent = `Logado como: ${data.usuario}`;
+                usuarioDiv.textContent = `${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }

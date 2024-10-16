@@ -110,16 +110,6 @@ a{
         width: 80%;
     }
 }
-#mostraUsuario {
-    position: absolute;
-    top: 10%;
-    padding-left: 80%;
-
-    color: #1da1f2; /* Cor azul para o texto */
-    font-size: 18px;
-    margin-bottom: 20px; /* Espaçamento inferior */
-    z-index: 100;
-}
 
 .fofoca-date {
     color: gray; /* Ou a cor que você preferir */
@@ -127,19 +117,25 @@ a{
     margin-bottom: 10px; /* Espaçamento inferior */
 }
 
-.cima{
+.cima {
     position: relative;
-    height: 30px;
-    width: 100%;
+    height: 50px; /* Aumentei um pouco a altura para acomodar melhor o conteúdo */
+    width: 90%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Alterado para 'row' para alinhar os itens na horizontal */
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between; /* Espaço entre os itens para distribuição */
+    padding: 0 20px; /* Adicionei padding nas laterais */
+}
 
-    padding-top: 1.5rem
-
+#mostraUsuario {
+    padding-left: 95%;
+    color: #1da1f2; /* Cor azul para o texto */
+    font-size: 18px; /* Um pouco menor para encaixar melhor */
+    margin-bottom: 0; /* Removi o espaçamento inferior */
+    position: static; /* Alterei para 'static' para alinhar dentro do flex container */
 }

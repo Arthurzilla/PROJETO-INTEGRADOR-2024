@@ -12,11 +12,11 @@
     <link rel="stylesheet" href="/style/Create.style.css">
 </head>
 <body>
-    <h1>Criar fofoca</h1>
-
-    <div id="mostraUsuario" style="position: fixed; top: 10px; right: 10px; background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+    <div class="cima"> <div id="mostraUsuario">
         Carregando usuário...
-    </div>
+    </div></div>
+    
+    <h1>Criar fofoca</h1>
     
     <!-- formulario para criação de fofocas -->
     <form id="fofocaForm" action="/fofocas/criar">
@@ -29,14 +29,6 @@
     <a href="/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
 
     <!-- conexão do script -->
-    <script src="/script/Create.script.js">
-        document.addEventListener('DOMContentLoaded', () => {
-        const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
-
-        if (!token) {
-            alert('Você precisa estar logado para criar uma fofoca.');
-            window.location.href = '/login'; // Redireciona para a página de login se não estiver logado
-        }
-    });</script>
+    <script src="/script/Create.script.js"></script>
 </body>
 </html>
