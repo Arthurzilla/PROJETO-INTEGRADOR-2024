@@ -38,4 +38,6 @@ route.get('/:id', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/fofoca.html'));
 });
 
+route.delete('/fofocas/:id', fofocaController.deleteById);
+
 module.exports = route;

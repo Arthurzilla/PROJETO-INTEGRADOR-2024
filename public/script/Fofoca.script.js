@@ -56,8 +56,10 @@ async function fetchFofoca() {
         const loggedUserId = getUserId(); // Função já existente
         if (loggedUserId === fofoca.usuario._id.toString()) {
             document.getElementById('editFofocaButton').style.display = 'block'; // Mostrar botão de edição
+            document.getElementById('trashButton').style.display = 'block'; // Mostrar botão de apagar
         } else {
             document.getElementById('editFofocaButton').style.display = 'none'; // Ocultar botão de edição
+            document.getElementById('trashButton').style.display = 'none'; // Mostrar botão de apagar
         }
 
         fetchComentarios(id);
@@ -263,4 +265,40 @@ document.getElementById('saveCommentButton').addEventListener('click', async () 
     }
 
     overlay.style.display = 'none'; //overlay volta pro normal
+});
+
+
+document.getElementById('trashButton').addEventListener('click', () => {
+    const modal = document.getElementById('trashModal');
+    modal.style.display = 'block'; // Exibe o modal de confirmação
+    overlay.style.display = 'block';
+    overlay.style.animation = 'escurecerFundo 0.5s forwards';
+});
+
+// Cancelar exclusão
+document.getElementById('naoApagarButton').addEventListener('click', () => {
+    const modal = document.getElementById('trashModal');
+    modal.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+// Confirmar exclusão
+document.getElementById('apagarButton').addEventListener('click', async () => {
+    const id = window.location.pathname.split('/').pop(); // Obtém o ID da fofoca
+
+    try {
+        const response = await fetch(`/fofocas/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao deletar fofoca');
+        }
+
+        window.location.href = '/fofocas'; // Redireciona para a timeline após a exclusão
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao deletar fofoca.');
+    }
 });

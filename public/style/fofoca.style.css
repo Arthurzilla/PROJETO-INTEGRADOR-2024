@@ -235,3 +235,11 @@ p {
     margin-bottom: 0;
     position: static;
 }
+
+a{
+    text-decoration: none;
+}
+
+#trashButton{
+    background-color: rgb(230, 35, 35);
+}

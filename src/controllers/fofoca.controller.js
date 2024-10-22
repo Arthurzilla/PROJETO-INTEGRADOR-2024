@@ -23,8 +23,6 @@ const save = async (req, res) => {
     }
 };
 
-
-
 // função GET para exibir todas as fofocas já criadas
 const findAll = async (req,res)=>{
     const fofocas = await fofocaService.findAllService().populate('usuario','user');
@@ -50,22 +48,24 @@ const findById = async (req, res) => {
 };
 
 const deleteById = async (req, res) => {
-    //declara aonde vai procurar o id
-    const id = req.params.id
+    const id = req.params.id;
 
-    //verifica se o id inserido é valido neh
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).send({message: 'ID inválido'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: 'ID inválido' });
     }
 
-    const fofoca =  await fofocaService.deleteByIdService(id)
+    try {
+        const fofoca = await fofocaService.deleteByIdService(id);
+        if (!fofoca) {
+            return res.status(404).send({ message: "Postagem não encontrada" });
+        }
 
-    if(!fofoca){
-        res.status(400).send({message: "Postagem não encontrada"})
+        res.status(200).send({ message: "Fofoca deletada com sucesso" });
+    } catch (error) {
+        console.error("Erro ao deletar fofoca:", error);
+        res.status(500).send({ message: "Erro ao deletar fofoca" });
     }
-
-    res.status(200).send({message: "Delete realizado com sucesso"})
-}
+};
 
 //update por id
 const updateById = async (req,res) => {

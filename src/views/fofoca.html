@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORZH</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <!-- RESET CSS -->
     <link rel="stylesheet" href="/public/style/reset.css">
@@ -33,10 +34,21 @@
         <button id="cancelCommentButton" class="button">Cancelar</button>
     </div>
 
-    <button id="backButton" class="button" onclick="window.history.back()"><i class="bi bi-arrow-left"></i> Voltar</button>
+    <!-- Modal para apagar -->
+    <div class="modal" id="trashModal" style="display:none;">
+        <h2>Deseja mesmo apagar?</h2>
+        <button id="apagarButton" class="button">Deletar</button>
+        <button id="naoApagarButton" class="button">Cancelar</button>
+    </div>
+
+    <a href="/fofocas" class="button" id="backButton"><i class="bi bi-arrow-left"></i> Voltar</a>
+
 
     <form id="form">
         <div id="fofocaDetails"></div>
+
+        <button type="button" id="trashButton" class="button"><i class="bi bi-trash3"></i></button>
+
         <!-- butao para abrir o edit -->
         <button type="button" id="editFofocaButton" class="button"><i class="bi bi-pencil-square"></i></button>
         
