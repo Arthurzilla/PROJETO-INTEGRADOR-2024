@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline</title>
-    <!-- conexão com o CSS -->
-    <link rel="stylesheet" href="/public/style/Timeline.style.css">
+    <title>ORZH</title>
+    <!-- RESET CSS -->
+    <link rel="stylesheet" href="/public/style/reset.css">
+
+    <!-- css da timeline -->
+    <link rel="stylesheet" href="/style/Timeline.style.css">
     <!-- conexão com Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    
 </head>
 <body>
+    <div class="cima"> <div id="mostraUsuario">
+        Carregando usuário...
+    </div></div>
+
     <h1>Fofocas</h1>
     
     <!-- botão para criação de fofoca -->
@@ -18,9 +26,9 @@
     </a>
 
     <!-- div da timeline -->
-    <div id="timeline"></div>
+        <div id="timeline"></div>
 
     <!-- conexão com o script que carregará as fofocas -->
-    <script src="/public/script/Timeline.script.js"></script>
+    <script src="/script/Timeline.script.js"></script>
 </body>
 </html>

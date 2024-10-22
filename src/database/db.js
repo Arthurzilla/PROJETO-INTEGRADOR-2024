@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
-// require('dotenv').config();  Carrega as variáveis de ambiente do .env
+require('dotenv').config(); // Carrega as variáveis de ambiente do .env
 
-
-//CRIA A CONEXÃO DO BANCO DE DADOS ONLINE (RENDER E ATLAS)
-// const connectOnlineDatabase = () => {
-//     console.log('Aguardando conexão...');
-
-//     const uri = process.env.MONGODB_URI; // Obtém a URI do banco de dados
-
-//     console.log('URI:', uri);
-
-//     mongoose.connect(uri)
-//         .then(() => console.log('MongoDB conectado com sucesso.'))
-//         .catch((error) => console.log('Erro ao conectar ao MongoDB:', error));
-// }
+// CRIA A CONEXÃO DO BANCO DE DADOS ONLINE (RENDER E ATLAS)
+// const connectOnlineDatabase = async () => {
+//     try {
+//       await mongoose.connect(process.env.MONGODB_URI, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//         serverSelectionTimeoutMS: 15000, // Aumente o tempo limite se necessário
+//       });
+//       console.log("MongoDB conectado com sucesso!");
+//     } catch (error) {
+//       console.error("Erro na conexão com o MongoDB:", error);
+//       process.exit(1);
+//     }
+//   };
 
 // CRIA A CONEXÃO DO BANCO DE DADOS LOCAL MONGODB
 const connectDatabase = ()=>{

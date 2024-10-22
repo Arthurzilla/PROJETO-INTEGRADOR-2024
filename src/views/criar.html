@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Fofocas</title>
-        <!-- conexão com CSS -->
-    <link rel="stylesheet" href="/public/style/Create.style.css">
+    <title>ORZH</title>
+    <!-- RESET CSS -->
+    <!-- RESET CSS -->
+    <link rel="stylesheet" href="/public/style/reset.css">
+            <!-- conexão com CSS -->
+    <link rel="stylesheet" href="/style/Create.style.css">
 </head>
 <body>
+    <div class="cima"> <div id="mostraUsuario">
+        Carregando usuário...
+    </div></div>
+    
     <h1>Criar fofoca</h1>
+    
     <!-- formulario para criação de fofocas -->
     <form id="fofocaForm" action="/fofocas/criar">
-        <label for="titulo">Titulo:</label><br>
-        <input type="text" name="titulo" id="titulo" required><br>
-        
         <label for="conteudo">Conteudo:</label><br>
-        <textarea type="text" name="conteudo" id="conteudo" required></textarea><br>
+        <textarea name="conteudo" id="conteudo" required></textarea><br>
         
         <button type="submit" id="buttonCriar">Criar</button>
     </form>
@@ -24,14 +29,6 @@
     <a href="/fofocas"><button type="submit" id="buttonVoltar">Voltar</button></a>
 
     <!-- conexão do script -->
-    <script src="/public/script/Create.script.js">
-        document.addEventListener('DOMContentLoaded', () => {
-        const token = localStorage.getItem('token'); // Ou sessionStorage.getItem('token')
-
-        if (!token) {
-            alert('Você precisa estar logado para criar uma fofoca.');
-            window.location.href = '/login'; // Redireciona para a página de login se não estiver logado
-        }
-    });</script>
+    <script src="/script/Create.script.js"></script>
 </body>
 </html>

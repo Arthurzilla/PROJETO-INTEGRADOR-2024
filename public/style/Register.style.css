@@ -10,38 +10,43 @@ body {
 }
 
 /* Estilizar o título dentro do formulário */
-form h2 {
+#registerForm h2 {
     font-size: 24px;
     color: #1da1f2;
     margin-bottom: 20px;
     text-align: center; /* Centralizar o título */
 }
 
-form {
+h2{
+    color: #1da1f2;
+}
+
+#registerForm {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    max-width: 400px;
+    
+    width: 25%;
+    
 }
 
 label {
     font-size: 18px;
     color: #333;
-    margin-bottom: 8px;
     align-self: flex-start;
 }
 
 /* Estilos para os campos de usuário, email e senha */
 #usuario, #email, #senha {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 16px;
@@ -59,11 +64,9 @@ label {
     background-color: #1da1f2;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
+    font-size: 15px;
     border-radius: 25px;
-    width: 100%;
-    max-width: 200px;
+    width: 40%;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 20px; /* Espaçamento entre o botão e o link */
@@ -107,4 +110,21 @@ a:active {
     color: #da1919;
     font-size: 14px;
     text-align: center;
+}
+
+#buttonContent{
+    padding: none;
+    color: white;
+}
+
+@media (max-width: 600px){
+    #registerForm{
+        width: 80%;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 1050px){
+    #registerForm{
+        width: 55%;
+    }
 }

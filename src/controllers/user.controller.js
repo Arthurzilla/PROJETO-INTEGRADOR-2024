@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 
 const userService = require('../services/user.service');
 const jwt = require('jsonwebtoken');
@@ -101,4 +102,21 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-module.exports = { save, find, verifyToken };
+const getUserLogado = (req, res) => {
+    const authorizationHeader = req.headers['authorization'];
+    const token = req.session.token || (authorizationHeader && authorizationHeader.split(' ')[1]);
+
+    if (!token) {
+        return res.status(403).json({ message: 'Token não fornecido.' });
+    }
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Token inválido.' });
+        }
+
+        res.status(200).json({ usuario: decoded.user });
+    });
+};
+
+module.exports = { save, find, verifyToken, getUserLogado };

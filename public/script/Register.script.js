@@ -37,7 +37,6 @@ registerForm.addEventListener('submit', async (event) => {
             return;
         }
 
-        alert('Usuário registrado com sucesso');
         window.location.href = '/login';
     } catch (error) {
         console.error('Erro:', error);

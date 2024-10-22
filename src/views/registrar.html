@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="/public/style/Register.style.css">
+    <title>ORZH</title>
+    <!-- RESET CSS -->
+    <link rel="stylesheet" href="/public/style/reset.css">
+    <link rel="stylesheet" href="/style/Register.style.css">
 </head>
 <body>
+    <h2>Cadastrar Conta</h2>
+
     <form id="registerForm">
-        <h2>Cadastrar Conta</h2>
+        
         <label for="usuario">Usuario:</label><br>
         <input type="text" name="usuario" id="usuario" required><br>
         
@@ -20,12 +24,13 @@
 
         <p id="alertPassword"></p>
         
-        <button type="submit" id="cadastroButton">cadastrar</button>
-
+        <button type="submit" id="cadastroButton"><p id="buttonContent">Cadastrar</p></button>
         <a href="/login">Já tem uma conta? Faça login</a>
         <a href="/fofocas/convidado">Entrar como convidado</a>
     </form>
 
-    <script src="/public/script/Register.script.js"></script>
+   
+
+    <script src="/script/Register.script.js"></script>
 </body>
 </html>

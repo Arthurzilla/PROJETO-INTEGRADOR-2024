@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 
-const comentarioSchema = new mongoose.Schema({
-    usuario:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario',
-        required: true
-    },
+const ComentarioSchema = new mongoose.Schema({
+    usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario', required: true },
+    text: { type: String, required: true },
+    date: { type: Date, default: Date.now },
+    fofocaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Fofoca', required: true }
+});
 
-    text: {
-        type: String,
-        maxlength: 150,
-        required: true
-    },
+const Comentario = mongoose.model('Comentario', ComentarioSchema);
 
-    
-})
+module.exports = Comentario;

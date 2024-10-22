@@ -14,6 +14,13 @@ const userRoute = require('./src/routes/user.route');
 // Middleware para permitir CORS
 app.use(cors());
 
+app.use((req, res, next) => {
+    if (req.path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+    }
+    next();
+});
+
 // Middleware para gerenciar sessões
 app.use(session({
     secret: 'algumaChaveSecretaSegura', // Substitua por uma chave secreta segura
@@ -26,7 +33,10 @@ app.use(session({
 app.use(express.json());
 
 // Conexão de pastas estáticas
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Conexão ao banco de dados LOCAL
 database.connectDatabase();
@@ -45,5 +55,6 @@ app.get('/', (req, res) => {
 
 // Iniciar o servidor
 app.listen(porta, () => {
-    console.log(`Servidor rodando na porta http://localhost:${porta}/fofocas/convidado`);
+    console.log(`Servidor rodando na porta 3000
+http://localhost:${porta}/fofocas/convidado`);
 });
