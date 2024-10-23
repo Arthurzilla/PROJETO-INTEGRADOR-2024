@@ -1,4 +1,4 @@
-//importa a função de salvar no BD
+// importa a função de salvar no BD
 const Fofoca = require('../models/Fofoca.js');
 const fofocaService = require('../services/fofoca.service');
 const mongoose = require('mongoose');
@@ -24,19 +24,25 @@ const save = async (req, res) => {
 };
 
 // função GET para exibir todas as fofocas já criadas
-const findAll = async (req,res)=>{
-    const fofocas = await fofocaService.findAllService().populate('usuario','user');
+const findAll = async (req, res) => {
+    try {
+        const fofocas = await fofocaService.findAllService().populate('usuario', 'user displayUser');
 
-    if(fofocas.length === 0){
-        return res.status(400).send({message:"Não há nenhuma fofoca"});
+        if (fofocas.length === 0) {
+            return res.status(400).send({ message: "Não há nenhuma fofoca" });
+        }
+
+        res.status(200).send(fofocas);
+    } catch (error) {
+        console.error("Erro ao buscar fofocas:", error);
+        res.status(500).send({ message: "Erro ao buscar fofocas" });
     }
+};
 
-    res.status(200).send(fofocas);
-}
-
+// função GET para exibir uma fofoca pelo ID
 const findById = async (req, res) => {
     try {
-        const fofoca = await Fofoca.findById(req.params.id).populate('usuario','user');
+        const fofoca = await Fofoca.findById(req.params.id).populate('usuario', 'user displayUser');
         if (!fofoca) {
             return res.status(404).send({ message: 'Fofoca não encontrada.' });
         }
@@ -47,6 +53,7 @@ const findById = async (req, res) => {
     }
 };
 
+// função DELETE para deletar uma fofoca pelo ID
 const deleteById = async (req, res) => {
     const id = req.params.id;
 
@@ -67,21 +74,30 @@ const deleteById = async (req, res) => {
     }
 };
 
-//update por id
-const updateById = async (req,res) => {
-
-    const {title, description} = req.body;
+// função PATCH para atualizar uma fofoca pelo ID
+const updateById = async (req, res) => {
+    const { date, description } = req.body;
     const id = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(400).send({message: 'ID INVÁLIDO'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).send({ message: 'ID inválido' });
     }
-    const fofoca = await fofocaService.updateByIdService(id, title, description)
-    if(!fofoca){
-        res.status(400).send({message: "Postagem não encontrada"})
+
+    if (!description) {
+        return res.status(400).send({ message: 'Descrição não pode ser vazia.' });
     }
-    res.status(200).send("Update realizado com sucesso")
-}
 
-module.exports = { save, findAll, findById, deleteById, updateById }
+    try {
+        const fofoca = await fofocaService.updateByIdService(id, date, description);
+        if (!fofoca) {
+            return res.status(404).send({ message: "Postagem não encontrada" });
+        }
 
+        res.status(200).send("Update realizado com sucesso");
+    } catch (error) {
+        console.error("Erro ao atualizar fofoca:", error);
+        res.status(500).send({ message: "Erro ao atualizar fofoca" });
+    }
+};
+
+module.exports = { save, findAll, findById, deleteById, updateById };

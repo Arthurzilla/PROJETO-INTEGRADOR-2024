@@ -47,7 +47,7 @@ async function fetchFofoca() {
         const dataFormatada = timeAgo(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
-            <h3>${fofoca.usuario.user}</h3>
+            <h3>${fofoca.usuario.displayUser} - @${fofoca.usuario.user}</h3>
             <p class="fofoca-date" id="dataFor">${dataFormatada}</p>
             <p class="fofoca-description">${fofoca.description}</p>
         `;
@@ -116,7 +116,9 @@ async function fetchComentarios(id) {
         }
 
         comentarios.forEach(comentario => {
-            const usuario = comentario.usuario ? comentario.usuario.user : 'Usuário desconhecido';
+            const usuario = comentario.usuario 
+                ? `${comentario.usuario.displayUser} - @${comentario.usuario.user}` 
+                : 'Usuário desconhecido';
             const dataFormatada = timeAgo(new Date(comentario.date));
             const texto = comentario.text || 'Sem conteúdo';
 
@@ -145,6 +147,8 @@ function getUserId() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
+    const usuarioDiv = document.getElementById('mostraUsuario');
+
     if (token) {
         fetch('/usuario-logado', {
             headers: {
@@ -158,15 +162,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            const usuarioDiv = document.getElementById('mostraUsuario');
-            if (data.usuario) {
-                usuarioDiv.textContent = `${data.usuario}`;
+            if (data.usuario) { // Verifica se usuario está presente
+                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`; // Mostra apenas o displayUser
             } else {
-                usuarioDiv.textContent = '';
+                usuarioDiv.textContent = 'Usuário não encontrado';
             }
+        })
+        .catch(error => {
+            console.error('Erro ao obter usuário logado:', error);
+            usuarioDiv.textContent = 'Erro ao obter usuário logado';
         });
     } else {
-        document.getElementById('mostraUsuario').textContent = 'Usuário não logado';
+        usuarioDiv.textContent = 'Você não está logado';
     }
 });
 
