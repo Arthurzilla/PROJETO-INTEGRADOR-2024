@@ -112,7 +112,7 @@ a{
 }
 
 nav {
-    height: 40px; 
+    height: 2%; 
     width: 90%;
     background-color: black;
     border-radius: 10px;
@@ -121,6 +121,9 @@ nav {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
     
 }
 
