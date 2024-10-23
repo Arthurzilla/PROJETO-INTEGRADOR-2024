@@ -27,7 +27,8 @@ h1 {
     align-items: center;
     justify-content: flex-start;
 
-    padding-top: 1.5rem
+    padding-top: 1.5rem;
+    margin-top: 100px;
 }
 
 .fofoca {
@@ -112,25 +113,26 @@ a{
 }
 
 nav {
-    height: 2%; 
-    width: 90%;
-    background-color: black;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+    top: 0px;
+    position: fixed;
+    z-index: 1000;
+    height: 10%; 
+    width: 100%;
+    background-color: white;
 
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    margin: 0px;
+    border-bottom: 1px solid #e0e0e0;
 
-    margin-top: 1.5%;
-    margin-bottom: 1.5%;
-    
 }
 
 #mostraUsuario{
-    color: white;
-    background-color: orange;
+    color: #1d9bf0;
+    background-color: none;
     padding: 5px;
-    margin-left: 10px;
     margin-right: 60px;
+    font-weight: bolder;
+    font-size: large;
 }
