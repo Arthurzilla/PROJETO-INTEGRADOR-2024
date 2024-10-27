@@ -1,7 +1,7 @@
 const comentarioService = require('../services/comentario.service');
 const Comentario = require('../models/Comentario')
 
-// Salva um novo comentário
+// Salva um novo comentário 
 const save = async (req, res) => {
     const { usuario, text } = req.body;
     const fofocaId = req.params.id;

@@ -18,6 +18,7 @@
 <body>
     <nav>
         <p id="mostraUsuario"></p>
+        <button id="backButton" class="button" onclick="window.history.back()"><i class="bi bi-arrow-left"></i> Voltar</button>
     </nav>
 
     <div class="overlay" id="overlay"></div> <!-- Overlay escuro -->
@@ -44,23 +45,29 @@
         <button id="naoApagarButton" class="button">Cancelar</button>
     </div>
 
-    <button id="backButton" class="button" onclick="window.history.back()"><i class="bi bi-arrow-left"></i> Voltar</button>
+    
 
     <form id="form">
         <div id="fofocaDetails"></div>
 
-        <button type="button" id="trashButton" class="button"><i class="bi bi-trash3"></i></button>
+    
+            <ul id="fofocaOptions">
+                 <!-- button para excluir -->
+                <li><button type="button" id="trashButton" class="button"><i class="bi bi-trash3"></i></button><p>Excluir</p></li>
+                <!-- butao para abrir o edit -->
+                <li><button type="button" id="editFofocaButton" class="button"><i class="bi bi-pencil-square"></i></button><p>Editar</p></li>
+                <!-- Botão para abrir o modal de comentários -->
+                <li><button type="button" id="openCommentModalButton" class="button"><i class="bi bi-plus"></i></button><p>Comentar</p></li>
+            </ul>
+           
 
-        <!-- butao para abrir o edit -->
-        <button type="button" id="editFofocaButton" class="button"><i class="bi bi-pencil-square"></i></button>
-        
-        <!-- Botão para abrir o modal de comentários -->
-        <button type="button" id="openCommentModalButton" class="button"><i class="bi bi-plus"></i></button>
+
 
         <div id="comentarioDiv" class="comentario-container">
-            <h1>Comentários</h1>
+            <!-- <h1 id="fofoca-comentarios-titulo">Comentários</h1> -->
             <div id="comentariosList"></div>
         </div>
     </form>
+</div>
 </body>
 </html>

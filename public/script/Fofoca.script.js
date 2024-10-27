@@ -28,6 +28,7 @@ function timeAgo(date) {
     }
 }
 
+
 async function fetchFofoca() {
     const path = window.location.pathname;
     const id = path.split('/').pop();
@@ -47,9 +48,12 @@ async function fetchFofoca() {
         const dataFormatada = timeAgo(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
-            <h3>${fofoca.usuario.user}</h3>
-            <p class="fofoca-date" id="dataFor">${dataFormatada}</p>
-            <p class="fofoca-description">${fofoca.description}</p>
+        <div class='user-specs'>
+            <h3 id='fofoca-user'>${fofoca.usuario.user}</h3>
+            
+        </div>
+            <p id="fofoca-description">${fofoca.description}</p>
+            <p id='fofoca-date'>${dataFormatada}</p>
         `;
 
         // Verificar se o usuário logado é o mesmo que o usuário da fofoca
@@ -122,9 +126,11 @@ async function fetchComentarios(id) {
 
             comentariosList.innerHTML += `
                 <div class="comentario-item">
-                    <h3>${usuario}</h3>
-                    <p>${dataFormatada}</p>
-                    <p>${texto}</p>
+                    <div id='comentarios-user-specs'>
+                    <h3 id='comentarios-usuario'>${usuario}</h3>
+                    <p id='comentarios-data'>${dataFormatada}</p>
+                    </div>
+                    <p id='comentarios-description'>${texto}</p>
                 </div>
             `;
         });
