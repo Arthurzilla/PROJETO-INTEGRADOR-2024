@@ -16,58 +16,66 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav>
-        <p id="mostraUsuario"></p>
-        <button id="backButton" class="button" onclick="window.history.back()"><i class="bi bi-arrow-left"></i> Voltar</button>
+    <nav class="navbar">
+        <p id="mostraUsuario" class="user-info"></p>
+        <button id="backButton" class="button" onclick="window.history.back()">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
     </nav>
 
     <div class="overlay" id="overlay"></div> <!-- Overlay escuro -->
 
     <div class="modal" id="editModal" style="display:none;">
+        <button class="close-button" id="closeEditButton">&times;</button>
         <h2>Editar Fofoca</h2>
         <textarea id="editDescription" rows="4" required></textarea>
         <button id="saveEditButton" class="button">Salvar Edição</button>
-        <button id="cancelEditButton" class="button">Cancelar</button>
     </div>
-
+    
     <!-- Modal para adicionar comentário -->
     <div class="modal" id="commentModal" style="display:none;">
+        <button class="close-button" id="closeCommentButton">&times;</button>
         <h2>Adicionar Comentário</h2>
         <textarea id="commentTextModal" rows="4" required></textarea>
         <button id="saveCommentButton" class="button">Salvar Comentário</button>
-        <button id="cancelCommentButton" class="button">Cancelar</button>
     </div>
-
+    
     <!-- Modal para apagar -->
     <div class="modal" id="trashModal" style="display:none;">
+        <button class="close-button" id="closeTrashButton">&times;</button>
         <h2>Deseja mesmo apagar?</h2>
         <button id="apagarButton" class="button">Deletar</button>
-        <button id="naoApagarButton" class="button">Cancelar</button>
     </div>
-
-    
 
     <form id="form">
         <div id="fofocaDetails"></div>
 
-    
-            <ul id="fofocaOptions">
-                 <!-- button para excluir -->
-                <li><button type="button" id="trashButton" class="button"><i class="bi bi-trash3"></i></button><p>Excluir</p></li>
-                <!-- butao para abrir o edit -->
-                <li><button type="button" id="editFofocaButton" class="button"><i class="bi bi-pencil-square"></i></button><p>Editar</p></li>
-                <!-- Botão para abrir o modal de comentários -->
-                <li><button type="button" id="openCommentModalButton" class="button"><i class="bi bi-plus"></i></button><p>Comentar</p></li>
-            </ul>
-           
+        <ul id="fofocaOptions" class="fofoca-options">
+            <!-- botão para excluir -->
+            <li>
+                <button type="button" id="trashButton" class="button">
+                    <i class="bi bi-trash3"></i>
+                </button>
 
+            </li>
+            <!-- botão para abrir o edit -->
+            <li>
+                <button type="button" id="editFofocaButton" class="button">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
 
+            </li>
+            <!-- Botão para abrir o modal de comentários -->
+            <li>
+                <button type="button" id="openCommentModalButton" class="button">
+                    <i class="bi bi-plus"></i>
+                </button>
+            </li>
+        </ul>
 
         <div id="comentarioDiv" class="comentario-container">
-            <!-- <h1 id="fofoca-comentarios-titulo">Comentários</h1> -->
             <div id="comentariosList"></div>
         </div>
     </form>
-</div>
 </body>
 </html>
