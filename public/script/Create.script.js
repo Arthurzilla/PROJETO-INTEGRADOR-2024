@@ -39,6 +39,8 @@ fofocaForm.addEventListener('submit', async (event) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
+    const usuarioDiv = document.getElementById('mostraUsuario');
+
     if (token) {
         fetch('/usuario-logado', {
             headers: {
@@ -52,14 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            const usuarioDiv = document.getElementById('mostraUsuario');
-            if (data.usuario) {
-                usuarioDiv.textContent = `${data.usuario}`;
+            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
         })
+        .catch(error => {
+            console.error('Erro ao obter usuário logado:', error);
+            usuarioDiv.textContent = 'Erro ao obter usuário logado';
+        });
     } else {
-        document.getElementById('mostraUsuario').textContent = 'Usuário não logado';
+        usuarioDiv.textContent = 'Você não está logado';
     }
 });

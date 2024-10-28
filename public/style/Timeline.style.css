@@ -161,3 +161,24 @@ h1 {
         font-size: medium;
     }
 }
+
+#logout-button {
+    background-color: #ff4757; /* Vermelho para destacar */
+    color: white; /* Texto branco */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Cantos arredondados */
+    padding: 10px 20px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor em forma de mão ao passar por cima */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+#logout-button:hover {
+    background-color: #e84118; /* Cor mais escura ao passar o mouse */
+}
+
+#logout-button:focus {
+    outline: none; /* Remove a borda de foco */
+    box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.5); /* Sombra ao focar */
+}

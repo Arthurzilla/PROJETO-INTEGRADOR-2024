@@ -1,10 +1,6 @@
 const overlay = document.getElementById('overlay');
 
 function timeAgo(date) {
-    if (!(date instanceof Date) || isNaN(date)) {
-        return 'Data inválida';
-    }
-
     const now = new Date();
     const seconds = Math.floor((now - date) / 1000);
     const minutes = Math.floor(seconds / 60);
@@ -14,17 +10,19 @@ function timeAgo(date) {
     const years = Math.floor(days / 365);
 
     if (seconds < 60) {
-        return `${seconds} segundos atrás`;
+        return seconds === 1 ? '1 s' : `${seconds} s`;
     } else if (minutes < 60) {
-        return `${minutes} minutos atrás`;
+        return minutes === 1 ? '1 m' : `${minutes} m`;
     } else if (hours < 24) {
-        return `${hours} horas atrás`;
+        return hours === 1 ? '1 h' : `${hours} h`;
+    } else if (days < 7) {
+        return days === 1 ? '1 dia atrás' : `${days} dias atrás`;
     } else if (days < 30) {
-        return `${days} dias atrás`;
+        return days < 7 ? `${days} dias atrás` : `${Math.floor(days / 7)} semanas atrás`;
     } else if (months < 12) {
-        return `${months} meses atrás`;
+        return months === 1 ? '1 mês atrás' : `${months} meses atrás`;
     } else {
-        return `${years} anos atrás`;
+        return years === 1 ? '1 ano atrás' : `${years} anos atrás`;
     }
 }
 
@@ -162,8 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.usuario) { // Verifica se usuario está presente
-                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`; // Mostra apenas o displayUser
+            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
