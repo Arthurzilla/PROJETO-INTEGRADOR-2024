@@ -70,6 +70,11 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 5px;
     color: white;
+    transition: background-color 0.3s ease;
+}
+
+#trashButton:hover{
+    background-color: rgb(127, 1, 1);
 }
 
 
@@ -313,7 +318,7 @@ a{
 }
 
 /* Estilo dos botões dentro dos modais */
-.modal button {
+.action-button {
     background-color: #1d9bf0;
     color: white;
     border: none;
@@ -321,30 +326,20 @@ a{
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: 16px;
-    margin: 10px;
+   
 }
 
-.modal button:hover {
+.action-button:hover {
     background-color: #1a8cd8;
 }
 
-.modal button:active {
+.action-button:active {
     transform: scale(0.98);
 }
 
 /* Botão de cancelar em vermelho */
-.modal #cancelEditButton,
-.modal #cancelCommentButton,
-.modal #naoApagarButton {
-    background-color: #e74c3c;
-}
 
-.modal #cancelEditButton:hover,
-.modal #cancelCommentButton:hover,
-.modal #naoApagarButton:hover {
-    background-color: #c0392b;
-}
+
 
 .modal {
     position: fixed; /* Centralizar o modal na tela */
@@ -369,7 +364,7 @@ textarea {
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s ease;
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
 
 textarea:focus {
@@ -377,7 +372,7 @@ textarea:focus {
     outline: none;
 }
 
-.button {
+/* .button {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
@@ -388,23 +383,22 @@ textarea:focus {
     background-color: #1d9bf0;
     transition: background-color 0.3s ease;
 }
-
-.button:hover {
-    background-color: #1a8cd8;
-}
-
+ */
 .close-button {
     position: absolute;
-    top: 10px;
+    top: 15px;
     right: 15px;
-    background: none;
     border: none;
-    font-size: 20px;
     cursor: pointer;
-    color: #888;
     transition: color 0.3s ease;
+    background-color: red;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    width: 30px;
+    height: 30px;
+
 }
 
 .close-button:hover {
-    color: #333;
+    background-color: darkred;  
 }
