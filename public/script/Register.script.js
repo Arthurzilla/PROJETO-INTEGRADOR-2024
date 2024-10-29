@@ -4,6 +4,7 @@ const registerForm = document.getElementById('registerForm');
 registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    const displayUser = document.getElementById('displayUser').value;
     const usuario = document.getElementById('usuario').value;
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
@@ -19,7 +20,7 @@ registerForm.addEventListener('submit', async (event) => {
         const response = await fetch('/cadastro', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: usuario, email: email, password: senha })
+            body: JSON.stringify({ displayUser: displayUser, user: usuario, email: email, password: senha })
         });
 
         if (!response.ok) {
@@ -43,5 +44,5 @@ registerForm.addEventListener('submit', async (event) => {
         document.getElementById("alertPassword").textContent = error.message;
     }
 
-    console.log('Requisição enviada:', { user: usuario, email, password: senha });
+    console.log('Requisição enviada:', { displayUser: displayUser, user: usuario, email: email, password: senha });
 });

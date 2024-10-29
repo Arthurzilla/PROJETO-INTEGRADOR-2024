@@ -19,5 +19,8 @@ route.post('/login/api', userController.find)
 
 route.get('/usuario-logado', userController.getUserLogado)
 
+route.post('/logout', (req, res) => {
+    res.status(200).json({ message: 'Deslogado com sucesso' });
+});
 
 module.exports = route;

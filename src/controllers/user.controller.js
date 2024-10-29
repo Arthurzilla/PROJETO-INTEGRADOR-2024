@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const Usuario = require('../models/Usuario');
 
 const userService = require('../services/user.service');
 const jwt = require('jsonwebtoken');
@@ -7,10 +8,10 @@ const JWT_SECRET = process.env.JWT_SECRET || 'algumaChaveSecretaSegura';
 
 // função POST para criação de usuário
 const save = async (req, res) => {
-    const { user, email, password } = req.body;
+    const { user, email, password, displayUser } = req.body;
     try{
     // Validação dos campos
-    if (!user || !email || !password) {
+    if (!user || !email || !password || !displayUser) {
         return res.status(400).send({ error: "Preencha os campos corretamente." });
     }
 
@@ -39,7 +40,8 @@ const save = async (req, res) => {
         usuario: {
             id: usuarioSalvo._id,
             user: usuarioSalvo.user,
-            email: usuarioSalvo.email
+            email: usuarioSalvo.email,
+            displayUser: usuarioSalvo.displayUser
         }
     });
 }catch(error){
@@ -65,11 +67,14 @@ const find = async (req, res) => {
         return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
+
     // Gera o token JWT
     const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET, { expiresIn: '1h' });
 
     // Armazena o token na sessão do usuário
     req.session.token = token;
+
+    
 
     return res.status(200).json({
         message: 'Usuário encontrado com sucesso.',
@@ -115,7 +120,16 @@ const getUserLogado = (req, res) => {
             return res.status(401).json({ message: 'Token inválido.' });
         }
 
-        res.status(200).json({ usuario: decoded.user });
+        // Aqui você deve buscar o usuário completo para obter o `displayUser`
+        Usuario.findById(decoded.id)
+            .then((usuario) => {
+                if (!usuario) {
+                    return res.status(404).json({ message: 'Usuário não encontrado.' });
+                }
+                // Certifique-se de enviar `displayUser` no retorno
+                res.status(200).json({ usuario: usuario.user, displayUser: usuario.displayUser });
+            })
+            .catch((err) => res.status(500).json({ message: 'Erro ao buscar usuário.', error: err }));
     });
 };
 

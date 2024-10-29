@@ -44,7 +44,7 @@ label {
 }
 
 /* Estilos para os campos de usuário, email e senha */
-#usuario, #email, #senha {
+#displayUser, #usuario, #email, #senha {
     width: 100%;
     padding: 10px;
     border-radius: 5px;

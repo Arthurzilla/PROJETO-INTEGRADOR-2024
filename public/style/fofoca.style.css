@@ -5,20 +5,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+
 }
 
 #form {
-    width: 600px;
-    background-color: #fff;
+    width: 48%;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 40px;
-
     position: relative;
-}
 
+
+    margin-top: 15vh;
+}
 
 .modal {
     position: absolute;
@@ -33,19 +32,14 @@ body {
 }
 
 #editFofocaButton {
-    position: absolute;
-    right: 5%;
-    top:7%;
-    
-     height: 50px;
-     width: 50px;
      background-color: #1d9bf0;
      color: white;
-     font-size: 30px;
      border: none;
      cursor: pointer;
      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
      transition: background-color 0.3s ease;
+     border-radius: 5px;
+     padding: 10px;
  }
  
  #editFofocaButton:hover {
@@ -53,23 +47,36 @@ body {
  }
 
  #openCommentModalButton {
-    position: relative;
-    top: 4px;
-    left: 190px;
-    height: 50px;
-    width: 50px;
     background-color: #1d9bf0;
     color: white;
-    font-size: 30px;
     border: none;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease;
+
+    border-radius: 5px;
+    padding: 10px;
 }
 
 #openCommentModalButton:hover {
     background-color: #1a8cd8;
 }
+
+#trashButton{
+    background-color: rgb(230, 35, 35);
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+#trashButton:hover{
+    background-color: rgb(127, 1, 1);
+}
+
 
 .overlay {
     position: fixed;
@@ -84,17 +91,16 @@ body {
     animation: escurecerFundo 0.5s forwards; /* Animação de escurecimento */
 }
 
-h1 {
+#fofoca-comentarios-titulo {
     padding-bottom: 20px;
     border-bottom: 1px solid #e0e0e0;
     font-size: 28px;
     color: #1d9bf0;
-    margin-top: -40px;
     margin-bottom: 40px;
+    background-color: #0056b3;
 }
 
-input[type="text"],
-textarea {
+input[type="text"], textarea {
     width: 80%;
     resize: none;
     padding: 10px;
@@ -111,20 +117,7 @@ textarea:focus {
     outline: none;
 }
 
-.button {
-    background-color: #1d9bf0;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
 
-.button:hover {
-    background-color: #1a8cd8;
-}
 
 .fofoca {
     border-bottom: 1px solid #e0e0e0;
@@ -137,49 +130,69 @@ textarea:focus {
     background-color: #f0f8ff;
 }
 
-h3 {
-    font-size: 18px;
-    color: #1d9bf0;
-    margin-bottom: 0px;
-}
-
-p {
-    font-size: 16px;
-    color: #555;
-}
 
 .comentario-item {
     border-bottom: 1px solid #e0e0e0;
 }
 
-#fofocaDetails {
-    height: -1000px;
+
+
+
+#fofocaDetails{
+    background-color: none;
 }
 
-.button {
-    margin-top: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.user-specs{
+    /* background-color: black; */
+    display: flex;
+    align-items: first baseline;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    margin-left: 3%;
 }
 
-.button:hover {
-    background-color: #0056b3;
-}
-
-.fofoca-date {
+#fofoca-date {
     color: gray;
     font-style: italic;
-    margin-bottom: 10px;
+    font-size: 1.1rem;
+    margin-left: 3%;
 }
 
-.fofoca-description {
-    font-size: 16px;
-    line-height: 1.5;
+#fofoca-user{
+    font-size: 1.2rem;
+    color: #1d9bf0;
 }
+
+#fofoca-description {
+    font-size: 1.1rem;
+    line-height: 1.5;
+
+    background-color: none;
+    margin-top: 0px;
+    margin-left: 3%;
+}
+
+#fofocaOptions{
+    list-style-type: none;
+    /* background-color: #ffffff; */
+    
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1.5rem;
+}
+
+#fofocaOptions li{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
 
 #backButton {
     background-color: #1d9bf0;
@@ -189,7 +202,6 @@ p {
     padding: 10px 15px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 20px;
     transition: background-color 0.3s ease;
 }
 
@@ -197,9 +209,101 @@ p {
     background-color: #1a8cd8;
 }
 
-@media (min-width: 300px) and (max-width: 1050px ){
+#comentariosList{
+    background-color: none;
+}
+
+#comentarios-user-specs{
+    display: flex;
+    align-items: first baseline;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    margin-top:1%;
+    margin-left: 3%;
+}
+
+#comentarios-usuario{
+    font-size: 1.2rem;
+    color: #1d9bf0;
+    background-color: none;
+}
+
+#comentarios-data{
+    background-color: none;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+#comentarios-description{
+    font-size: 1.1rem;
+    line-height: 1.5;
+
+    background-color: none;
+    margin-top: 0px;
+    margin-left: 3%;
+
+}
+
+
+
+nav {
+    top: 0px;
+    position: fixed;
+    z-index: 998;
+    height: 13vh; 
+    width: 100%;
+    background-color: white;
+
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin: 0px;
+    border-bottom: 1px solid #e0e0e0;
+
+}
+
+#mostraUsuario{
+    color: #1d9bf0;
+    background-color: none;
+    padding: 5px;
+    margin-right: 60px;
+    font-weight: bolder;
+    font-size: 1.4rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+/* responsividade geral  */
+@media (max-width: 600px){
+
+
+    #mostraUsuario{
+        margin-right: 10px;
+        font-size: 1rem
+    }
+
+    #form{
+        width: 100%;
+    }
+
+
+}
+
+@media (min-width: 600px) and (max-width: 1000px){
+
+
+    #mostraUsuario{
+
+        margin-right: 30px;
+        font-size: 1.2rem;
+    }
+
     #form{
         width: 80%;
+
     }
 }
 
@@ -213,33 +317,88 @@ p {
     }
 }
 
-.cima {
-    position: relative;
-    height: 50px; 
+/* Estilo dos botões dentro dos modais */
+.action-button {
+    background-color: #1d9bf0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+   
+}
+
+.action-button:hover {
+    background-color: #1a8cd8;
+}
+
+.action-button:active {
+    transform: scale(0.98);
+}
+
+/* Botão de cancelar em vermelho */
+
+
+
+.modal {
+    position: fixed; /* Centralizar o modal na tela */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
     width: 90%;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
-
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
-    justify-content: space-between; 
-    padding: 0 20px;
+    max-width: 400px; /* Largura máxima do modal */
 }
 
-#mostraUsuario {
-    padding-left: 95%;
-    color: #1da1f2;
-    font-size: 18px; 
-    margin-bottom: 0;
-    position: static;
+textarea {
+    width: 100%; /* Ajusta a largura do textarea para ocupar o modal */
+    height: 100px; /* Altura menor para o textarea */
+    resize: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    margin-bottom: 10px;
 }
 
-a{
-    text-decoration: none;
+textarea:focus {
+    border-color: #1d9bf0;
+    outline: none;
 }
 
-#trashButton{
-    background-color: rgb(230, 35, 35);
+/* .button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+    background-color: #1d9bf0;
+    transition: background-color 0.3s ease;
+}
+ */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    background-color: red;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    width: 30px;
+    height: 30px;
+
+}
+
+.close-button:hover {
+    background-color: darkred;  
 }
