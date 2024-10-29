@@ -50,9 +50,13 @@ const loadFofocas = async () => {
             
                 fofocaElement.innerHTML = `
                 <a href="/fofocas/${id}">
-                    <h3>${usuario.displayUser} - @${usuario.user}</h3>
-                    <p class='fofoca-date'>Há ${formattedDate}</p>
-                    <p>${description}</p>
+
+                  
+
+                    <h3 id='usuarioTimeline' class='small-title'>${usuario.displayUser}-@${usuario.user}</h3>
+                    <p id='fofoca-date'>Há ${formattedDate}</p>
+                    <p id='fofoca-description'>${description}</p>
+
                 </a>
                 `;
                 timelineDiv.appendChild(fofocaElement);
