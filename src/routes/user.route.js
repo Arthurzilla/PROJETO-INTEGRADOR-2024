@@ -23,4 +23,6 @@ route.post('/logout', (req, res) => {
     res.status(200).json({ message: 'Deslogado com sucesso' });
 });
 
+route.get('perfil/:id/api', userController.findById);
+
 module.exports = route;

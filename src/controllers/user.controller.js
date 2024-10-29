@@ -133,4 +133,16 @@ const getUserLogado = (req, res) => {
     });
 };
 
-module.exports = { save, find, verifyToken, getUserLogado };
+const findById = async (req, res) => {
+    try {
+        const usuario = await Usuario.findById(req.params.id)
+        if (!usuario) {
+            return res.status(404).send({ message: 'usuario não encontrada.' });
+        }
+        res.json(usuario);
+    } catch (error) {
+        console.error('Erro ao buscar usuario:', error);
+        res.status(500).send({ message: 'Erro ao buscar usuario.' });
+    }
+}; 
+module.exports = { save, find, verifyToken, getUserLogado, findById };
