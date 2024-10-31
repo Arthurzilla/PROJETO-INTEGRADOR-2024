@@ -69,7 +69,7 @@ const find = async (req, res) => {
 
 
     // Gera o token JWT
-    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET);
 
     // Armazena o token na sessão do usuário
     req.session.token = token;
@@ -145,4 +145,5 @@ const findById = async (req, res) => {
         res.status(500).send({ message: 'Erro ao buscar usuario.' });
     }
 }; 
+
 module.exports = { save, find, verifyToken, getUserLogado, findById };
