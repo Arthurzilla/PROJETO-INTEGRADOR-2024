@@ -20,28 +20,19 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
-    padding-top: 1.5rem;
     margin-top: 15vh;
-
 }
 
 .fofoca {
-    width: 90%;
+    width: 94%;
     border-bottom: 1px solid #e0e0e0;
-    background-color: none;
+    padding-top: 1.5rem;
     transition: background-color 0.3s ease;
-    padding: 0.7rem
 }
 
 .fofoca:hover {
     background-color: #f1efef
 }
-
-
-
-
-
 
 .button {
     background-color: transparent;
@@ -85,27 +76,11 @@ body {
     font-weight: bold;
 }
 
-a{
-    text-decoration: none;
+a {
+    display: block; /* ou inline-block */
+    text-decoration: none; /* para garantir que não tenha sublinhado */
 }
 /* fofoca */
-#usuarioTimeline{
-    font-size: 1.1rem;
-    color: #1d9bf0;
-    margin-bottom: 8px;
-}
-
-#fofoca-date {
-    color: gray;
-    font-style: italic; 
-    font-size: 1rem; 
-}
-
-#fofoca-description{
-    font-size: 1rem;
-    color: #555;
-}
-
 nav {
     top: 0px;
     position: fixed;
@@ -124,7 +99,7 @@ nav {
 
 #mostraUsuario{
     color: #1d9bf0;
-    background-color: none;
+    background-color: black;
     padding: 5px;
     margin-right: 60px;
     font-weight: bolder;
@@ -140,40 +115,6 @@ h1 {
     z-index: 1001;
 }
 
-@media (max-width: 600px){
-    #timeline{
-        width: 100%;
-    }
-
-    #mostraUsuario{
-        margin-right: 10px;
-        font-size: 1rem
-    }
-
-    #usuarioTimeline{
-        font-size: 0.8rem;
-    }
-
-    #fofoca-date{
-font-size: 0.7rem;
-    }
-
-    #fofoca-description{
-        font-size: 0.7rem;
-    }
-}
-
-@media (min-width: 600px) and (max-width: 1000px){
-    #timeline{
-        width: 80%;
-
-    }
-
-    #mostraUsuario{
-
-        margin-right: 30px;
-        font-size: 1.2rem;
-    }
 
 
 #logout-button {
@@ -197,14 +138,90 @@ font-size: 0.7rem;
     box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.5); /* Sombra ao focar */
 }
 
- #usuarioTimeline{
+
+                
+.user-specs{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user{
+    font-size: 1rem;
+    color: gray;
+   
+}
+
+.display{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1d9bf0; 
+
+}
+
+.description{
+    font-size: 1.3rem;
+    margin-top: 1rem;
+
+
+    background-color: none;
+    padding: 0px;
+    color: black;
+}
+
+.date{
+    color: gray;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px){
+    #timeline{
+        width: 100%;
+    }
+
+    .display{
+        font-size: 0.9rem;
+    }
+
+    .user{
+        font-size: 0.9rem;
+    }
+
+    .description{
+        font-size: 1.1;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+
+}
+
+@media (min-width: 600px) and (max-width: 1000px){
+    #timeline{
+        width: 80%;
+
+    }
+
+    .display{
         font-size: 1rem;
     }
 
-    #fofoca-date{
+    .user{
+        font-size: 1rem;
+    }
+
+    .description{
+        font-size: 1.2;
+    }
+
+    .date{
         font-size: 0.9rem;
-            }
-        
-            #fofoca-description{
-                font-size: 0.9rem;
-            }
+    }
+}

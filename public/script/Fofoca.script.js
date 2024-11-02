@@ -32,6 +32,17 @@ function timeAgo(date) {
     }
 }
 
+
+function formatarData(date) {
+    const horas = String(date.getHours()).padStart(2, '0');
+    const minutos = String(date.getMinutes()).padStart(2, '0');
+    const dia = date.getDate();
+    const mes = date.toLocaleString('pt-BR', { month: 'long' });
+    const ano = date.getFullYear();
+
+    return `${horas}:${minutos} - ${dia} de ${mes} de ${ano}`;
+}
+
 async function fetchFofoca() {
     const path = window.location.pathname;
     const id = path.split('/').pop();
@@ -48,14 +59,15 @@ async function fetchFofoca() {
         }
         const fofoca = await response.json();
 
-        const dataFormatada = timeAgo(new Date(fofoca.date));
+        const dataFormatada = formatarData(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
         <div class='user-specs'>
-           <h3>${fofoca.usuario.displayUser} - @${fofoca.usuario.user}</h3>
+             <div id='fofoca-display' class='display'>${fofoca.usuario.displayUser}</div>
+            <div id='fofoca-user' class='user'>@${fofoca.usuario.user}</div> 
         </div>
-            <p id="fofoca-description">${fofoca.description}</p>
-            <p class="fofoca-date" id="dataFor">${dataFormatada}</p>
+            <div id="fofoca-description" class='description' >${fofoca.description}</div>
+            <div id="fofoca-date" class='date'>${dataFormatada}</div>
 
         `;
 
@@ -139,12 +151,15 @@ async function fetchComentarios(id) {
             const texto = comentario.text || 'Sem conteúdo';
 
             comentariosList.innerHTML += `
-                <div class="comentario-item">
-                    <div id='comentarios-user-specs'>
-                    <h3 id='comentarios-usuario'>${usuario}</h3>
-                    <p id='comentarios-data'>${dataFormatada}</p>
+                <div class="comentario-item">   
+                    <div id='comentarios-user-specs' class='user-specs'>
+                        <div id='comentarios-display' class='display'>${usuario}</div>
+                        <div id='comentarios-user' class='user'>${usuario}</div>
                     </div>
-                    <p id='comentarios-description'>${texto}</p>
+                    
+                
+                        <div id='comentarios-description' class='description'>${texto}</div>
+                        <div id='comentarios-data' class='date'>${dataFormatada}</div>
                 </div>
             `;
         });

@@ -5,6 +5,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    gap: 0;
 
 }
 
@@ -13,10 +15,14 @@ body {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
 
-
+    display: flex;
+    flex-direction: column;
     margin-top: 15vh;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    padding-top: 1.5rem;
 }
 
 .modal {
@@ -93,7 +99,7 @@ body {
 
 #fofoca-comentarios-titulo {
     padding-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
+    /* border-bottom: 1px solid #e0e0e0; */
     font-size: 28px;
     color: #1d9bf0;
     margin-bottom: 40px;
@@ -117,79 +123,30 @@ textarea:focus {
     outline: none;
 }
 
-
-
-.fofoca {
-    border-bottom: 1px solid #e0e0e0;
-    padding: 15px;
-    background-color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-.fofoca:hover {
-    background-color: #f0f8ff;
-}
-
-
-.comentario-item {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-
-
-
 #fofocaDetails{
-    background-color: none;
+    
+    width: 94%;
+
 }
 
-.user-specs{
-    /* background-color: black; */
-    display: flex;
-    align-items: first baseline;
-    justify-content: flex-start;
-    gap: 0.8rem;
-    margin-left: 3%;
-}
 
-#fofoca-date {
-    color: gray;
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-left: 3%;
-}
 
-#fofoca-user{
-    font-size: 1.2rem;
-    color: #1d9bf0;
-}
-
-#fofoca-description {
-    font-size: 1.1rem;
-    line-height: 1.5;
-
-    background-color: none;
-    margin-top: 0px;
-    margin-left: 3%;
-}
 
 #fofocaOptions{
     list-style-type: none;
     /* background-color: #ffffff; */
-    
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    width: 94%;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     border-bottom: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin: 1.5rem;
-}
 
-#fofocaOptions li{
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+   
 }
 
 
@@ -210,39 +167,23 @@ textarea:focus {
 }
 
 #comentariosList{
-    background-color: none;
+    width: 94%;
+} 
+
+.comentario-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-#comentarios-user-specs{
-    display: flex;
-    align-items: first baseline;
-    justify-content: flex-start;
-    gap: 0.8rem;
-    margin-top:1%;
-    margin-left: 3%;
-}
-
-#comentarios-usuario{
-    font-size: 1.2rem;
-    color: #1d9bf0;
-    background-color: none;
-}
 
 #comentarios-data{
-    background-color: none;
+    color: gray;
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
 }
 
-#comentarios-description{
-    font-size: 1.1rem;
-    line-height: 1.5;
-
-    background-color: none;
-    margin-top: 0px;
-    margin-left: 3%;
-
-}
 
 
 
@@ -276,46 +217,7 @@ a{
 }
 
 
-/* responsividade geral  */
-@media (max-width: 600px){
 
-
-    #mostraUsuario{
-        margin-right: 10px;
-        font-size: 1rem
-    }
-
-    #form{
-        width: 100%;
-    }
-
-
-}
-
-@media (min-width: 600px) and (max-width: 1000px){
-
-
-    #mostraUsuario{
-
-        margin-right: 30px;
-        font-size: 1.2rem;
-    }
-
-    #form{
-        width: 80%;
-
-    }
-}
-
-/* Animação do overlay */
-@keyframes escurecerFundo {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1; /* Fica totalmente visível */
-    }
-}
 
 /* Estilo dos botões dentro dos modais */
 .action-button {
@@ -401,4 +303,104 @@ textarea:focus {
 
 .close-button:hover {
     background-color: darkred;  
+}
+
+.user-specs{
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user{
+    font-size: 1rem;
+    color: gray;
+}
+
+.display{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1d9bf0; 
+
+}
+
+.description{
+    font-size: 1.3rem;
+
+    background-color: none;
+    margin-top: 1rem;
+    padding: 0px;
+}
+
+.date{
+    color: gray;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* responsividade geral  */
+
+/* responsividade de celular */
+@media (max-width: 600px){
+
+    .display{
+        font-size: 0.9rem;
+    }
+
+    .user{
+        font-size: 0.9rem;
+    }
+
+    .description{
+        font-size: 1.1;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+
+
+    #form{
+        width: 100%;
+    }
+}
+
+/* responsividade de tablet */
+@media (min-width: 600px) and (max-width: 1000px){
+
+
+
+    #form{
+        width: 80%;
+
+    }
+
+    .display{
+        font-size: 1rem;
+    }
+
+    .user{
+        font-size: 1rem;
+    }
+
+    .description{
+        font-size: 1.2;
+    }
+
+    .date{
+        font-size: 0.9rem;
+    }
+}
+
+/* Animação do overlay */
+@keyframes escurecerFundo {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1; /* Fica totalmente visível */
+    }
 }

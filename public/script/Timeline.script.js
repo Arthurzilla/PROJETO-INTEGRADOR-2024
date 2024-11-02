@@ -52,10 +52,14 @@ const loadFofocas = async () => {
                 <a href="/fofocas/${id}">
 
                   
+                    <div class='user-specs'>
+                        <div class='display'>${usuario.displayUser}</div>
+                        <div class='user'>@${usuario.user}</div>
+                    </div>
+                    
+                    <div class='description'>${description}</div>
 
-                    <h3 id='usuarioTimeline' class='small-title'>${usuario.displayUser}-@${usuario.user}</h3>
-                    <p id='fofoca-date'>Há ${formattedDate}</p>
-                    <p id='fofoca-description'>${description}</p>
+                    <div class='date'>Há ${formattedDate}</div>
 
                 </a>
                 `;
