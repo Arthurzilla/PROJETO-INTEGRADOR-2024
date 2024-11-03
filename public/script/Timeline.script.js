@@ -1,3 +1,4 @@
+
 function timeAgo(date) {
     const now = new Date();
     const seconds = Math.floor((now - date) / 1000);
@@ -24,60 +25,12 @@ function timeAgo(date) {
     }
 }
 
-const loadFofocas = async () => {
-    try {
-        const response = await fetch('/fofocas/api');
-
-        if (!response.ok) {
-            throw new Error('Erro ao carregar fofocas: ' + response.statusText);
-        }
-
-        const fofocas = await response.json();
-        const timelineDiv = document.getElementById('timeline');
-        timelineDiv.innerHTML = '';
-
-        if (Array.isArray(fofocas) && fofocas.length > 0) {
-            fofocas.forEach(fofoca => {
-                const fofocaElement = document.createElement('div');
-                fofocaElement.className = 'fofoca';
-            
-                const id = fofoca._id;
-                const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
-                const description = fofoca.description ? fofoca.description : 'Sem descrição';
-                
-                const data = new Date(fofoca.date);
-                const formattedDate = timeAgo(data);
-            
-                fofocaElement.innerHTML = `
-                <a href="/fofocas/${id}">
-
-                  
-                    <div class='user-specs'>
-                        <div class='display'>${usuario.displayUser}</div>
-                        <div class='user'>@${usuario.user}</div>
-                    </div>
-                    
-                    <div class='description'>${description}</div>
-
-                    <div class='date'>Há ${formattedDate}</div>
-
-                </a>
-                `;
-                timelineDiv.appendChild(fofocaElement);
-            });
-        } else if (fofocas.message) {
-            timelineDiv.innerHTML = `<p>${fofocas.message}</p>`;
-        } else {
-            timelineDiv.innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
-        }
-    } catch (error) {
-        console.error('Erro ao carregar fofocas:', error);
-        document.getElementById('timeline').innerHTML = '<p>Erro ao carregar fofocas. Tente novamente mais tarde.</p>';
-    }
-};
-
-
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM totalmente carregado e analisado');
+
+    console.log('vou chamar o load fofoca');
+    loadFofocas();
+
     const token = localStorage.getItem('token');
     const usuarioDiv = document.getElementById('mostraUsuario');
 
@@ -107,24 +60,78 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         usuarioDiv.textContent = 'Você não está logado';
     }
-});
-
-document.getElementById('logout-button').addEventListener('click', () => {
-    localStorage.removeItem('token');
-    window.location.href = '/login'; 
-});
-
-document.getElementById('logout-button').addEventListener('click', () => {
-    fetch('/logout', { method: 'POST', headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
-        .then(response => {
-            if (response.ok) {
-                localStorage.removeItem('token');
-                window.location.href = '/login'; 
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao deslogar:', error);
+    
+    // Logout button functionality
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            fetch('/logout', { 
+                method: 'POST', 
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } 
+            })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.removeItem('token');
+                    window.location.href = '/login'; 
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao deslogar:', error);
+            });
         });
+    } else {
+        console.log('Botão de logout não encontrado.');
+    }
 });
 
-loadFofocas();
+
+const loadFofocas = async () => {
+    console.log('tentando carregar fofoca');
+
+    try {
+        const response = await fetch('/fofocas/api')
+        if (!response.ok) {
+            throw new Error('Erro ao carregar fofocas: ' + response.statusText);
+        }
+
+        const fofocas = await response.json();
+        console.log("Dados recebidos da API:", fofocas);
+        const timelineDiv = document.getElementById('timeline');
+        timelineDiv.innerHTML = '';
+
+        if (Array.isArray(fofocas) && fofocas.length > 0) {
+            fofocas.forEach(fofoca => {
+                const fofocaElement = document.createElement('div');
+                fofocaElement.className = 'fofoca';
+            
+                const id = fofoca._id;
+                const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
+                const description = fofoca.description ? fofoca.description : 'Sem descrição';
+                
+                const data = new Date(fofoca.date);
+                const formattedDate = timeAgo(data);
+            
+                fofocaElement.innerHTML = `
+                <a href="/fofocas/${id}">
+                    <div class='user-specs'>
+                        <div class='display'>${usuario.displayUser}</div>
+                        <div class='user'>@${usuario.user}</div>
+                    </div>
+                    
+                    <div class='description'>${description}</div>
+
+                    <div class='date'>Há ${formattedDate}</div>
+                </a>
+                `;
+                timelineDiv.appendChild(fofocaElement);
+            });
+        } else if (fofocas.message) {
+            timelineDiv.innerHTML = `<p>${fofocas.message}</p>`;
+        } else {
+            timelineDiv.innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
+        }
+    } catch (error) {
+        console.error('Erro ao carregar fofocas:', error);
+        document.getElementById('timeline').innerHTML = '<p>Erro ao carregar fofocas. Tente novamente mais tarde.</p>';
+    }
+};
