@@ -10,6 +10,39 @@ body {
 
 }
 
+nav {
+    top: 0px;
+    position: fixed;
+    z-index: 998;
+    height: 13vh; 
+    width: 100%;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+
+}
+
+#user-nav{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+
+    margin-left: 3.5%;
+}
+
+#user-nav:hover{
+    background-color: #f1efef;
+}
+
+#user-icon{
+    color: #1a1a1a;
+    font-size: 2rem;
+}
+
 #form {
     width: 48%;
     background-color: #ffffff;
@@ -124,9 +157,8 @@ textarea:focus {
 }
 
 #fofocaDetails{
-    
+    padding-left: 1rem;
     width: 94%;
-
 }
 
 
@@ -174,7 +206,9 @@ textarea:focus {
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #e0e0e0;
+    padding-left: 1rem;
 }
+
 
 
 #comentarios-data{
@@ -187,30 +221,6 @@ textarea:focus {
 
 
 
-nav {
-    top: 0px;
-    position: fixed;
-    z-index: 998;
-    height: 13vh; 
-    width: 100%;
-    background-color: white;
-
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    margin: 0px;
-    border-bottom: 1px solid #e0e0e0;
-
-}
-
-#mostraUsuario{
-    color: #1d9bf0;
-    background-color: none;
-    padding: 5px;
-    margin-right: 60px;
-    font-weight: bolder;
-    font-size: 1.4rem;
-}
 
 a{
     text-decoration: none;

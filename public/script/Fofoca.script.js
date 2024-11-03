@@ -181,6 +181,8 @@ function getUserId() {
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const usuarioDiv = document.getElementById('mostraUsuario');
+    const userDisplay = document.getElementById('nav-display');
+    const userUser = document.getElementById('nav-user')
 
     if (token) {
         fetch('/usuario-logado', {
@@ -196,7 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
-                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`;
+                userDisplay.textContent = `${data.displayUser}`;
+                userUser.textContent = `@${data.usuario}`
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }

@@ -17,10 +17,18 @@
 </head>
 <body>
     <nav class="navbar">
-        <div id="mostraUsuario" class="user-info"></div>
-        <button id="backButton" class="button" onclick="window.history.back()">
+        <div id="user-nav">
+                <div id="user-icon" class="bi bi-person-circle"></div>
+                    <div id="mostraUsuario" class="user-specs">
+                        <div id='nav-display' class='display'></div>
+                        <div id='nav-user' class='user'></div>
+                    </div>
+        </div>
+        
+        
+        <!-- <div id="backButton" class="button" onclick="window.history.back()">
             <i class="bi bi-arrow-left"></i> Voltar
-        </button>
+        </div> -->
     </nav>
 
     <div class="overlay" id="overlay"></div> <!-- Overlay escuro -->
@@ -70,13 +78,9 @@
                 <button type="button" id="editFofocaButton" class="button">
                     <i class="bi bi-pencil-square"></i>
                 </button>
-
-            
-           
             </div>
 
             <div id="comentariosList"></div>
-       
         </div>
 </body>
 </html>

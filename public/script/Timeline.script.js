@@ -32,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFofocas();
 
     const token = localStorage.getItem('token');
-    const usuarioDiv = document.getElementById('mostraUsuario');
+    const displayUserDiv = document.getElementById('nav-display');
+    const userUserDiv = document.getElementById('nav-user');
+    const usuarioDiv = document.getElementById('user-specs')
 
     if (token) {
         fetch('/usuario-logado', {
@@ -48,7 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
-                usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`;
+                displayUserDiv.textContent = `${data.displayUser}`;
+                userUserDiv.textContent = `@${data.usuario}`;
+
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
