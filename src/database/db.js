@@ -29,4 +29,4 @@ const connectOnlineDatabase = async () => {
 
 // module.exports = {connectDatabase, connectOnlineDatabase};
 
-module.exports = {connectDatabase};
+module.exports = {connectOnlineDatabase};
