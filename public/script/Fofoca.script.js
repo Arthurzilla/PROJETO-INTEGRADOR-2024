@@ -153,8 +153,8 @@ async function fetchComentarios(id) {
             comentariosList.innerHTML += `
                 <div class="comentario-item">   
                     <div id='comentarios-user-specs' class='user-specs'>
-                        <div id='comentarios-display' class='display'>${usuario}</div>
-                        <div id='comentarios-user' class='user'>${usuario}</div>
+                        <div id='comentarios-display' class='display'>${comentario.usuario.displayUser}</div>
+                        <div id='comentarios-user' class='user'>@${comentario.usuario.user}</div>
                     </div>
                     
                 
