@@ -13,17 +13,22 @@
     <script src="/script/Timeline.script.js"></script>
 </head>
 <body>
-
+<div id="logout-button" class="bi bi-box-arrow-left"></div>
     <nav>
-        <p id="mostraUsuario"></p>
-        <button id="logout-button">Deslogar</button>
+        <div id="user-nav">
+            <div id="user-icon" class="bi bi-person-circle"></div>
+                <div id="mostraUsuario" class="user-specs">
+                    <div id='nav-display' class='display'></div>
+                    <div id='nav-user' class='user'></div>
+                </div>
+        </div>
     </nav>
 
     
     
     <!-- botão para criação de fofoca -->
-    <a href="/fofocas/criar" id="buttonCriar">
-        <i class="bi bi-plus"></i>
+    <a href="/fofocas/criar">
+        <div id="buttonCriar" class="bi bi-plus"></div>
     </a>
 
     <!-- div da timeline -->

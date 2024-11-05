@@ -16,10 +16,18 @@
 </head>
 <body>
     <nav class="navbar">
-        <p id="mostraUsuario" class="user-info"></p>
-        <button id="backButton" class="button" onclick="window.history.back()">
+        <div id="user-nav">
+            <div id="user-icon" class="bi bi-person-circle" style="display: none;"></div>
+                    <div id="mostraUsuario" class="user-specs">
+                        <div id='nav-display' class='display'></div>
+                        <div id='nav-user' class='user'></div>
+                    </div>
+        </div>
+        
+        
+        <!-- <div id="backButton" class="button" onclick="window.history.back()">
             <i class="bi bi-arrow-left"></i> Voltar
-        </button>
+        </div> -->
     </nav>
 
     <div class="overlay" id="overlay"></div> <!-- Overlay escuro -->
@@ -46,38 +54,32 @@
         <button id="apagarButton" class="action-button">Deletar</button>
     </div>
 
-    <form id="form">
+    <div id="form">
         <div id="fofocaDetails"></div>
 
-        <ul id="fofocaOptions" class="fofoca-options">
+        <div id="fofocaOptions" class="fofoca-options">
 
              <!-- Botão para abrir o modal de comentários -->
-             <li>
+             
                 <button type="button" id="openCommentModalButton" class="button">
                     <i class="bi bi-plus"></i>
                 </button>
-            </li>
 
             <!-- botão para excluir -->
-            <li>
+            
                 <button type="button" id="trashButton" class="button">
                     <i class="bi bi-trash3"></i>
                 </button>
 
-            </li>
+            
             <!-- botão para abrir o edit -->
-            <li>
+            
                 <button type="button" id="editFofocaButton" class="button">
                     <i class="bi bi-pencil-square"></i>
                 </button>
+            </div>
 
-            </li>
-           
-        </ul>
-
-        <div id="comentarioDiv" class="comentario-container">
             <div id="comentariosList"></div>
         </div>
-    </form>
 </body>
 </html>

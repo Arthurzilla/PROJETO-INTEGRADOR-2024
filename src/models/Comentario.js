@@ -8,5 +8,4 @@ const ComentarioSchema = new mongoose.Schema({
 });
 
 const Comentario = mongoose.model('Comentario', ComentarioSchema);
-
 module.exports = Comentario;
