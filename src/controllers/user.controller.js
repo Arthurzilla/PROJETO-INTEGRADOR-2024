@@ -69,7 +69,7 @@ const find = async (req, res) => {
 
 
     // Gera o token JWT
-    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET);
+    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET, { expiresIn: '1h' });
 
     // Armazena o token na sessão do usuário
     req.session.token = token;
