@@ -32,7 +32,6 @@ function timeAgo(date) {
     }
 }
 
-
 function formatarData(date) {
     const horas = String(date.getHours()).padStart(2, '0');
     const minutos = String(date.getMinutes()).padStart(2, '0');
@@ -42,6 +41,21 @@ function formatarData(date) {
 
     return `${horas}:${minutos} - ${dia} de ${mes} de ${ano}`;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const cadastra = document.getElementById('buttonCriar');
+
+    if (!token) {
+        if (cadastra) {
+            cadastra.style.display = 'block';
+        }
+    } else {
+        if (cadastra) {
+            cadastra.style.display = 'none';
+        }
+    }
+});
 
 async function fetchFofoca() {
     const path = window.location.pathname;
