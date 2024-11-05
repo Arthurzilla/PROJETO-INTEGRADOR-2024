@@ -73,7 +73,7 @@ nav {
     z-index: 998;
     height: 13vh; 
     width: 100%;
-    background-color: white;
+    background-color: #fff;
 
     display: flex;
     align-items: center;
@@ -124,6 +124,41 @@ nav {
     outline: none; /* Remove a borda de foco */
     box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.5); /* Sombra ao focar */
 }
+
+#user-modal{
+    z-index: 1001;
+    background-color: #fff;
+   
+
+    position: fixed;
+    left: 3.5%;
+    top: 12vh;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 0.4rem
+}
+
+#user-modal-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start
+}
+
+#user-modal-content div{
+    width: 90%;
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    font-size: 0.9rem
+}
+
+#user-modal-content div:hover{
+    background-color: #e0e0e0;
+}
+
                 
 .user-specs{
     
