@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    // Logout button functionality
+    // Logout button
     const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
