@@ -97,19 +97,21 @@ nav {
 }
 
 #user-icon{
-
     font-size: 2rem;
 }
 
 
-
 #logout-button {
+    gap: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    margin-left: 80%;
     background-color: #ff4757; /* Vermelho para destacar */
     color: white; /* Texto branco */
     border: none; /* Sem borda */
-    border-radius: 1px; /* Cantos arredondados */
-    width: 2.8rem;
-    height: 2.8rem;
+    border-radius: 15px; /* Cantos arredondados */
+    width: 1.2rem;
+    height: 1.2rem;
     cursor: pointer; /* Cursor em forma de mão ao passar por cima */
     transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
 }
@@ -122,8 +124,6 @@ nav {
     outline: none; /* Remove a borda de foco */
     box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.5); /* Sombra ao focar */
 }
-
-
                 
 .user-specs{
     
