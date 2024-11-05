@@ -165,7 +165,6 @@ async function fetchComentarios(id) {
         });
     } catch (error) {
         console.error("Erro:", error);
-        document.getElementById('comentariosList').innerHTML = '<p>Por enquanto, nenhum comentário.</p>';
     }
 }
 
@@ -197,19 +196,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+            if (data.displayUser && data.usuario) {
                 userDisplay.textContent = `${data.displayUser}`;
                 userUser.textContent = `@${data.usuario}`
+                document.getElementById('user-icon').style.display = 'block';
             } else {
-                usuarioDiv.textContent = 'Usuário não encontrado';
+                document.getElementById('user-icon').style.display = 'none';
+                usuarioDiv.textContent = '';
             }
         })
         .catch(error => {
             console.error('Erro ao obter usuário logado:', error);
-            usuarioDiv.textContent = 'Erro ao obter usuário logado';
         });
     } else {
-        usuarioDiv.textContent = 'Você não está logado';
+        usuarioDiv.textContent = '';
     }
 });
 
@@ -255,9 +255,23 @@ document.getElementById('saveEditButton').addEventListener('click', async () => 
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const commentButton = document.getElementById('openCommentModalButton');
+
+    if (!token) {
+        if (commentButton) {
+            commentButton.style.display = 'none';
+        }
+    } else {
+        if (commentButton) {
+            commentButton.style.display = 'block';
+        }
+    }
+});
+
 document.getElementById('openCommentModalButton').addEventListener('click', () => {
     document.getElementById('commentModal').style.display = 'block';
-    overlay.style.display = 'block';
     overlay.style.animation = 'escurecerFundo 0.5s forwards';
 });
 
