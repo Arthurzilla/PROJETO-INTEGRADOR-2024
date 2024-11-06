@@ -45,7 +45,7 @@ function formatarData(date) {
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const cadastra = document.getElementById('buttonCriar');
-    
+
     const userNav = document.getElementById('user-nav');
     const userModal = document.getElementById('user-modal');
 
@@ -241,6 +241,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         usuarioDiv.textContent = '';
+    }
+
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            fetch('/logout', { 
+                method: 'POST', 
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } 
+            })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.removeItem('token');
+                    window.location.href = '/login'; 
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao deslogar:', error);
+            });
+        });
+    } else {
+        console.log('Botão de logout não encontrado.');
     }
 });
 
