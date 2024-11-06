@@ -35,6 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayUserDiv = document.getElementById('nav-display');
     const userUserDiv = document.getElementById('nav-user');
     const usuarioDiv = document.getElementById('user-specs')
+    const userNav = document.getElementById('user-nav');
+    const userModal = document.getElementById('user-modal');
+
+    userNav.addEventListener('click', () => {
+        userModal.style.display = 'block'; // Mostra o modal
+    });
+    
+    document.addEventListener('click', (event) => {
+        const isClickInsideUserNav = userNav.contains(event.target);
+        const isClickInsideUserModal = userModal.contains(event.target);
+
+        if (!isClickInsideUserNav && !isClickInsideUserModal) {
+            userModal.style.display = 'none'; // Esconde o modal
+        }
+    })
+
 
     if (token) {
         fetch('/usuario-logado', {
@@ -139,3 +155,4 @@ const loadFofocas = async () => {
         document.getElementById('timeline').innerHTML = '<p>Erro ao carregar fofocas. Tente novamente mais tarde.</p>';
     }
 };
+

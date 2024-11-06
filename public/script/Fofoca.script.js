@@ -46,6 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
     const cadastra = document.getElementById('buttonCriar');
 
+    const userNav = document.getElementById('user-nav');
+    const userModal = document.getElementById('user-modal');
+
+    userNav.addEventListener('click', () => {
+        userModal.style.display = 'block'; // Mostra o modal
+    });
+    
+    document.addEventListener('click', (event) => {
+        const isClickInsideUserNav = userNav.contains(event.target);
+        const isClickInsideUserModal = userModal.contains(event.target);
+
+        if (!isClickInsideUserNav && !isClickInsideUserModal) {
+            userModal.style.display = 'none'; // Esconde o modal
+        }
+    })
+
+
     if (!token) {
         if (cadastra) {
             cadastra.style.display = 'block';
@@ -224,6 +241,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         usuarioDiv.textContent = '';
+    }
+
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            fetch('/logout', { 
+                method: 'POST', 
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } 
+            })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.removeItem('token');
+                    window.location.href = '/login'; 
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao deslogar:', error);
+            });
+        });
+    } else {
+        console.log('Botão de logout não encontrado.');
     }
 });
 
