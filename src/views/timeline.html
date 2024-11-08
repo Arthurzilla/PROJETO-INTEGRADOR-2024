@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORZH</title>
-    <!-- RESET CSS -->
-    <link rel="stylesheet" href="/public/style/reset.css">
 
     <!-- css da timeline -->
     <link rel="stylesheet" href="/style/Timeline.style.css">
@@ -14,17 +12,28 @@
     
 </head>
 <body>
-
     <nav>
-        <p id="mostraUsuario"></p>
-        <button id="logout-button">Deslogar</button>
+        <div id="user-nav">
+            <div id="user-icon" class="bi bi-person-circle"></div>
+                <div id="mostraUsuario" class="user-specs">
+                    <div id='nav-display' class='display'></div>
+                    <div id='nav-user' class='user'></div>
+                </div>
+        </div>
+        <!-- <div id="logout-button" class="bi bi-box-arrow-left"></div> -->
     </nav>
 
-    
+    <div id="user-modal">
+        <div id="user-modal-content">
+            <a id="user-modal-content-profile">Perfil</a>
+            <a id="logout-button">Sair</a>
+            <a>Adicionar conta existente</a>
+        </div>
+    </div>
     
     <!-- botão para criação de fofoca -->
-    <a href="/fofocas/criar" id="buttonCriar">
-        <i class="bi bi-plus"></i>
+    <a href="/fofocas/criar">
+        <div id="buttonCriar" class="bi bi-plus"></div>
     </a>
 
     <!-- div da timeline -->

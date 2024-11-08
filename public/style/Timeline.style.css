@@ -20,39 +20,21 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
-    padding-top: 1.5rem;
     margin-top: 15vh;
-
 }
 
 .fofoca {
-    width: 90%;
+    width: 94%;
     border-bottom: 1px solid #e0e0e0;
-    background-color: none;
+    padding-top: 1.5rem;
+    padding-left: 1rem;
     transition: background-color 0.3s ease;
-    padding: 0.7rem
+
 }
 
 .fofoca:hover {
     background-color: #f1efef
 }
-
-
-
-
-
-
-.button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    color: #1d9bf0;
-    transition: background-color 0.2s ease;
-}
-
 .button:hover {
     background-color: #e8f5fd;
 }
@@ -79,65 +61,122 @@ body {
 #buttonCriar:hover {
     background-color: #1a8cd8;
 }
-
-#buttonCriar i {
-    font-size: 32px;
-    font-weight: bold;
+a {
+    display: block; /* ou inline-block */
+    text-decoration: none; /* para garantir que não tenha sublinhado */
 }
 
-a{
-    text-decoration: none;
-}
-/* fofoca */
-#usuarioTimeline{
-    font-size: 1.1rem;
-    color: #1d9bf0;
-    margin-bottom: 8px;
-}
-
-#fofoca-date {
-    color: gray;
-    font-style: italic; 
-    font-size: 1rem; 
-}
-
-#fofoca-description{
-    font-size: 1rem;
-    color: #555;
-}
 
 nav {
     top: 0px;
     position: fixed;
-    z-index: 1000;
+    z-index: 998;
     height: 13vh; 
     width: 100%;
-    background-color: white;
+    background-color: #fff;
 
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
     margin: 0px;
     border-bottom: 1px solid #e0e0e0;
 
 }
 
-#mostraUsuario{
-    color: #1d9bf0;
-    background-color: none;
-    padding: 5px;
-    margin-right: 60px;
-    font-weight: bolder;
-    font-size: 1.4rem;
+#user-nav{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    margin-left: 3.5%;
 }
 
-h1 {
-    font-size: 3rem;
-    color: #1d9bf0;
-    margin-bottom: 20px;
-    margin-top: 8%;
-    margin-bottom: 4%;
+#user-nav:hover{
+    background-color: #f1efef;
+    cursor: pointer;
+}
+
+#user-icon{
+    font-size: 2rem;
+}
+
+
+#user-modal{
     z-index: 1001;
+    background-color: #fff;
+   
+
+    position: fixed;
+    left: 3.5%;
+    top: 12vh;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 0.4rem;
+    display: none;
+}
+
+#user-modal-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start
+}
+
+#user-modal-content a{
+    width: 90%;
+   
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.3rem;
+}
+
+
+#user-modal-content a:hover{
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+                
+.user-specs{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user{
+    font-size: 1rem;
+    color: gray;
+   
+}
+
+.display{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1d9bf0; 
+
+}
+
+.description{
+    font-size: 1.3rem;
+    margin-top: 1rem;
+
+
+    background-color: none;
+    padding: 0px;
+    color: black;
+}
+
+.date{
+    color: gray;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 @media (max-width: 600px){
@@ -145,22 +184,23 @@ h1 {
         width: 100%;
     }
 
-    #mostraUsuario{
-        margin-right: 10px;
-        font-size: 1rem
+    .display{
+        font-size: 0.9rem;
     }
 
-    #usuarioTimeline{
+    .user{
+        font-size: 0.9rem;
+    }
+
+    .description{
+        font-size: 1.1;
+    }
+
+    .date{
         font-size: 0.8rem;
     }
 
-    #fofoca-date{
-font-size: 0.7rem;
-    }
 
-    #fofoca-description{
-        font-size: 0.7rem;
-    }
 }
 
 @media (min-width: 600px) and (max-width: 1000px){
@@ -169,42 +209,19 @@ font-size: 0.7rem;
 
     }
 
-    #mostraUsuario{
-
-        margin-right: 30px;
-        font-size: 1.2rem;
-    }
-
-
-#logout-button {
-    background-color: #ff4757; /* Vermelho para destacar */
-    color: white; /* Texto branco */
-    border: none; /* Sem borda */
-    border-radius: 5px; /* Cantos arredondados */
-    padding: 10px 20px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    cursor: pointer; /* Cursor em forma de mão ao passar por cima */
-    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
-    margin-top: 10px; /* Espaço acima do botão */
-}
-
-#logout-button:hover {
-    background-color: #e84118; /* Cor mais escura ao passar o mouse */
-}
-
-#logout-button:focus {
-    outline: none; /* Remove a borda de foco */
-    box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.5); /* Sombra ao focar */
-}
-
- #usuarioTimeline{
+    .display{
         font-size: 1rem;
     }
 
-    #fofoca-date{
+    .user{
+        font-size: 1rem;
+    }
+
+    .description{
+        font-size: 1.2;
+    }
+
+    .date{
         font-size: 0.9rem;
-            }
-        
-            #fofoca-description{
-                font-size: 0.9rem;
-            }
+    }
+}
