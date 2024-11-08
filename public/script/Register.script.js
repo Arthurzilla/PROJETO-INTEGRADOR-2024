@@ -38,6 +38,8 @@ registerForm.addEventListener('submit', async (event) => {
             return;
         }
 
+        localStorage.setItem('userId', data.usuario.id);
+
         window.location.href = '/login';
     } catch (error) {
         console.error('Erro:', error);

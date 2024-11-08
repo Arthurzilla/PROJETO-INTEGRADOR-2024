@@ -156,3 +156,44 @@ const loadFofocas = async () => {
     }
 };
 
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Adicionando o evento de clique ao link do perfil
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    if (perfilLink) {
+        perfilLink.addEventListener('click', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                fetch('/usuario-logado', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao obter usuário logado.');
+                    }
+                    return response.json(); // Retorna o objeto JSON
+                })
+                .then(data => {
+                    if (data.usuarioId) {
+                        console.log("Redirecionando para o perfil...");
+                        // Aqui você pode pegar os dados da resposta diretamente
+                        localStorage.setItem('token', data.token);
+
+                        window.location.href = `/perfil/${data.usuarioId}`;  // Redireciona para o perfil
+                    } else {
+                        alert('ID de usuário não encontrado');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao obter usuário logado:', error);
+                    alert('Erro ao redirecionar para o perfil');
+                });
+            } else {
+                alert('Você não está logado');
+            }
+        });
+    }
+});
