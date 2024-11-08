@@ -114,7 +114,7 @@ const getPerfil = async (req, res) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        const usuarioId = decoded.id;  // Supondo que o ID esteja no payload do token
+        const usuarioId = decoded._id;  
 
         // Buscar o usuário pelo ID
         const user = await Usuario.findById(usuarioId);
@@ -123,6 +123,7 @@ const getPerfil = async (req, res) => {
         }
 
         res.json({
+            _id: user._id,
             displayUser: user.displayUser,
             usuario: user.user, // Nome de usuário
         });

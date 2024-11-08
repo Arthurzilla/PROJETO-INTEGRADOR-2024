@@ -177,18 +177,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json(); // Retorna o objeto JSON
                 })
                 .then(data => {
-                    if (data.usuarioId) {
+                    if (data._id) {
                         console.log("Redirecionando para o perfil...");
                         // Aqui você pode pegar os dados da resposta diretamente
                         localStorage.setItem('token', data.token);
 
-                        window.location.href = `/perfil/${data.usuarioId}`;  // Redireciona para o perfil
+                        window.location.href = `/perfil/${data._id}`;  // Redireciona para o perfil
                     } else {
-                        alert('ID de usuário não encontrado');
+                        console.log('ID de usuário não encontrado', data);
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao obter usuário logado:', error);
+                    console.log('Erro ao obter usuário logado:', error);
                     alert('Erro ao redirecionar para o perfil');
                 });
             } else {
