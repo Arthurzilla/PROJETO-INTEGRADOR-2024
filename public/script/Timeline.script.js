@@ -158,7 +158,6 @@ const loadFofocas = async () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Adicionando o evento de clique ao link do perfil
     const perfilLink = document.getElementById('user-modal-content-profile');
     if (perfilLink) {
         perfilLink.addEventListener('click', () => {
@@ -174,15 +173,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!response.ok) {
                         throw new Error('Erro ao obter usuário logado.');
                     }
-                    return response.json(); // Retorna o objeto JSON
+                    return response.json();
                 })
                 .then(data => {
                     if (data._id) {
                         console.log("Redirecionando para o perfil...");
-                        // Aqui você pode pegar os dados da resposta diretamente
+
                         localStorage.setItem('token', data.token);
 
-                        window.location.href = `/perfil/${data._id}`;  // Redireciona para o perfil
+                        window.location.href = `/perfil/${data.usuarioId}`; 
                     } else {
                         console.log('ID de usuário não encontrado', data);
                     }

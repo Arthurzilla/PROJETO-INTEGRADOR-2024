@@ -10,7 +10,6 @@ const JWT_SECRET = process.env.JWT_SECRET || 'algumaChaveSecretaSegura';
 const save = async (req, res) => {
     const { user, email, password, displayUser } = req.body;
     try {
-        // Validação dos campos
         if (!user || !email || !password || !displayUser) {
             return res.status(400).send({ error: "Preencha os campos corretamente." });
         }
@@ -60,23 +59,21 @@ const find = async (req, res) => {
         return res.status(404).json({ error: 'Usuário não encontrado.' });
     }
 
-    // Verifica se a senha enviada corresponde à senha do banco
     const isMatch = await usuarioEncontrado.comparePassword(password);
 
     if (!isMatch) {
         return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
-    // Gera o token JWT
     const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET);
 
-    // Armazena o token na sessão do usuário
     req.session.token = token;
     console.log('Token gerado:', token);
 
     return res.status(200).json({
         message: 'Usuário encontrado com sucesso.',
         usuario: {
+            _id: usuarioEncontrado._id,
             user: usuarioEncontrado.user,
             email: usuarioEncontrado.email,
             usuarioId: usuarioEncontrado._id
@@ -91,32 +88,30 @@ const verifyToken = (req, res, next) => {
     const token = authorizationHeader && authorizationHeader.split(' ')[1]; 
 
     if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido.' });
+        return res.status(403).json({ message: 'Token não fornecido. verifytoken' });
     }
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: 'Token inválido.' });
         }
-        req.userId = decoded.id; // Coloca o id do usuário no req para as funções seguintes
+        req.userId = decoded.id;
         next();
     });
 };
 
 // Função para obter o perfil do usuário
 const getPerfil = async (req, res) => {
-    // Extraímos o token da requisição
     const token = req.headers.authorization?.split(' ')[1];
+    console.log()
 
     if (!token) {
-        return res.status(401).json({ message: 'Token não fornecido.' });
+        return res.status(401).json({ message: 'Token não fornecido. getPerfil' });
     }
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        const usuarioId = decoded._id;  
-
-        // Buscar o usuário pelo ID
+        const usuarioId = decoded.id;  
         const user = await Usuario.findById(usuarioId);
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
@@ -125,7 +120,7 @@ const getPerfil = async (req, res) => {
         res.json({
             _id: user._id,
             displayUser: user.displayUser,
-            usuario: user.user, // Nome de usuário
+            usuario: user.user,
         });
     } catch (err) {
         console.error(err);
@@ -139,7 +134,7 @@ const getUserLogado = (req, res) => {
     const token = authorizationHeader && authorizationHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido.' });
+        return res.status(403).json({ message: 'Token não fornecido. gerUserLogado' });
     }
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
@@ -158,5 +153,19 @@ const getUserLogado = (req, res) => {
             .catch((err) => res.status(500).json({ message: 'Erro ao buscar usuário.', error: err }));
     });
 };
+
+// const getUserLogado = (req,res) => {
+//     const token = localStorage.getItem(data)
+
+//             Usuario.findById(data)
+//             .then((usuario) => {
+//                 if (!usuario) {
+//                     return res.status(404).json({ message: 'Usuário não encontrado.' });
+//                 }
+
+//                 res.status(200).json({ usuarioId: usuario._id });
+//             })
+//             .catch((err) => res.status(500).json({ message: 'Erro ao buscar usuário.', error: err }));
+//     };
 
 module.exports = { save, find, verifyToken, getUserLogado, getPerfil };

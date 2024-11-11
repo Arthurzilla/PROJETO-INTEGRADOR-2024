@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = window.location.pathname.split('/').pop();
 
-    // Função para carregar os dados do perfil
     const loadPerfil = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -9,9 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Token não encontrado');
             }
 
-            const response = await fetch(`/perfil/${usuarioId}`, {
+            const response = await fetch(`/perfil/${data.usuario._id}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ` + token
                 }
             });
 
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            // Preencher os dados do perfil na página
             document.getElementById('profile-username').textContent = `@${data.usuario}`;
             document.getElementById('display-name').textContent = data.displayUser;
 

@@ -26,6 +26,8 @@
         }
 
         localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.usuario._id)
+        localStorage.setItem('data', JSON.stringify(data))
         window.location.href = '/fofocas';
     } catch (error) {
         console.error('Erro:', error);
