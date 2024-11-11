@@ -155,43 +155,101 @@ const loadFofocas = async () => {
     }
 };
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     const perfilLink = document.getElementById('user-modal-content-profile');
+//     perfilLink.addEventListener('click', () => {
+//         const token = localStorage.getItem('token');
+
+//         if (token) {
+//             const headers = { 'Authorization': 'Bearer ' + token };
+            
+//             fetch('/usuario-logado', { 
+//                 method: 'GET', 
+//                 headers: headers
+
+//             })
+//             .then(response => {
+//                 if (!response.ok) {
+//                     throw new Error('Erro ao obter usuário logado.');
+//                 }
+//                 return response.json();
+//             })
+//             .then(data => {
+//                 if (data._id) {
+//                     console.log("Redirecionando para o perfil...");
+//                     window.location.href = `/perfil/${data._id}`; 
+//                 } else {
+//                     console.log('ID de usuário não encontrado', data._id);
+//                 }
+//             })
+//             .catch(error => {
+//                 console.log('Erro ao obter usuário logado:', error);
+//                 alert('Erro ao redirecionar para o perfil');
+//             });
+//         } else {
+//             alert('Você não está logado'); 
+//         }
+//     });
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
     const perfilLink = document.getElementById('user-modal-content-profile');
-    if (perfilLink) {
-        perfilLink.addEventListener('click', () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                fetch('/usuario-logado', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao obter usuário logado.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data._id) {
-                        console.log("Redirecionando para o perfil...");
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+       
 
-                        localStorage.setItem('token', data.token);
-
-                        window.location.href = `/perfil/${data.usuarioId}`; 
-                    } else {
-                        console.log('ID de usuário não encontrado', data);
-                    }
-                })
-                .catch(error => {
-                    console.log('Erro ao obter usuário logado:', error);
-                    alert('Erro ao redirecionar para o perfil');
-                });
-            } else {
-                alert('Você não está logado');
-            }
-        });
+fetch('/verificar', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer ' + token
     }
+})
+.then(response => {
+    if (!response.ok) {
+        console.log('Erro ao verificar o token');
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Token verificado', data);
+})
+.catch(err => {
+    console.error('Erro na requisição', err);
+});
+
+
+
+
+        if (token && userId) {
+            const headers = { 
+                'Authorization': 'Bearer ' + token
+            };
+            
+            fetch('/usuario-logado', { 
+                method: 'GET', 
+                headers: headers
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao obter usuário logado.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data._id) {
+                    console.log("Redirecionando para o perfil...");
+                    window.location.href = `/perfil/${data._id}`; 
+                } else {
+                    console.log('ID de usuário não encontrado', data._id);
+                }
+            })
+            .catch(error => {
+                console.log('Erro ao obter usuário logado:', error);
+                alert('Erro ao redirecionar para o perfil');
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
 });

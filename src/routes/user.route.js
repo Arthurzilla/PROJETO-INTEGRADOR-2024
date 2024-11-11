@@ -17,15 +17,17 @@ route.get('/login', userController.find)
 
 route.post('/login/api', userController.find, userController.verifyToken, userController.getUserLogado, userController.getPerfil)
 
-route.get('/usuario-logado', userController.getPerfil, userController.getUserLogado)
+route.get('/usuario-logado', userController.verifyToken, userController.getUserLogado)
 
 route.post('/logout', (req, res) => {
     res.status(200).json({ message: 'Deslogado com sucesso' });
 });
 
-route.get('/perfil/:id', userController.getUserLogado, userController.getPerfil);
+route.get('/verificar', userController.verifyToken)
 
-route.get('/perfil/', (req, res) => {
+route.get('/perfil/:id', userController.verifyToken, userController.getPerfil);
+
+route.get('/perfil', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'perfil.html'));
 });
 

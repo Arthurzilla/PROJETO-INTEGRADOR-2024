@@ -78,41 +78,40 @@ const find = async (req, res) => {
             email: usuarioEncontrado.email,
             usuarioId: usuarioEncontrado._id
         },
-        token
+        token,
+        usuarioId: usuarioEncontrado._id
     });
 };
 
 // Função para verificar o token
 const verifyToken = (req, res, next) => {
     const authorizationHeader = req.headers['authorization'];
-    const token = authorizationHeader && authorizationHeader.split(' ')[1]; 
+    const token = authorizationHeader && authorizationHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido. verifytoken' });
+        return res.status(403).json({ message: 'Token não fornecido. verifyToken' });
     }
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: 'Token inválido.' });
         }
-        req.userId = decoded.id;
-        next();
+
+        req.usuarioId = decoded.id;  // Atribuindo o ID corretamente
+        next();  // Chamando a próxima função
     });
 };
 
 // Função para obter o perfil do usuário
 const getPerfil = async (req, res) => {
-    const token = req.headers.authorization?.split(' ')[1];
-    console.log()
+    const userId = req.userId;
 
-    if (!token) {
-        return res.status(401).json({ message: 'Token não fornecido. getPerfil' });
+    if (!userId) {
+        return res.status(401).json({ message: 'ID do usuário não encontrado no token. getPerfil' });
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const usuarioId = decoded.id;  
-        const user = await Usuario.findById(usuarioId);
+        const user = await Usuario.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }
@@ -128,44 +127,50 @@ const getPerfil = async (req, res) => {
     }
 };
 
-// Função para obter o usuário logado
-const getUserLogado = (req, res) => {
-    const authorizationHeader = req.headers['authorization'];
-    const token = authorizationHeader && authorizationHeader.split(' ')[1];
 
-    if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido. gerUserLogado' });
+const getUserLogado = async (req, res) => {
+    const id = req.usuarioId;
+
+    console.log("\ngetUserLogado | ID recebido:", id);
+
+    if (!id) {
+        return res.status(403).json({ message: 'ID não fornecido no token. getUserLogado' });
     }
 
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Token inválido.' });
+    try {
+        const usuario = await Usuario.findById(id);
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        Usuario.findById(decoded.id)
-            .then((usuario) => {
-                if (!usuario) {
-                    return res.status(404).json({ message: 'Usuário não encontrado.' });
-                }
-
-                res.status(200).json({ usuarioId: usuario._id });
-            })
-            .catch((err) => res.status(500).json({ message: 'Erro ao buscar usuário.', error: err }));
-    });
+        console.log("getUserLogado Usuário encontrado:", usuario);
+        res.status(200).json({ _id: usuario._id, displayUser: usuario.displayUser, usuario: usuario.user });
+    } catch (err) {
+        console.error("Erro ao buscar usuário:", err);
+        res.status(500).json({ message: 'Erro ao buscar usuário.', error: err });
+    }
 };
 
-// const getUserLogado = (req,res) => {
-//     const token = localStorage.getItem(data)
-
-//             Usuario.findById(data)
-//             .then((usuario) => {
-//                 if (!usuario) {
-//                     return res.status(404).json({ message: 'Usuário não encontrado.' });
-//                 }
-
-//                 res.status(200).json({ usuarioId: usuario._id });
-//             })
-//             .catch((err) => res.status(500).json({ message: 'Erro ao buscar usuário.', error: err }));
-//     };
-
 module.exports = { save, find, verifyToken, getUserLogado, getPerfil };
+
+// Função para obter o usuário logado
+// const getUserLogado = async (req, res) => {
+//     const id = req.headers['id'];
+//     console.log(id)
+
+//     if (!id) {
+//         return res.status(403).json({ message: 'ID não fornecido no cabeçalho. getUserLogado' });
+//     }
+
+//     try {
+//         const usuario = await Usuario.findById(id);
+//         if (!usuario) {
+//             return res.status(404).json({ message: 'Usuário não encontrado.' });
+//         }
+
+//         res.status(200).json({ usuarioId: usuario._id });
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: 'Erro ao buscar usuário.', error: err });
+//     }
+// };
