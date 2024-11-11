@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userModal = document.getElementById('user-modal');
 
     userNav.addEventListener('click', () => {
-        userModal.style.display = 'block'; // Mostra o modal
+        userModal.style.display = 'block';
     });
     
     document.addEventListener('click', (event) => {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isClickInsideUserModal = userModal.contains(event.target);
 
         if (!isClickInsideUserNav && !isClickInsideUserModal) {
-            userModal.style.display = 'none'; // Esconde o modal
+            userModal.style.display = 'none';
         }
     })
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+            if (data.displayUser && data.usuario) { 
                 displayUserDiv.textContent = `${data.displayUser}`;
                 userUserDiv.textContent = `@${data.usuario}`;
 
@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    // Logout button functionality
     const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {

@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+            if (data.displayUser && data.usuario) { 
                 usuarioDiv.textContent = `${data.displayUser} @${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';

@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userModal = document.getElementById('user-modal');
 
     userNav.addEventListener('click', () => {
-        userModal.style.display = 'block'; // Mostra o modal
+        userModal.style.display = 'block'; 
     });
     
     document.addEventListener('click', (event) => {
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isClickInsideUserModal = userModal.contains(event.target);
 
         if (!isClickInsideUserNav && !isClickInsideUserModal) {
-            userModal.style.display = 'none'; // Esconde o modal
+            userModal.style.display = 'none'; 
         }
     })
 
@@ -167,7 +167,7 @@ async function fetchComentarios(id) {
         const comentarios = await response.json();
 
         const comentariosList = document.getElementById('comentariosList');
-        comentariosList.innerHTML = ''; // Limpa a lista anterior
+        comentariosList.innerHTML = '';
 
         if (comentarios.length === 0) {
             comentariosList.innerHTML = '<p>Não há comentários ainda.</p>';
@@ -372,7 +372,7 @@ document.getElementById('saveCommentButton').addEventListener('click', async () 
 
 document.getElementById('trashButton').addEventListener('click', () => {
     const modal = document.getElementById('trashModal');
-    modal.style.display = 'block'; // Exibe o modal de confirmação
+    modal.style.display = 'block';
     overlay.style.display = 'block';
     overlay.style.animation = 'escurecerFundo 0.5s forwards';
 });
@@ -385,7 +385,7 @@ document.getElementById('closeTrashButton').addEventListener('click', function()
 
 // Confirmar exclusão
 document.getElementById('apagarButton').addEventListener('click', async () => {
-    const id = window.location.pathname.split('/').pop(); // Obtém o ID da fofoca
+    const id = window.location.pathname.split('/').pop();
 
     try {
         const response = await fetch(`/fofocas/${id}`, {
@@ -397,7 +397,7 @@ document.getElementById('apagarButton').addEventListener('click', async () => {
             throw new Error('Erro ao deletar fofoca');
         }
 
-        window.location.href = '/fofocas'; // Redireciona para a timeline após a exclusão
+        window.location.href = '/fofocas';
     } catch (error) {
         console.error('Erro:', error);
         alert('Erro ao deletar fofoca.');
