@@ -39,22 +39,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Conexão ao banco de dados LOCAL
-/* database.connectDatabase(); */
+database.connectDatabase();
 
 // Conexão ao banco de dados ONLINE
-database.connectOnlineDatabase()
-
+/* database.connectOnlineDatabase()
+ */
 // Rotas
 app.use('/', userRoute);
 app.use('/fofocas', fofocaRoute);
 
 
 app.get('/', (req, res) => {
-    res.redirect('/fofocas/convidado');
+    res.redirect('/login');
 });
 
 // Iniciar o servidor
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta 3000
-http://localhost:${porta}/fofocas/convidado`);
+http://localhost:${porta}/login`);
 });

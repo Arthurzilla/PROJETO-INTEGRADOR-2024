@@ -8,6 +8,17 @@ body {
     justify-content: center;
 }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    display: none; /* Inicialmente oculto */
+    z-index: 999; /* Fica atrás do modal */
+}
+
 
 
 #timeline {
@@ -82,6 +93,8 @@ nav {
 
 }
 
+
+
 #user-nav{
     display: flex;
     align-items: center;
@@ -139,6 +152,98 @@ nav {
     cursor: pointer;
 }
 
+#creation-modal{
+    position: fixed;
+    top: 50px;
+    background-color: #fff;
+    width: 650px;
+    height: 350px;
+    z-index: 1000;
+    border-radius: 20px;
+
+    display: none;
+}
+
+#creation-modal-content{
+    width: 100%;
+    height: 100%;
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;
+}
+
+#creation-modal-content-user{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+#creation-modal-content-user-content{
+    display: flex;
+    gap: 0.5rem;
+    background-color: none;
+}
+
+#creation-modal-content-close{
+
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    
+}
+
+#creation-modal-content-close:hover{
+
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+#creation-modal-content-fofoca{
+    background-color: rgb(166, 34, 34);
+    width: 90%;
+    height:55%;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 4.6rem;
+}
+
+#creation-modal-content-fofoca:hover{
+    cursor: copy;
+}
+
+#creation-modal-content-fofoca-content{
+    padding: 1rem;
+    
+}
+
+#creation-modal-content-post{
+    position: absolute;
+    bottom: 1.2rem;
+    right: 4rem;
+    background-color: #1d9bf0;
+    border-radius: 0.5rem;
+    
+}
+
+#creation-modal-content-post-content{
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+#creation-modal-content-post-content:hover{
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
                 
 .user-specs{
     
@@ -148,25 +253,28 @@ nav {
     justify-content: flex-start;
 }
 
+#mostraUsario{
+    background-color: #1a1a1a;
+}
+
 .user{
     font-size: 1rem;
     color: gray;
-   
 }
 
 .display{
     font-weight: bold;
     font-size: 1.1rem;
     color: #1d9bf0; 
-
 }
 
 .description{
     font-size: 1.3rem;
     margin-top: 1rem;
+    width: 500px;
 
 
-    background-color: none;
+    background-color: red;
     padding: 0px;
     color: black;
 }
