@@ -100,4 +100,4 @@ const updateById = async (req, res) => {
     }
 };
 
-module.exports = { save, findAll, findById, deleteById, updateById };
+module.exports = { save, findAll, findById, deleteById, updateById};

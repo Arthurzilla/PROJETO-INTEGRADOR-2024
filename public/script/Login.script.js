@@ -1,4 +1,4 @@
-    entrarForm.addEventListener('submit', async (event) => {
+entrarForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const usuario = document.getElementById('usuario').value;
@@ -19,15 +19,17 @@
         const data = await response.json();
 
         if (data.hasOwnProperty('error')) {
-            document.getElementById("usuario").textContent = "";
-            document.getElementById("senha").textContent = "";
+            document.getElementById("usuario").value = "";
+            document.getElementById("senha").value = "";
             document.getElementById("alertERROR").textContent = data.error;
             return;
         }
 
+        localStorage.setItem('authorization', data.token);
         localStorage.setItem('token', data.token);
-        localStorage.setItem('id', data.usuario._id)
-        localStorage.setItem('data', JSON.stringify(data))
+        localStorage.setItem('id', data.usuario._id);
+        localStorage.setItem('data', JSON.stringify(data));
+
         window.location.href = '/fofocas';
     } catch (error) {
         console.error('Erro:', error);

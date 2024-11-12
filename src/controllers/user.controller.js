@@ -1,6 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Usuario = require('../models/Usuario');  
+const Fofoca = require('../models/Fofoca')
+
+const { format } = require('date-fns');
 
 const userService = require('../services/user.service');
 const jwt = require('jsonwebtoken');
@@ -65,10 +68,11 @@ const find = async (req, res) => {
         return res.status(401).json({ error: 'Senha incorreta.' });
     }
 
-    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET);
+    const token = jwt.sign({ id: usuarioEncontrado._id, user: usuarioEncontrado.user }, JWT_SECRET,{ expiresIn: '5h' });
 
     req.session.token = token;
-    console.log('Token gerado:', token);
+
+    console.log('\nfind | Token gerado:', token);
 
     return res.status(200).json({
         message: 'Usuário encontrado com sucesso.',
@@ -83,31 +87,35 @@ const find = async (req, res) => {
     });
 };
 
+
 // Função para verificar o token
 const verifyToken = (req, res, next) => {
-    const authorizationHeader = req.headers['authorization'];
-    const token = authorizationHeader && authorizationHeader.split(' ')[1];
+    const token = req.headers['authorization']?.split(' ')[1];
+
+    console.log('\nverifyToken | Token extraído:', token);
 
     if (!token) {
-        return res.status(403).json({ message: 'Token não fornecido. verifyToken' });
+        return res.status(403).json({ message: 'verifyToken | Token não fornecido' });
     }
 
     jwt.verify(token, JWT_SECRET, (err, decoded) => {
         if (err) {
+            console.error('Erro ao verificar o token:', err);
             return res.status(401).json({ message: 'Token inválido.' });
         }
 
-        req.usuarioId = decoded.id;  // Atribuindo o ID corretamente
-        next();  // Chamando a próxima função
+        console.log("\nverifyToken | Token decodificado:", decoded);
+        req.usuarioId = decoded.id;
+        next();
     });
 };
 
 // Função para obter o perfil do usuário
 const getPerfil = async (req, res) => {
-    const userId = req.userId;
+    const userId = req.params.id;
 
     if (!userId) {
-        return res.status(401).json({ message: 'ID do usuário não encontrado no token. getPerfil' });
+        return res.status(401).json({ message: 'getPerfil | ID do usuário não encontrado.' });
     }
 
     try {
@@ -116,10 +124,13 @@ const getPerfil = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }
 
+        const dataCriacao = format(user.createdAt, 'MM/dd/yyyy HH:mm:ss');
+
         res.json({
             _id: user._id,
             displayUser: user.displayUser,
             usuario: user.user,
+            dataCriacao: dataCriacao
         });
     } catch (err) {
         console.error(err);
@@ -131,10 +142,10 @@ const getPerfil = async (req, res) => {
 const getUserLogado = async (req, res) => {
     const id = req.usuarioId;
 
-    console.log("\ngetUserLogado | ID recebido:", id);
+    console.log('\ngetUserLogado | ID recebido no getUserLogado:', id);
 
     if (!id) {
-        return res.status(403).json({ message: 'ID não fornecido no token. getUserLogado' });
+        return res.status(403).json({ message: 'getUserLogado | ID não fornecido no token.' });
     }
 
     try {
@@ -143,34 +154,38 @@ const getUserLogado = async (req, res) => {
             return res.status(404).json({ message: 'Usuário não encontrado.' });
         }
 
-        console.log("getUserLogado Usuário encontrado:", usuario);
-        res.status(200).json({ _id: usuario._id, displayUser: usuario.displayUser, usuario: usuario.user });
+        console.log('\ngetUserLogado | Usuário encontrado:', usuario);
+
+        res.status(200).json({
+            _id: usuario._id,
+            displayUser: usuario.displayUser,
+            usuario: usuario.user, 
+        });
     } catch (err) {
         console.error("Erro ao buscar usuário:", err);
         res.status(500).json({ message: 'Erro ao buscar usuário.', error: err });
     }
 };
 
-module.exports = { save, find, verifyToken, getUserLogado, getPerfil };
+const getFofocasPorUsuario = async (req, res) => {
+    const userId = req.params.id;
 
-// Função para obter o usuário logado
-// const getUserLogado = async (req, res) => {
-//     const id = req.headers['id'];
-//     console.log(id)
+    if (!userId) {
+        return res.status(400).json({ message: 'ID do usuário não fornecido.' });
+    }
 
-//     if (!id) {
-//         return res.status(403).json({ message: 'ID não fornecido no cabeçalho. getUserLogado' });
-//     }
+    try {
+        const fofocas = await Fofoca.find({ usuario: userId }).sort({ date: -1 }).populate('usuario', 'user displayUser');
 
-//     try {
-//         const usuario = await Usuario.findById(id);
-//         if (!usuario) {
-//             return res.status(404).json({ message: 'Usuário não encontrado.' });
-//         }
+        if (!fofocas || fofocas.length === 0) {
+            return res.status(404).json({ message: 'Nenhuma fofoca encontrada para este usuário.' });
+        }
 
-//         res.status(200).json({ usuarioId: usuario._id });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Erro ao buscar usuário.', error: err });
-//     }
-// };
+        res.json(fofocas);
+    } catch (err) {
+        console.error('Erro ao buscar fofocas:', err);
+        res.status(500).json({ message: 'Erro ao obter as fofocas' });
+    }
+};
+
+module.exports = { save, find, verifyToken, getUserLogado, getPerfil, getFofocasPorUsuario };

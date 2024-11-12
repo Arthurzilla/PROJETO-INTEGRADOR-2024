@@ -93,10 +93,10 @@ async function fetchFofoca() {
         const dataFormatada = formatarData(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
-        <div class='user-specs'>
-             <div id='fofoca-display' class='display'>${fofoca.usuario.displayUser}</div>
-            <div id='fofoca-user' class='user'>@${fofoca.usuario.user}</div> 
-        </div>
+        <a href="/perfil/${fofoca.usuario._id}"><div class='user-specs'>
+        <div id='fofoca-display' class='display'>${fofoca.usuario.displayUser}</div>
+        <div id='fofoca-user' class='user'>@${fofoca.usuario.user}</div>
+        </div></a>
             <div id="fofoca-description" class='description' >${fofoca.description}</div>
             <div id="fofoca-date" class='date'>${dataFormatada}</div>
 
@@ -183,10 +183,10 @@ async function fetchComentarios(id) {
 
             comentariosList.innerHTML += `
                 <div class="comentario-item">   
-                    <div id='comentarios-user-specs' class='user-specs'>
+                <a href="/perfil/${comentario.usuario._id}"><div id='comentarios-user-specs' class='user-specs'>
                         <div id='comentarios-display' class='display'>${comentario.usuario.displayUser}</div>
                         <div id='comentarios-user' class='user'>@${comentario.usuario.user}</div>
-                    </div>
+                    </div></a>
                     
                 
                         <div id='comentarios-description' class='description'>${texto}</div>

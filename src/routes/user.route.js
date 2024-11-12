@@ -23,12 +23,17 @@ route.post('/logout', (req, res) => {
     res.status(200).json({ message: 'Deslogado com sucesso' });
 });
 
-route.get('/verificar', userController.verifyToken)
+route.get('/verificar', userController.verifyToken, (req, res) => {
+    res.status(200).json({ message: 'Token verificado com sucesso' });
+});
 
-route.get('/perfil/:id', userController.verifyToken, userController.getPerfil);
+route.get('/perfil/:id/api', userController.verifyToken, userController.getPerfil);
 
-route.get('/perfil', (req, res) => {
+route.get('/perfil/:id', (req, res) => {
+    console.log('ID do perfil:', req.params.id);  // Exibe o ID na console para verificar
     res.sendFile(path.join(__dirname, '..', 'views', 'perfil.html'));
 });
+
+route.get('/fofocas/api/:id', userController.getFofocasPorUsuario);
 
 module.exports = route;
