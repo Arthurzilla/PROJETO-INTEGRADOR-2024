@@ -37,10 +37,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuarioDiv = document.getElementById('user-specs')
     const userNav = document.getElementById('user-nav');
     const userModal = document.getElementById('user-modal');
+    const buttonCriar = document.getElementById('buttonCriar');
+    const criarModal = document.getElementById('creation-modal');
+    const closeModalButton = document.getElementById('creation-modal-content-close');
+
+    closeModalButton.addEventListener('click', () => {
+        criarModal.style.display = 'none'; // Esconde o modal de criar
+        overlay.style.display = 'none'; // Esconde o overlay
+    });
+
+    buttonCriar.addEventListener('click',() =>{
+        criarModal.style.display = 'block'; // mostra o modal de criar
+        overlay.style.display = 'block'; // mostra overlay
+    })
 
     userNav.addEventListener('click', () => {
         userModal.style.display = 'block'; // Mostra o modal
     });
+
+
     
     document.addEventListener('click', (event) => {
         const isClickInsideUserNav = userNav.contains(event.target);

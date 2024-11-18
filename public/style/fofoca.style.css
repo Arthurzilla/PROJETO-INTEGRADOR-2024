@@ -169,14 +169,7 @@ nav {
     animation: escurecerFundo 0.5s forwards; /* Animação de escurecimento */
 }
 
-#fofoca-comentarios-titulo {
-    padding-bottom: 20px;
-    /* border-bottom: 1px solid #e0e0e0; */
-    font-size: 28px;
-    color: #1d9bf0;
-    margin-bottom: 40px;
-    background-color: #0056b3;
-}
+
 
 input[type="text"], textarea {
     width: 80%;
@@ -196,8 +189,8 @@ textarea:focus {
 }
 
 #fofocaDetails{
-    padding-left: 1rem;
     width: 94%;
+    word-wrap: break-word;
 }
 
 
@@ -245,7 +238,7 @@ textarea:focus {
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #e0e0e0;
-    padding-left: 1rem;
+    word-wrap: break-word;
 }
 
 
