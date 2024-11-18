@@ -324,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.getElementById('openCommentModalButton').addEventListener('click', () => {
     document.getElementById('commentModal').style.display = 'block';
+    overlay.style.display = 'block';
     overlay.style.animation = 'escurecerFundo 0.5s forwards';
 });
 
