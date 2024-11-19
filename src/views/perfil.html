@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil - <span id="profile-username">@usuário</span></title> <!-- Título dinâmico -->
+    <title>Perfil - <span id="profile-username">@usuário</span></title>
     <link rel="stylesheet" href="/style/Perfil.style.css">
     <script src="/script/Perfil.script.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
-    <div id="logout-button" class="bi bi-box-arrow-left"></div>
+    <div id="overlay"></div>
+
+    <nav>
+        <div id="user-nav">
+                <div id="user-icon" class="bi bi-person-circle"></div>
+                <div id="mostraUsuario" class="user-specs">
+                    <div id='nav-display' class='display'></div>
+                    <div id='nav-user' class='user'></div>
+                </div>
+        </div>
+        <!-- <div id="logout-button" class="bi bi-box-arrow-left"></div> -->
+    </nav>
+
+
+    <div id="user-modal">
+        <div id="user-modal-content">
+            <a id="user-modal-content-profile">Perfil</a>
+            <a>Adicionar conta existente</a>
+            <a id="logout-button">Sair</a>
+        </div>
+    </div>
 
     <!-- Conteúdo do Perfil -->
-    <section id="profile-content">
-        <!-- Informações do Usuário -->
-        <div id="profile-info">
+        
+        <!-- <div id="profile-info">
             <div class="profile-header">
                 <div id="profile-details">
                     <h1><span id="profile-username"></span></h1>
@@ -22,15 +42,15 @@
                     <p id="account-creation"></p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Tópicos ou Posts -->
-        <div id="profile-tweets">
-            <h2>Tweets</h2>
+    
   
-    </section>
 
-    <div id="timeline"></div>
+    <div id="timeline-container">
+        <div id="timeline-content"></div>
+    </div>
 
 </body>
 </html>

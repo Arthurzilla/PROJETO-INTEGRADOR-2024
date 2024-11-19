@@ -27,6 +27,104 @@ function timeAgo(date) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = window.location.pathname.split('perfil/').pop();
+    const userModal = document.getElementById('user-modal');
+    const userNav = document.getElementById('user-nav');
+    const logoutButton = document.getElementById('logout-button');
+
+    logoutButton.addEventListener('click', () => {
+        fetch('/logout', { 
+            method: 'POST', 
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } 
+        })
+        .then(response => {
+            if (response.ok) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('authorization');
+                localStorage.removeItem('id');
+                localStorage.removeItem('data');
+                window.location.href = '/login'; 
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao deslogar:', error);
+        });
+    });
+
+    userNav.addEventListener('click', () => {
+        userModal.style.display = 'block';
+    });
+
+    document.addEventListener('click', (event) => {
+        const isClickInsideUserNav = userNav.contains(event.target);
+        const isClickInsideUserModal = userModal.contains(event.target);
+
+        if (!isClickInsideUserNav && !isClickInsideUserModal) {
+            userModal.style.display = 'none';
+        }
+    })
+
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+        
+        console.log('Front | Token armazenado:', token);
+
+        if (token && userId) {
+            fetch('/verificar', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Front | Erro ao verificar o token');
+                    throw new Error('Erro ao verificar o token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Front | Token verificado', data);
+                
+                if (data.message === 'Token verificado com sucesso') {
+                    fetch(`/usuario-logado`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter usuário logado');
+                        }
+                        return response.json();
+                    })
+                    .then(userData => {
+                        if (userData._id) {
+                            console.log("Front | Redirecionando para o perfil...");
+                            window.location.href = `/perfil/${userData._id}`; 
+                        } else {
+                            console.log('Front | ID de usuário não encontrado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter usuário logado:', error);
+                        alert('Erro ao redirecionar para o perfil');
+                    });
+                } else {
+                    console.log('Front | Token inválido ou expirado');
+                }
+            })
+            .catch(err => {
+                console.error('Erro na requisição de verificação', err);
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
 
     const loadPerfil = async () => {
         try {
@@ -47,14 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            document.getElementById('profile-username').textContent = `${data.displayUser}`;
-            document.getElementById('display-name').textContent = `@${data.usuario}`;
+            const userDisplayElements =  document.getElementsByClassName('display');
+            const userNameElements = document.getElementsByClassName('user');
+
+            for (const element of userDisplayElements) {
+                element.textContent = data.displayUser;
+            }
+
+            for (const element of userNameElements){
+                element.textContent = `@${data.usuario}`
+            }
+
             document.getElementById('account-creation').textContent = `Conta criada em: ${new Date(data.dataCriacao).toLocaleDateString('pt-BR')}`;
 
         } catch (error) {
+
+            const userDisplayElements =  document.getElementsByClassName('display');
+            const userNameElements = document.getElementsByClassName('user');
+
             console.error('Erro ao carregar perfil:', error);
-            document.getElementById('profile-username').textContent = 'Erro ao carregar o perfil';
-            document.getElementById('display-name').textContent = '';
+            userDisplayElements.textContent = 'Erro ao carregar o perfil';
+            userNameElements.textContent = '';
         }
     };
 
@@ -74,7 +185,7 @@ const loadFofocas = async () => {
 
         const fofocas = await response.json();
         console.log("Dados recebidos da API:", fofocas);
-        const timelineDiv = document.getElementById('timeline');
+        const timelineDiv = document.getElementById('timeline-container');
         timelineDiv.innerHTML = '';
 
         if (Array.isArray(fofocas) && fofocas.length > 0) {

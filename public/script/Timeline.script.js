@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonCriar = document.getElementById('buttonCriar');
     const criarModal = document.getElementById('creation-modal');
     const closeModalButton = document.getElementById('creation-modal-content-close');
+    const logoutButton = document.getElementById('logout-button');
 
     closeModalButton.addEventListener('click', () => {
         criarModal.style.display = 'none'; // Esconde o modal de criar
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    const logoutButton = document.getElementById('logout-button');
+   
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             fetch('/logout', { 
