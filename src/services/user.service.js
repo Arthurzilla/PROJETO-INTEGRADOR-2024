@@ -8,4 +8,6 @@ const findByEmail = (email) => Usuario.findOne({ email });
 
 const findByUser = (user) => Usuario.findOne({user})
 
-module.exports = { saveService, findService, findByEmail, findByUser };
+const findById = (id) => Usuario.findById(id)
+
+module.exports = { saveService, findService, findByEmail, findByUser, findById };

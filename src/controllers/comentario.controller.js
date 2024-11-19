@@ -6,7 +6,6 @@ const save = async (req, res) => {
     const { usuario, text } = req.body;
     const fofocaId = req.params.id;
 
-    // Validação dos campos
     if (!text || !usuario) {
         console.error("Erro: Campos ausentes.", { text, usuario });
         return res.status(400).send({ message: "Preencha os comentários corretamente." });
@@ -53,13 +52,12 @@ const getByFofoca = async (req, res) => {
     }
 };
 
-// Função para buscar comentários relacionados a uma fofoca
 const findByComentarios = async (req, res) => {
-    const fofocaId = req.params.id; // Pega o ID da fofoca da rota
+    const fofocaId = req.params.id;
     try {
         const comentarios = await Comentario.find({ fofocaId })
             .sort({ _id: -1 })
-            .populate('usuario', 'user displayUser'); // Busca os campos 'user' e 'displayUser' relacionados ao usuário
+            .populate('usuario', 'user displayUser');
 
         if (!comentarios || comentarios.length === 0) {
             return res.status(404).send({ message: "Nenhum comentário encontrado." });

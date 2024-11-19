@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     userNav.addEventListener('click', () => {
-        userModal.style.display = 'block'; // Mostra o modal
+        userModal.style.display = 'block';
     });
 
 
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isClickInsideUserModal = userModal.contains(event.target);
 
         if (!isClickInsideUserNav && !isClickInsideUserModal) {
-            userModal.style.display = 'none'; // Esconde o modal
+            userModal.style.display = 'none';
         }
     })
 
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+            if (data.displayUser && data.usuario) { 
                 displayUserDiv.textContent = `${data.displayUser}`;
                 userUserDiv.textContent = `@${data.usuario}`;
 
@@ -96,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    // Logout button functionality
     const logoutButton = document.getElementById('logout-button');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
@@ -107,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (response.ok) {
                     localStorage.removeItem('token');
+                    localStorage.removeItem('authorization');
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('data');
                     window.location.href = '/login'; 
                 }
             })
@@ -147,15 +149,18 @@ const loadFofocas = async () => {
                 const formattedDate = timeAgo(data);
             
                 fofocaElement.innerHTML = `
-                <a href="/fofocas/${id}">
-                    <div class='user-specs'>
-                        <div class='display'>${usuario.displayUser}</div>
-                        <div class='user'>@${usuario.user}</div>
-                    </div>
-                    
-                    <div class='description'>${description}</div>
+                
 
+                    <div class='user-specs'>
+                    <a href="/perfil/${usuario._id}"><div class='display'>${usuario.displayUser}</div>
+                        <div class='user'>@${usuario.user}</div></a>
+                    </div>
+
+                <a href="/fofocas/${id}">
+
+                    <div class='description'>${description}</div>
                     <div class='date'>Há ${formattedDate}</div>
+
                 </a>
                 `;
                 timelineDiv.appendChild(fofocaElement);
@@ -171,3 +176,67 @@ const loadFofocas = async () => {
     }
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+        
+        console.log('Front | Token armazenado:', token);
+
+        if (token && userId) {
+            fetch('/verificar', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Front | Erro ao verificar o token');
+                    throw new Error('Erro ao verificar o token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Front | Token verificado', data);
+                
+                if (data.message === 'Token verificado com sucesso') {
+                    fetch(`/usuario-logado`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter usuário logado');
+                        }
+                        return response.json();
+                    })
+                    .then(userData => {
+                        if (userData._id) {
+                            console.log("Front | Redirecionando para o perfil...");
+                            window.location.href = `/perfil/${userData._id}`; 
+                        } else {
+                            console.log('Front | ID de usuário não encontrado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter usuário logado:', error);
+                        alert('Erro ao redirecionar para o perfil');
+                    });
+                } else {
+                    console.log('Front | Token inválido ou expirado');
+                }
+            })
+            .catch(err => {
+                console.error('Erro na requisição de verificação', err);
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
+});
