@@ -28,8 +28,12 @@ function timeAgo(date) {
 document.addEventListener('DOMContentLoaded', () => {
     const usuarioId = window.location.pathname.split('perfil/').pop();
     const userModal = document.getElementById('user-modal');
-    const userNav = document.getElementById('user-nav');
     const logoutButton = document.getElementById('logout-button');
+
+    const userNav = document.getElementById('user-nav');
+    const userDisplay = document.getElementById('nav-display');
+    const userName = document.getElementById('nav-user');
+
 
     logoutButton.addEventListener('click', () => {
         fetch('/logout', { 
@@ -126,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    
+
     const loadPerfil = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -145,19 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            const userDisplayElements =  document.getElementsByClassName('display');
-            const userNameElements = document.getElementsByClassName('user');
+            
 
-            for (const element of userDisplayElements) {
-                element.textContent = data.displayUser;
-            }
+            userDisplay.textContent = data.displayUser;
+            userName.textContent = `@${data.usuario}`;
 
-            for (const element of userNameElements){
-                element.textContent = `@${data.usuario}`
-            }
 
             document.getElementById('account-creation').textContent = `Conta criada em: ${new Date(data.dataCriacao).toLocaleDateString('pt-BR')}`;
-
+            
         } catch (error) {
 
             const userDisplayElements =  document.getElementsByClassName('display');
@@ -172,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPerfil();  
 });
 
-const loadFofocas = async () => {
+/* const loadFofocas = async () => {
     console.log('Tentando carregar fofocas de um usuário específico');
 
     const usuarioId = window.location.pathname.split('/perfil/')[1]; 
@@ -226,3 +227,62 @@ const loadFofocas = async () => {
 };
 
 loadFofocas();
+
+ */
+const loadFofocas = async () => {
+    console.log('Tentando carregar fofocas de um usuário específico');
+
+    const usuarioId = window.location.pathname.split('/perfil/')[1]; 
+
+    try {
+        const response = await fetch(`/fofocas/api/${usuarioId}`); 
+        if (!response.ok) {
+            throw new Error('Erro ao carregar fofocas: ' + response.statusText);
+        }
+
+        const fofocas = await response.json();
+        console.log("Dados recebidos da API:", fofocas);
+        const timelineDiv = document.getElementById('timeline-container');
+        timelineDiv.innerHTML = '';
+
+        if (Array.isArray(fofocas) && fofocas.length > 0) {
+            fofocas.forEach(fofoca => {
+                const fofocaElement = document.createElement('div');
+                fofocaElement.className = 'fofoca';
+            
+                const id = fofoca._id;
+                const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
+                const displayUser = fofoca.usuario.displayUser ? fofoca.usuario.displayUser : 'Usuário anônimo';
+                const userName = fofoca.usuario.user ? fofoca.usuario.user : 'anonimo';
+                const description = fofoca.description ? fofoca.description : 'Sem descrição';
+                
+                const data = new Date(fofoca.date);
+                const formattedDate = timeAgo(data);
+            
+                fofocaElement.innerHTML = `
+                <a href="/fofocas/${id}">
+                    <div class='user-specs'>
+                        <div class='display'>${displayUser}</div>
+                        <div class='user'>@${userName}</div>
+                    </div>
+                    
+                    <div class='description'>${description}</div>
+
+                    <div class='date'>Há ${formattedDate}</div>
+                </a>
+                `;
+                timelineDiv.appendChild(fofocaElement);
+            });
+        } else if (fofocas.message) {
+            timelineDiv.innerHTML = `<p>${fofocas.message}</p>`;
+        } else {
+            timelineDiv.innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
+        }
+    } catch (error) {
+        console.error('Erro ao carregar fofocas:', error);
+        document.getElementById('timeline-container').innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
+    }
+};
+
+loadFofocas();
+

@@ -23,6 +23,10 @@ nav {
 
 }
 
+a{
+    text-decoration: none;
+}
+
 #user-nav{
     display: flex;
     align-items: center;
@@ -99,7 +103,109 @@ nav {
 }
 
 #timeline-container{
-    margin-top: 15vh;
     width: 48%;
-    background-color: #1a1a1a;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 15vh;
+}
+
+.fofoca {
+    width: 94%;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.5rem;
+    padding-top: 1.5rem;
+    transition: background-color 0.3s ease;
+    
+}
+
+.fofoca:hover {
+    background-color: #f1efef
+}
+
+.user-specs{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user-specs:hover{
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+    text-decoration: underline;
+}
+.description{
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0px;
+    color: black;
+
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+
+.date{
+    color: gray;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px){
+    #timeline-container{
+        width: 100%;
+    }
+
+    .display{
+        font-size: 0.9rem;
+    }
+
+    .user{
+        font-size: 0.9rem;
+    }
+
+    .description{
+        font-size: 1.1;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+
+}
+
+@media (min-width: 600px) and (max-width: 1000px){
+    #timeline-container{
+        width: 80%;
+
+    }
+
+    .display{
+        font-size: 1rem;
+    }
+
+    .user{
+        font-size: 1rem;
+    }
+
+    .description{
+        font-size: 1.2;
+    }
+
+    .date{
+        font-size: 0.9rem;
+    }
 }
