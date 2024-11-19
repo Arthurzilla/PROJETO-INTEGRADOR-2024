@@ -12,9 +12,12 @@
     
 </head>
 <body>
+
+
+    <div id="overlay"></div>
     <nav>
         <div id="user-nav">
-            <div id="user-icon" class="bi bi-person-circle"></div>
+                <div id="user-icon" class="bi bi-person-circle"></div>
                 <div id="mostraUsuario" class="user-specs">
                     <div id='nav-display' class='display'></div>
                     <div id='nav-user' class='user'></div>
@@ -30,11 +33,38 @@
             <a>Adicionar conta existente</a>
         </div>
     </div>
+
+    <div id="creation-modal">
+        <div id="creation-modal-content">
+
+        <div id="creation-modal-content-user">
+            <div id="creation-modal-content-user-content">
+                <div id="user-icon" class="bi bi-person-circle"></div>
+                <div class="user-specs">
+                    <div class="display">arthur</div>
+                    <div class="user">@arthurzilla</div>
+                </div>  
+            </div>
+        </div>
+
+        <div id="creation-modal-content-close" class="bi bi-x"></div>
+            
+            
+                <!-- conteúdo -->
+                <textarea id="creation-modal-content-fofoca-content">Olá mundo</textarea>
+           
+             <!-- botão para postar -->
+            <div id="creation-modal-content-post">
+                <div id="creation-modal-content-post-content">Postar</div>
+            </div>
+
+
+        </div>   
+    </div>
     
     <!-- botão para criação de fofoca -->
-    <a href="/fofocas/criar">
         <div id="buttonCriar" class="bi bi-plus"></div>
-    </a>
+    
 
     <!-- div da timeline -->
         <div id="timeline"></div>

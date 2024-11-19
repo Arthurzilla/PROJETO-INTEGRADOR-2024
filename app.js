@@ -50,11 +50,11 @@ app.use('/fofocas', fofocaRoute);
 
 
 app.get('/', (req, res) => {
-    res.redirect('/fofocas/convidado');
+    res.redirect('/login');
 });
 
 // Iniciar o servidor
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta 3000
-http://localhost:${porta}/fofocas/convidado`);
+http://localhost:${porta}/login`);
 });
