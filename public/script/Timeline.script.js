@@ -26,9 +26,6 @@ function timeAgo(date) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM totalmente carregado e analisado');
-
-    console.log('vou chamar o load fofoca');
     loadFofocas();
 
     const token = localStorage.getItem('token');
@@ -40,22 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonCriar = document.getElementById('buttonCriar');
     const criarModal = document.getElementById('creation-modal');
     const closeModalButton = document.getElementById('creation-modal-content-close');
-
-    closeModalButton.addEventListener('click', () => {
-        criarModal.style.display = 'none'; // Esconde o modal de criar
-        overlay.style.display = 'none'; // Esconde o overlay
-    });
-
-    buttonCriar.addEventListener('click',() =>{
-        criarModal.style.display = 'block'; // mostra o modal de criar
-        overlay.style.display = 'block'; // mostra overlay
-    })
+    const creationDisplayDiv = document.getElementById('creation-display');
+    const creationUserDiv = document.getElementById('creation-user');
 
     userNav.addEventListener('click', () => {
         userModal.style.display = 'block';
     });
-
-
     
     document.addEventListener('click', (event) => {
         const isClickInsideUserNav = userNav.contains(event.target);
@@ -65,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             userModal.style.display = 'none';
         }
     })
-
 
     if (token) {
         fetch('/usuario-logado', {
@@ -80,10 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { 
+            if (data.displayUser && data.usuario) {
                 displayUserDiv.textContent = `${data.displayUser}`;
                 userUserDiv.textContent = `@${data.usuario}`;
 
+                creationDisplayDiv.textContent = `${data.displayUser}`;
+                creationUserDiv.textContent = `@${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
@@ -119,64 +107,52 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.log('Botão de logout não encontrado.');
     }
-});
 
+    closeModalButton.addEventListener('click', () => {
+        criarModal.style.display = 'none'; // Esconde o modal de criar
+        overlay.style.display = 'none'; // Esconde o overlay
+    });
 
-const loadFofocas = async () => {
-    console.log('tentando carregar fofoca');
+    buttonCriar.addEventListener('click',() =>{
+        criarModal.style.display = 'block'; // mostra o modal de criar
+        overlay.style.display = 'block'; // mostra overlay
+    })
 
-    try {
-        const response = await fetch('/fofocas/api')
-        if (!response.ok) {
-            throw new Error('Erro ao carregar fofocas: ' + response.statusText);
+    document.getElementById('creation-modal-content-post-content').addEventListener('click', async () => {
+        const conteudo = document.getElementById('creation-modal-content-fofoca-content').value;
+    
+        const token = localStorage.getItem('token');
+    
+        if (!token) {
+            alert('Você precisa estar logado para criar uma fofoca.');
+            window.location.href = '/login';
+            return;
         }
-
-        const fofocas = await response.json();
-        console.log("Dados recebidos da API:", fofocas);
-        const timelineDiv = document.getElementById('timeline');
-        timelineDiv.innerHTML = '';
-
-        if (Array.isArray(fofocas) && fofocas.length > 0) {
-            fofocas.forEach(fofoca => {
-                const fofocaElement = document.createElement('div');
-                fofocaElement.className = 'fofoca';
-            
-                const id = fofoca._id;
-                const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
-                const description = fofoca.description ? fofoca.description : 'Sem descrição';
-                
-                const data = new Date(fofoca.date);
-                const formattedDate = timeAgo(data);
-            
-                fofocaElement.innerHTML = `
-                
-
-                    <div class='user-specs'>
-                    <a href="/perfil/${usuario._id}"><div class='display'>${usuario.displayUser}</div>
-                        <div class='user'>@${usuario.user}</div></a>
-                    </div>
-
-                <a href="/fofocas/${id}">
-
-                    <div class='description'>${description}</div>
-                    <div class='date'>Há ${formattedDate}</div>
-
-                </a>
-                `;
-                timelineDiv.appendChild(fofocaElement);
-            });
-        } else if (fofocas.message) {
-            timelineDiv.innerHTML = `<p>${fofocas.message}</p>`;
+    
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.id;
+    
+        const response = await fetch('/fofocas/criar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                description: conteudo,
+                usuario: userId
+            })
+        });
+    
+        if (response.ok) {
+            window.location.href = '/fofocas';
         } else {
-            timelineDiv.innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
+            alert('Erro ao criar fofoca. Verifique os campos.');
         }
-    } catch (error) {
-        console.error('Erro ao carregar fofocas:', error);
-        document.getElementById('timeline').innerHTML = '<p>Erro ao carregar fofocas. Tente novamente mais tarde.</p>';
-    }
-};
+    
+        console.log('Requisição enviada:', { description: conteudo, usuario: userId });
+    });
 
-document.addEventListener('DOMContentLoaded', () => {
     const perfilLink = document.getElementById('user-modal-content-profile');
     
     perfilLink.addEventListener('click', () => {
@@ -239,4 +215,61 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Você não está logado'); 
         }
     });
+    
 });
+
+
+const loadFofocas = async () => {
+    console.log('tentando carregar fofoca');
+
+    try {
+        const response = await fetch('/fofocas/api')
+        if (!response.ok) {
+            throw new Error('Erro ao carregar fofocas: ' + response.statusText);
+        }
+
+        const fofocas = await response.json();
+        console.log("Dados recebidos da API:", fofocas);
+        const timelineDiv = document.getElementById('timeline');
+        timelineDiv.innerHTML = '';
+
+        if (Array.isArray(fofocas) && fofocas.length > 0) {
+            fofocas.forEach(fofoca => {
+                const fofocaElement = document.createElement('div');
+                fofocaElement.className = 'fofoca';
+            
+                const id = fofoca._id;
+                const usuario = fofoca.usuario ? fofoca.usuario : 'Anônimo';
+                const description = fofoca.description ? fofoca.description : 'Sem descrição';
+                
+                const data = new Date(fofoca.date);
+                const formattedDate = timeAgo(data);
+            
+                fofocaElement.innerHTML = `
+                
+
+                    <div class='user-specs'>
+                    <a href="/perfil/${usuario._id}"><div class='display'>${usuario.displayUser}</div>
+                        <div class='user'>@${usuario.user}</div></a>
+                    </div>
+
+                <a href="/fofocas/${id}">
+
+                    <div class='description'>${description}</div>
+                    <div class='date'>Há ${formattedDate}</div>
+
+                </a>
+                `;
+                timelineDiv.appendChild(fofocaElement);
+            });
+        } else if (fofocas.message) {
+            timelineDiv.innerHTML = `<p>${fofocas.message}</p>`;
+        } else {
+            timelineDiv.innerHTML = '<p>Nenhuma fofoca disponível no momento.</p>';
+        }
+    } catch (error) {
+        console.error('Erro ao carregar fofocas:', error);
+        document.getElementById('timeline').innerHTML = '<p>Erro ao carregar fofocas. Tente novamente mais tarde.</p>';
+    }
+};
+
