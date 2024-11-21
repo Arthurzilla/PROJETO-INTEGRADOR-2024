@@ -26,6 +26,8 @@ const UsuarioSchema = new mongoose.Schema({
         required: true,
         minlength: 8,
     },
+}, {
+    timestamps: true,
 });
 
 // Middleware para hash da senha antes de salvar o usuário

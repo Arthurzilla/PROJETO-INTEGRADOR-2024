@@ -26,7 +26,7 @@ app.use(session({
     secret: 'algumaChaveSecretaSegura', // Substitua por uma chave secreta segura
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true } // Defina como true se estiver usando HTTPS
+    cookie: { secure: false } // Defina como true se estiver usando HTTPS
 }));
 
 // Middleware para manipulação de JSON
@@ -39,13 +39,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Conexão ao banco de dados LOCAL
-database.connectDatabase();
+//database.connectDatabase();
 
 // Conexão ao banco de dados ONLINE
-/* database.connectOnlineDatabase()
- */
+database.connectOnlineDatabase()
+
 // Rotas
-app.use('/', userRoute);
+app.use('/',userRoute);
 app.use('/fofocas', fofocaRoute);
 
 

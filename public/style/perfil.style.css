@@ -1,61 +1,12 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
 body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-
-/* body */
-
-body{
     font-family: 'Helvetica', 'Arial', sans-serif;
     background-color: #f1f5f9;
     color: #1a1a1a;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
+    justify-content: center;
 }
-
-/* navbar */
 
 nav {
     top: 0px;
@@ -63,16 +14,18 @@ nav {
     z-index: 998;
     height: 13vh; 
     width: 100%;
-    background-color: white;
+    background-color: #fff;
 
     display: flex;
     align-items: center;
+    margin: 0px;
     border-bottom: 1px solid #e0e0e0;
 
 }
 
-
-/* user nav  */
+a{
+    text-decoration: none;
+}
 
 #user-nav{
     display: flex;
@@ -80,17 +33,35 @@ nav {
     gap: 0.5rem;
     padding: 0.4rem;
     border-radius: 0.4rem;
-
     margin-left: 3.5%;
 }
 
 #user-nav:hover{
     background-color: #f1efef;
+    cursor: pointer;
 }
 
 #user-icon{
-    color: #1a1a1a;
     font-size: 2rem;
+}
+
+.user-specs{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user{
+    font-size: 1rem;
+    color: gray;
+}
+
+.display{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1d9bf0; 
 }
 
 #user-modal{
@@ -131,29 +102,110 @@ nav {
     cursor: pointer;
 }
 
+#timeline-container{
+    width: 48%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-/* botão de criar */
-
-#buttonCriar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    background-color: #1d9bf0;
-    color: white;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 32px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    justify-content: flex-start;
+    margin-top: 15vh;
+}
+
+.fofoca {
+    width: 94%;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.5rem;
+    padding-top: 1.5rem;
     transition: background-color 0.3s ease;
+    
 }
 
-#buttonCriar:hover {
-    background-color: #1a8cd8;
+.fofoca:hover {
+    background-color: #f1efef
 }
 
+.user-specs{
+    
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+}
+
+.user-specs:hover{
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    justify-content: flex-start;
+    text-decoration: underline;
+}
+.description{
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0px;
+    color: black;
+
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+
+.date{
+    color: gray;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px){
+    #timeline-container{
+        width: 100%;
+    }
+
+    .display{
+        font-size: 0.9rem;
+    }
+
+    .user{
+        font-size: 0.9rem;
+    }
+
+    .description{
+        font-size: 1.1;
+    }
+
+    .date{
+        font-size: 0.8rem;
+    }
+
+
+}
+
+@media (min-width: 600px) and (max-width: 1000px){
+    #timeline-container{
+        width: 80%;
+
+    }
+
+    .display{
+        font-size: 1rem;
+    }
+
+    .user{
+        font-size: 1rem;
+    }
+
+    .description{
+        font-size: 1.2;
+    }
+
+    .date{
+        font-size: 0.9rem;
+    }
+}

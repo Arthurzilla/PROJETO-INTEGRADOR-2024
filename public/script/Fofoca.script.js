@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userModal = document.getElementById('user-modal');
 
     userNav.addEventListener('click', () => {
-        userModal.style.display = 'block'; // Mostra o modal
+        userModal.style.display = 'block'; 
     });
     
     document.addEventListener('click', (event) => {
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isClickInsideUserModal = userModal.contains(event.target);
 
         if (!isClickInsideUserNav && !isClickInsideUserModal) {
-            userModal.style.display = 'none'; // Esconde o modal
+            userModal.style.display = 'none'; 
         }
     })
 
@@ -72,6 +72,70 @@ document.addEventListener('DOMContentLoaded', () => {
             cadastra.style.display = 'none';
         }
     }
+
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+        
+        console.log('Front | Token armazenado:', token);
+
+        if (token && userId) {
+            fetch('/verificar', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Front | Erro ao verificar o token');
+                    throw new Error('Erro ao verificar o token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Front | Token verificado', data);
+                
+                if (data.message === 'Token verificado com sucesso') {
+                    fetch(`/usuario-logado`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter usuário logado');
+                        }
+                        return response.json();
+                    })
+                    .then(userData => {
+                        if (userData._id) {
+                            console.log("Front | Redirecionando para o perfil...");
+                            window.location.href = `/perfil/${userData._id}`; 
+                        } else {
+                            console.log('Front | ID de usuário não encontrado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter usuário logado:', error);
+                        alert('Erro ao redirecionar para o perfil');
+                    });
+                } else {
+                    console.log('Front | Token inválido ou expirado');
+                }
+            })
+            .catch(err => {
+                console.error('Erro na requisição de verificação', err);
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
+
 });
 
 async function fetchFofoca() {
@@ -93,10 +157,10 @@ async function fetchFofoca() {
         const dataFormatada = formatarData(new Date(fofoca.date));
 
         document.getElementById('fofocaDetails').innerHTML = `
-        <div class='user-specs'>
-             <div id='fofoca-display' class='display'>${fofoca.usuario.displayUser}</div>
-            <div id='fofoca-user' class='user'>@${fofoca.usuario.user}</div> 
-        </div>
+        <a href="/perfil/${fofoca.usuario._id}"><div class='user-specs'>
+        <div id='fofoca-display' class='display'>${fofoca.usuario.displayUser}</div>
+        <div id='fofoca-user' class='user'>@${fofoca.usuario.user}</div>
+        </div></a>
             <div id="fofoca-description" class='description' >${fofoca.description}</div>
             <div id="fofoca-date" class='date'>${dataFormatada}</div>
 
@@ -167,7 +231,7 @@ async function fetchComentarios(id) {
         const comentarios = await response.json();
 
         const comentariosList = document.getElementById('comentariosList');
-        comentariosList.innerHTML = ''; // Limpa a lista anterior
+        comentariosList.innerHTML = '';
 
         if (comentarios.length === 0) {
             comentariosList.innerHTML = '<p>Não há comentários ainda.</p>';
@@ -183,10 +247,10 @@ async function fetchComentarios(id) {
 
             comentariosList.innerHTML += `
                 <div class="comentario-item">   
-                    <div id='comentarios-user-specs' class='user-specs'>
+                <a href="/perfil/${comentario.usuario._id}"><div id='comentarios-user-specs' class='user-specs'>
                         <div id='comentarios-display' class='display'>${comentario.usuario.displayUser}</div>
                         <div id='comentarios-user' class='user'>@${comentario.usuario.user}</div>
-                    </div>
+                    </div></a>
                     
                 
                         <div id='comentarios-description' class='description'>${texto}</div>
@@ -373,7 +437,7 @@ document.getElementById('saveCommentButton').addEventListener('click', async () 
 
 document.getElementById('trashButton').addEventListener('click', () => {
     const modal = document.getElementById('trashModal');
-    modal.style.display = 'block'; // Exibe o modal de confirmação
+    modal.style.display = 'block';
     overlay.style.display = 'block';
     overlay.style.animation = 'escurecerFundo 0.5s forwards';
 });
@@ -386,7 +450,7 @@ document.getElementById('closeTrashButton').addEventListener('click', function()
 
 // Confirmar exclusão
 document.getElementById('apagarButton').addEventListener('click', async () => {
-    const id = window.location.pathname.split('/').pop(); // Obtém o ID da fofoca
+    const id = window.location.pathname.split('/').pop();
 
     try {
         const response = await fetch(`/fofocas/${id}`, {
@@ -398,7 +462,7 @@ document.getElementById('apagarButton').addEventListener('click', async () => {
             throw new Error('Erro ao deletar fofoca');
         }
 
-        window.location.href = '/fofocas'; // Redireciona para a timeline após a exclusão
+        window.location.href = '/fofocas';
     } catch (error) {
         console.error('Erro:', error);
         alert('Erro ao deletar fofoca.');

@@ -26,9 +26,6 @@ function timeAgo(date) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM totalmente carregado e analisado');
-
-    console.log('vou chamar o load fofoca');
     loadFofocas();
 
     const token = localStorage.getItem('token');
@@ -40,32 +37,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonCriar = document.getElementById('buttonCriar');
     const criarModal = document.getElementById('creation-modal');
     const closeModalButton = document.getElementById('creation-modal-content-close');
+    const logoutButton = document.getElementById('logout-button');
+    const creationDisplayDiv = document.getElementById('creation-display');
+    const creationUserDiv = document.getElementById('creation-user');
 
-    closeModalButton.addEventListener('click', () => {
-        criarModal.style.display = 'none'; // Esconde o modal de criar
-        overlay.style.display = 'none'; // Esconde o overlay
-    });
-
-    buttonCriar.addEventListener('click',() =>{
-        criarModal.style.display = 'block'; // mostra o modal de criar
-        overlay.style.display = 'block'; // mostra overlay
-    })
 
     userNav.addEventListener('click', () => {
-        userModal.style.display = 'block'; // Mostra o modal
+        userModal.style.display = 'block';
     });
-
-
     
     document.addEventListener('click', (event) => {
         const isClickInsideUserNav = userNav.contains(event.target);
         const isClickInsideUserModal = userModal.contains(event.target);
 
         if (!isClickInsideUserNav && !isClickInsideUserModal) {
-            userModal.style.display = 'none'; // Esconde o modal
+            userModal.style.display = 'none';
         }
     })
-
 
     if (token) {
         fetch('/usuario-logado', {
@@ -80,10 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            if (data.displayUser && data.usuario) { // Verifica se displayUser e usuario estão presentes
+            if (data.displayUser && data.usuario) {
                 displayUserDiv.textContent = `${data.displayUser}`;
                 userUserDiv.textContent = `@${data.usuario}`;
 
+                creationDisplayDiv.textContent = `${data.displayUser}`;
+                creationUserDiv.textContent = `@${data.usuario}`;
             } else {
                 usuarioDiv.textContent = 'Usuário não encontrado';
             }
@@ -96,8 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    // Logout button functionality
-    const logoutButton = document.getElementById('logout-button');
+   
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             fetch('/logout', { 
@@ -107,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (response.ok) {
                     localStorage.removeItem('token');
+                    localStorage.removeItem('authorization');
+                    localStorage.removeItem('id');
+                    localStorage.removeItem('data');
                     window.location.href = '/login'; 
                 }
             })
@@ -117,6 +109,115 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.log('Botão de logout não encontrado.');
     }
+
+    closeModalButton.addEventListener('click', () => {
+        criarModal.style.display = 'none'; // Esconde o modal de criar
+        overlay.style.display = 'none'; // Esconde o overlay
+    });
+
+    buttonCriar.addEventListener('click',() =>{
+        criarModal.style.display = 'block'; // mostra o modal de criar
+        overlay.style.display = 'block'; // mostra overlay
+    })
+
+    document.getElementById('creation-modal-content-post-content').addEventListener('click', async () => {
+        const conteudo = document.getElementById('creation-modal-content-fofoca-content').value;
+    
+        const token = localStorage.getItem('token');
+    
+        if (!token) {
+            alert('Você precisa estar logado para criar uma fofoca.');
+            window.location.href = '/login';
+            return;
+        }
+    
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.id;
+    
+        const response = await fetch('/fofocas/criar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                description: conteudo,
+                usuario: userId
+            })
+        });
+    
+        if (response.ok) {
+            window.location.href = '/fofocas';
+        } else {
+            alert('Erro ao criar fofoca. Verifique os campos.');
+        }
+    
+        console.log('Requisição enviada:', { description: conteudo, usuario: userId });
+    });
+
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+        
+        console.log('Front | Token armazenado:', token);
+
+        if (token && userId) {
+            fetch('/verificar', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Front | Erro ao verificar o token');
+                    throw new Error('Erro ao verificar o token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Front | Token verificado', data);
+                
+                if (data.message === 'Token verificado com sucesso') {
+                    fetch(`/usuario-logado`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter usuário logado');
+                        }
+                        return response.json();
+                    })
+                    .then(userData => {
+                        if (userData._id) {
+                            console.log("Front | Redirecionando para o perfil...");
+                            window.location.href = `/perfil/${userData._id}`; 
+                        } else {
+                            console.log('Front | ID de usuário não encontrado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter usuário logado:', error);
+                        alert('Erro ao redirecionar para o perfil');
+                    });
+                } else {
+                    console.log('Front | Token inválido ou expirado');
+                }
+            })
+            .catch(err => {
+                console.error('Erro na requisição de verificação', err);
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
+    
 });
 
 
@@ -147,15 +248,18 @@ const loadFofocas = async () => {
                 const formattedDate = timeAgo(data);
             
                 fofocaElement.innerHTML = `
-                <a href="/fofocas/${id}">
-                    <div class='user-specs'>
-                        <div class='display'>${usuario.displayUser}</div>
-                        <div class='user'>@${usuario.user}</div>
-                    </div>
-                    
-                    <div class='description'>${description}</div>
+                
 
+                    <div class='user-specs'>
+                    <a href="/perfil/${usuario._id}"><div class='display'>${usuario.displayUser}</div>
+                        <div class='user'>@${usuario.user}</div></a>
+                    </div>
+
+                <a href="/fofocas/${id}">
+
+                    <div class='description'>${description}</div>
                     <div class='date'>Há ${formattedDate}</div>
+
                 </a>
                 `;
                 timelineDiv.appendChild(fofocaElement);

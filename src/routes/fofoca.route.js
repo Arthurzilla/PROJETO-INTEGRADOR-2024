@@ -4,10 +4,6 @@ const userController = require('../controllers/user.controller');
 const comentarioController = require('../controllers/comentario.controller');
 const path = require('path');
 
-// Rota GET para criar fofocas (sem verificação de token)
-route.get('/criar', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'views', 'criar.html'));
-});
 
 // Rota POST para criar fofocas (com verificação de token)
 route.post('/criar', userController.verifyToken, fofocaController.save);
