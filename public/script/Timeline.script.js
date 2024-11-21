@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonCriar = document.getElementById('buttonCriar');
     const criarModal = document.getElementById('creation-modal');
     const closeModalButton = document.getElementById('creation-modal-content-close');
+    const logoutButton = document.getElementById('logout-button');
     const creationDisplayDiv = document.getElementById('creation-display');
     const creationUserDiv = document.getElementById('creation-user');
+
 
     userNav.addEventListener('click', () => {
         userModal.style.display = 'block';
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         usuarioDiv.textContent = 'Você não está logado';
     }
     
-    const logoutButton = document.getElementById('logout-button');
+   
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             fetch('/logout', { 

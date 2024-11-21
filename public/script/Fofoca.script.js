@@ -72,6 +72,70 @@ document.addEventListener('DOMContentLoaded', () => {
             cadastra.style.display = 'none';
         }
     }
+
+    const perfilLink = document.getElementById('user-modal-content-profile');
+    
+    perfilLink.addEventListener('click', () => {
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('id');
+        
+        console.log('Front | Token armazenado:', token);
+
+        if (token && userId) {
+            fetch('/verificar', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Front | Erro ao verificar o token');
+                    throw new Error('Erro ao verificar o token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Front | Token verificado', data);
+                
+                if (data.message === 'Token verificado com sucesso') {
+                    fetch(`/usuario-logado`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao obter usuário logado');
+                        }
+                        return response.json();
+                    })
+                    .then(userData => {
+                        if (userData._id) {
+                            console.log("Front | Redirecionando para o perfil...");
+                            window.location.href = `/perfil/${userData._id}`; 
+                        } else {
+                            console.log('Front | ID de usuário não encontrado');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter usuário logado:', error);
+                        alert('Erro ao redirecionar para o perfil');
+                    });
+                } else {
+                    console.log('Front | Token inválido ou expirado');
+                }
+            })
+            .catch(err => {
+                console.error('Erro na requisição de verificação', err);
+            });
+        } else {
+            alert('Você não está logado'); 
+        }
+    });
+
 });
 
 async function fetchFofoca() {
