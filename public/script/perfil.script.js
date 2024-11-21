@@ -26,13 +26,46 @@ function timeAgo(date) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
     const usuarioId = window.location.pathname.split('perfil/').pop();
     const userModal = document.getElementById('user-modal');
     const logoutButton = document.getElementById('logout-button');
 
     const userNav = document.getElementById('user-nav');
-    const userDisplay = document.getElementById('nav-display');
-    const userName = document.getElementById('nav-user');
+    const displayUserDiv = document.getElementById('nav-display');
+    const userUserDiv = document.getElementById('nav-user');
+
+
+    if (token) {
+        fetch('/usuario-logado', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao obter usuário logado.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.displayUser && data.usuario) {
+                displayUserDiv.textContent = `${data.displayUser}`;
+                userUserDiv.textContent = `@${data.usuario}`;
+
+                // creationDisplayDiv.textContent = `${data.displayUser}`;
+                // creationUserDiv.textContent = `@${data.usuario}`;
+            } else {
+                usuarioDiv.textContent = 'Usuário não encontrado';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao obter usuário logado:', error);
+            usuarioDiv.textContent = 'Erro ao obter usuário logado';
+        });
+    } else {
+        usuarioDiv.textContent = 'Você não está logado';
+    }
 
 
     logoutButton.addEventListener('click', () => {
